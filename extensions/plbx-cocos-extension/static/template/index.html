@@ -1,0 +1,513 @@
+<div class="panel-root">
+  <!-- Full-width update banner (shown when the checkout is behind GitHub) -->
+  <div id="panel-update-bar" class="panel-update-bar" hidden>
+    <span id="panel-update" class="panel-update-text"></span>
+    <button id="panel-update-btn" class="panel-update-btn">Update now</button>
+  </div>
+
+  <!-- Tab Header -->
+  <div class="tab-header">
+    <button id="tab-build-report" class="tab-btn active" data-i18n="tab.buildReport">Build Report</button>
+    <button id="tab-compress"     class="tab-btn" data-i18n="tab.compress">Compress</button>
+    <button id="tab-package"      class="tab-btn" data-i18n="tab.package">Package</button>
+    <button id="tab-deploy"       class="tab-btn" data-i18n="tab.deploy">Deploy</button>
+    <button id="btn-settings" class="tab-gear" title="Settings" aria-label="Settings" data-i18n-title="settings.title">⚙</button>
+  </div>
+
+  <!-- Tab Content -->
+  <div class="tab-content">
+
+    <!-- ===================== BUILD REPORT ===================== -->
+    <div id="content-build-report" class="tab-pane">
+      <div class="toolbar">
+        <button id="btn-analyze" class="btn" data-i18n="action.analyze">Analyze Project</button>
+        <span id="scan-status" style="color:#777;font-size:12px;margin-left:8px;"></span>
+      </div>
+
+      <div id="report-summary" class="summary-bar" style="display:none;">
+        <div class="summary-item">
+          <span class="summary-label" data-i18n="buildReport.totalAssets">Total Assets</span>
+          <span id="summary-count" class="summary-value">0</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label" data-i18n="buildReport.allProjectAssets">All Project Assets</span>
+          <span id="summary-source-size" class="summary-value">—</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label" data-i18n="buildReport.buildSizeReal">Build Size real</span>
+          <span id="summary-build-size-real" class="summary-value">—</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label" data-i18n="buildReport.images">Images</span>
+          <span id="summary-images" class="summary-value">0</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label" data-i18n="buildReport.audio">Audio</span>
+          <span id="summary-audio" class="summary-value">0</span>
+        </div>
+      </div>
+
+      <!-- Build Details — shown only when real build data is present -->
+      <div id="build-details" class="build-details" style="display:none;">
+        <div class="bd-header" id="bd-toggle">
+          <span id="bd-title" class="bd-title">Build Details</span>
+          <span class="bd-chevron" id="bd-chevron">▼</span>
+        </div>
+        <div id="bd-body" class="bd-body">
+          <div id="bd-bars" class="bd-bars"></div>
+          <div id="bd-htmls" class="bd-htmls" style="display:none;"></div>
+        </div>
+      </div>
+
+      <div class="report-filter-bar" id="report-filter-bar" style="display:none;">
+        <label class="report-filter-label">
+          <input type="checkbox" id="report-show-unused">
+          <span data-i18n="buildReport.showUnused">Show unused assets</span>
+        </label>
+      </div>
+
+      <div class="data-table-wrap">
+        <table class="data-table" id="report-table">
+          <thead>
+            <tr>
+              <th id="report-th-name" class="sortable-th" data-sort="name"><span data-i18n="buildReport.colName">Name</span> <span class="sort-arrow"></span></th>
+              <th id="report-th-type" class="col-type sortable-th" data-sort="type"><span data-i18n="common.type">Type</span> <span class="sort-arrow"></span></th>
+              <th id="report-th-source" class="col-size sortable-th" data-sort="sourceSize"><span data-i18n="buildReport.colSourceSize">Source Size</span> <span class="sort-arrow"></span></th>
+              <th id="report-th-build" class="col-size sortable-th" data-sort="buildSize"><span data-i18n="buildReport.colBuildSize">Build Size</span> <span class="sort-arrow"></span></th>
+              <th id="report-th-ext" class="col-type sortable-th" data-sort="extension"><span data-i18n="buildReport.colExtension">Extension</span> <span class="sort-arrow"></span></th>
+              <th class="col-type" title="✓ Confirmed — file found in build (native/import)&#10;~ Predicted — UUID in config.json but packed into .bin&#10;○ Not in build"><span data-i18n="common.status">Status</span></th>
+            </tr>
+          </thead>
+          <tbody id="report-tbody">
+            <tr>
+              <td colspan="6">
+                <div class="empty-state">
+                  <div class="empty-state-icon">📊</div>
+                  <span data-i18n="buildReport.emptyState">Click "Analyze Project" to scan assets</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===================== COMPRESS ===================== -->
+    <div id="content-compress" class="tab-pane" style="display:none;">
+      <div class="compress-controls">
+        <div class="form-row">
+          <span class="form-label" data-i18n="common.format">Format</span>
+          <select id="compress-format" class="form-select" style="max-width:120px;">
+            <option value="webp">WebP</option>
+            <option value="jpeg">JPEG</option>
+            <option value="png">PNG</option>
+            <option value="avif">AVIF</option>
+          </select>
+          <span class="form-label" style="margin-left:12px;" data-i18n="common.quality">Quality</span>
+          <div class="slider-row" style="flex:1;">
+            <input type="range" id="compress-quality" class="form-slider" min="1" max="100" value="80" />
+            <span id="compress-quality-val" class="slider-value">80</span>
+          </div>
+        </div>
+        <div class="preset-row">
+          <span class="form-label" data-i18n="compress.presets">Presets:</span>
+          <button id="preset-web" class="btn-preset" data-preset="web" data-i18n="compress.presetWeb">Web Optimized</button>
+          <button id="preset-max" class="btn-preset" data-preset="max" data-i18n="compress.presetMax">Max Quality</button>
+          <button id="preset-fast" class="btn-preset" data-preset="fast" data-i18n="compress.presetFast">Fast</button>
+          <button id="preset-high" class="btn-preset" data-preset="high" data-i18n="compress.presetHigh">High Compression</button>
+        </div>
+        <div class="form-row" style="margin-bottom:0;">
+          <span id="ffmpeg-status" style="font-size:11px;color:#777;"></span>
+          <div style="flex:1;"></div>
+          <button id="btn-compress-all" class="btn btn-small" style="margin-left:auto;" data-i18n="action.compressAll">Compress All</button>
+        </div>
+      </div>
+
+      <div class="data-table-wrap">
+        <table class="data-table" id="compress-table">
+          <thead>
+            <tr>
+              <th id="compress-th-asset" class="sortable-th" data-sort="asset"><span data-i18n="compress.colAsset">Asset</span> <span class="sort-arrow"></span></th>
+              <th id="compress-th-type" class="col-type sortable-th" data-sort="type"><span data-i18n="common.type">Type</span> <span class="sort-arrow"></span></th>
+              <th id="compress-th-original" class="col-size sortable-th" data-sort="original"><span data-i18n="compress.colOriginal">Original</span> <span class="sort-arrow"></span></th>
+              <th class="col-size" data-i18n="compress.colCompressed">Compressed</th>
+              <th class="col-size" data-i18n="compress.colSavings">Savings</th>
+              <th data-i18n="common.status">Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="compress-tbody">
+            <tr>
+              <td colspan="7">
+                <div class="empty-state">
+                  <div class="empty-state-icon">🗜</div>
+                  <span data-i18n="compress.emptyState">Run "Analyze Project" in Build Report tab first</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===================== PACKAGE ===================== -->
+    <div id="content-package" class="tab-pane" style="display:none;">
+
+      <!-- ── Networks ── -->
+      <div class="pkg-section" style="flex-shrink:0;">
+        <div class="pkg-section-bar">
+          <span class="section-header" style="margin:0;border:none;padding:0;" data-i18n="package.networks">Networks</span>
+          <div class="pkg-net-actions">
+            <button class="btn-chip" data-net-action="all" data-i18n="package.netAll">All</button>
+            <button class="btn-chip" data-net-action="none" data-i18n="package.netNone">None</button>
+            <button class="btn-chip" data-net-action="html">HTML</button>
+            <button class="btn-chip" data-net-action="zip">ZIP</button>
+          </div>
+        </div>
+        <div id="network-grid" class="network-grid network-grid-compact"></div>
+        <div id="network-more-wrap" class="pkg-more-wrap" style="display:none;">
+          <button id="btn-toggle-more-nets" class="btn-more-toggle"><span data-i18n="package.moreNetworks">More networks</span> <span class="more-arrow">&#9662;</span></button>
+          <div id="network-grid-more" class="network-grid network-grid-compact" style="display:none;"></div>
+        </div>
+      </div>
+
+      <!-- ── Settings row: two columns ── -->
+      <div class="pkg-settings-row" style="flex-shrink:0;">
+
+        <!-- Left: Build Settings -->
+        <div class="pkg-settings-col">
+          <div class="section-header" data-i18n="package.buildSettings">Build Settings</div>
+          <div class="form-group">
+            <span class="form-label" data-i18n="package.orientation">Orientation</span>
+            <div class="radio-group">
+              <label class="radio-label"><input type="radio" name="orientation" value="portrait" checked /> <span data-i18n="package.portrait">Portrait</span></label>
+              <label class="radio-label"><input type="radio" name="orientation" value="landscape" /> <span data-i18n="package.landscape">Landscape</span></label>
+              <label class="radio-label"><input type="radio" name="orientation" value="auto" /> <span data-i18n="package.auto">Auto</span></label>
+            </div>
+          </div>
+          <div class="form-group">
+            <span class="form-label" data-i18n="package.androidStoreUrl">Android Store URL</span>
+            <input type="text" id="pkg-store-android" class="form-input" disabled placeholder="—" data-i18n-placeholder="package.storeUrlFromCode" title="Set in game code via set_google_play_url(...)" />
+          </div>
+          <div class="form-group">
+            <span class="form-label" data-i18n="package.iosStoreUrl">iOS Store URL</span>
+            <input type="text" id="pkg-store-ios" class="form-input" disabled placeholder="—" data-i18n-placeholder="package.storeUrlFromCode" title="Set in game code via set_app_store_url(...)" />
+          </div>
+          <div class="form-hint" data-i18n="package.storeUrlHint">Detected from game code (set_google_play_url / set_app_store_url)</div>
+          <div class="form-warning" id="pkg-store-regional" style="display:none;">
+            <span id="pkg-store-regional-text"></span>
+            <button id="pkg-store-regional-fix" class="warning-fix-btn" data-i18n="package.fixRegional">Fix</button>
+          </div>
+        </div>
+
+        <!-- Right: Output Settings -->
+        <div class="pkg-settings-col">
+          <div class="section-header" data-i18n="package.output">Output</div>
+          <div class="form-group">
+            <span class="form-label" data-i18n="package.buildDirectory">Build Directory</span>
+            <input type="text" id="pkg-build-dir" class="form-input" value="build/web-mobile" placeholder="build/web-mobile" />
+          </div>
+          <div class="form-group">
+            <span class="form-label" data-i18n="package.outputDirectory">Output Directory</span>
+            <input type="text" id="pkg-output-dir" class="form-input" value="build/plbx-html" placeholder="build/plbx-html" />
+          </div>
+          <div class="form-group">
+            <span class="form-label" data-i18n="package.outputNaming">Output Naming</span>
+            <div style="display:flex;gap:6px;">
+              <select id="pkg-template-preset" class="form-select" style="max-width:100px;">
+                <option value="standard" data-i18n="package.tplStandard">Standard</option>
+                <option value="flat" data-i18n="package.tplFlat">Flat</option>
+                <option value="custom" data-i18n="package.tplCustom">Custom</option>
+              </select>
+              <input type="text" id="pkg-output-template" class="form-input" value="{networkId}/index.{ext}" placeholder="{networkId}/index.{ext}" />
+            </div>
+            <div id="pkg-template-preview" class="pkg-hint">Preview: applovin/index.html</div>
+            <div id="pkg-template-vars" class="pkg-var-chips">
+              <span class="var-chip" data-var="networkId">{networkId}</span>
+              <span class="var-chip" data-var="network">{network}</span>
+              <span class="var-chip" data-var="ext">{ext}</span>
+              <span class="var-chip" data-var="format">{format}</span>
+            </div>
+          </div>
+          <div id="pkg-user-vars-container"></div>
+          <div class="form-group">
+            <label class="toggle-label">
+              <input type="checkbox" id="pkg-auto-package" checked />
+              <span data-i18n="settings.autoPackage">Auto-package after build</span>
+            </label>
+          </div>
+          <div class="form-group">
+            <span class="form-label" data-i18n="settings.splashTitle">Loading splash</span>
+            <select id="pkg-splash-mode" class="form-select" style="max-width:240px;">
+              <option value="none" data-i18n="settings.splashNone">None</option>
+              <option value="playbox" data-i18n="settings.splashPlaybox">Playbox splash</option>
+              <option value="custom" data-i18n="settings.splashCustom">Custom logo</option>
+            </select>
+            <div id="pkg-splash-cost" class="pkg-hint"></div>
+            <div id="pkg-custom-logo" class="pkg-custom-logo" style="display:none;">
+              <div class="pkg-custom-logo-row">
+                <img id="pkg-logo-preview" class="pkg-logo-preview" alt="" />
+                <button id="pkg-logo-browse" class="btn btn-small" data-i18n="settings.customLogoBrowse">Browse…</button>
+                <button id="pkg-logo-clear" class="btn-secondary btn-small" data-i18n="settings.customLogoClear" style="display:none;">Clear</button>
+              </div>
+              <div id="pkg-logo-hint" class="pkg-hint" data-i18n="settings.customLogoHint">PNG/JPG/WebP shown on a black screen</div>
+              <div id="pkg-logo-cost" class="pkg-hint"></div>
+              <div id="pkg-logo-error" class="pkg-hint pkg-logo-error"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <span class="form-label" data-i18n="settings.encodings">Asset encoding</span>
+            <span style="display:inline-flex;align-items:center;gap:6px;">
+              <select id="pkg-encoding" class="form-select" style="max-width:240px;">
+                <option value="base64" data-i18n="settings.encBase64">base64 (default)</option>
+                <option value="base122" data-i18n="settings.encBase122">base122 (~14% smaller)</option>
+                <option value="both" data-i18n="settings.encBoth">both (A/B compare)</option>
+              </select>
+              <span id="pkg-enc-warn" class="pkg-enc-warn" style="display:none;cursor:help;color:#e0a000;" title="">⚠</span>
+            </span>
+            <div class="pkg-hint" data-i18n="settings.encHint">base64: most stable, faster boot, larger. base122: ~14% smaller, less robust.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Actions ── -->
+      <div class="toolbar" style="flex-shrink:0;">
+        <button id="btn-preview" class="btn btn-danger" style="display:none;" data-i18n="package.validate">Validate</button>
+        <button id="btn-build-all" class="btn" data-i18n="package.packAll">Pack All</button>
+        <button id="btn-open-output" class="btn btn-secondary" data-i18n="package.openOutput">Open Output Folder</button>
+        <button id="btn-generate-adapter" class="btn btn-secondary" data-i18n="package.generateAdapter">Generate plbx_html.ts</button>
+        <button id="btn-generate-axon" class="btn btn-secondary" data-i18n="package.generateAxon">Generate AppLovin events</button>
+        <span id="pkg-status" style="color:#777;font-size:12px;margin-left:8px;"></span>
+      </div>
+
+      <!-- ── Results ── -->
+      <div class="data-table-wrap">
+        <table class="data-table" id="pkg-results-table">
+          <thead>
+            <tr>
+              <th data-i18n="package.colNetwork">Network</th>
+              <th data-i18n="common.format">Format</th>
+              <th class="col-size" data-i18n="package.colSize">Size</th>
+              <th data-i18n="package.colLimit">Limit</th>
+              <th data-i18n="package.colCreated">Created</th>
+              <th data-i18n="common.status">Status</th>
+            </tr>
+          </thead>
+          <tbody id="pkg-results-tbody">
+            <tr>
+              <td colspan="6">
+                <div class="empty-state">
+                  <div class="empty-state-icon">📦</div>
+                  <span data-i18n="package.emptyState">Select networks and click "Pack All"</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ── Advisory warnings (spec conformance, e.g. AppLovin Axon events) ── -->
+      <div id="pkg-warnings" class="pkg-warnings" style="display:none;"></div>
+    </div>
+
+    <!-- ===================== DEPLOY ===================== -->
+    <div id="content-deploy" class="tab-pane" style="display:none;">
+      <!-- Auth card -->
+      <div class="login-card" style="flex-shrink:0;">
+        <div class="section-header" style="margin-top:0;" data-i18n="deploy.authentication">Authentication</div>
+        <div class="form-row">
+          <span class="form-label" data-i18n="deploy.apiToken">API Token</span>
+          <input type="password" id="deploy-token" class="form-input" placeholder="Paste your PLBX API token..." data-i18n-placeholder="deploy.apiTokenPlaceholder" />
+          <button id="btn-save-token" class="btn btn-small" data-i18n="deploy.saveLogin">Save &amp; Login</button>
+        </div>
+        <div id="login-status" class="login-status disconnected">Not connected</div>
+      </div>
+
+      <!-- Deploy config (hidden until authenticated) -->
+      <div id="deploy-body" style="display:none;">
+      <div style="flex-shrink:0;background:#333;border:1px solid #3a3a3a;border-radius:4px;padding:12px;margin-bottom:10px;">
+        <div class="section-header" style="margin-top:0;" data-i18n="deploy.deployment">Deployment</div>
+        <div class="form-row">
+          <span class="form-label" data-i18n="deploy.project">Project</span>
+          <div class="combobox" id="deploy-project-combo">
+            <input type="text" id="deploy-project-input" class="form-input" placeholder="Search or select project..." autocomplete="off" data-i18n-placeholder="deploy.projectPlaceholder" />
+            <div class="combobox-dropdown" id="deploy-project-dropdown"></div>
+          </div>
+          <input type="hidden" id="deploy-project" value="" />
+          <button id="btn-refresh-projects" class="btn btn-secondary btn-small" data-i18n="deploy.refresh">Refresh</button>
+          <button id="btn-new-project" class="btn btn-secondary btn-small" data-i18n="deploy.newShort">+ New</button>
+        </div>
+        <div id="deploy-new-project-row" class="form-row" style="display:none;">
+          <span class="form-label" data-i18n="deploy.newProject">New Project</span>
+          <input type="text" id="deploy-project-name" class="form-input" placeholder="my-game" />
+          <button id="btn-cancel-new-project" class="btn btn-secondary btn-small" data-i18n="common.cancel">Cancel</button>
+        </div>
+        <div id="deploy-existing" class="deploy-existing" style="display:none;">
+          <div class="deploy-existing-label" data-i18n="deploy.existingDeployments">Existing deployments</div>
+          <div id="deploy-existing-list" class="deploy-existing-list"></div>
+        </div>
+        <div class="form-row">
+          <span class="form-label" data-i18n="deploy.deploymentName">Deployment Name</span>
+          <input type="text" id="deploy-name" class="form-input" placeholder="v1-0-0" />
+          <span id="deploy-name-hint" style="font-size:11px;color:#777;margin-left:6px;"></span>
+        </div>
+        <div class="form-row">
+          <span class="form-label" data-i18n="deploy.networkBuild">Network Build</span>
+          <select id="deploy-network" class="form-select" style="max-width:200px;">
+            <option value="ironsource">ironSource</option>
+            <option value="applovin">AppLovin</option>
+            <option value="google">Google Ads</option>
+            <option value="facebook">Facebook/Meta</option>
+            <option value="unity">Unity Ads</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <span class="form-label" data-i18n="package.orientation">Orientation</span>
+          <div class="radio-group">
+            <label class="radio-label"><input type="checkbox" name="deploy-orientation" value="portrait" checked /> <span data-i18n="package.portrait">Portrait</span></label>
+            <label class="radio-label"><input type="checkbox" name="deploy-orientation" value="landscape" checked /> <span data-i18n="package.landscape">Landscape</span></label>
+          </div>
+        </div>
+        <div class="form-row">
+          <span class="form-label" data-i18n="deploy.buildPath">Build Path</span>
+          <input type="text" id="deploy-build-path" class="form-input" value="build/plbx-html" placeholder="build/plbx-html" />
+        </div>
+        <div class="form-row" style="margin-bottom:0;">
+          <button id="btn-deploy" class="btn" style="min-width:100px;" data-i18n="deploy.deploy">Deploy</button>
+          <span id="deploy-status" style="color:#777;font-size:12px;margin-left:12px;"></span>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div id="deploy-result" style="display:none;flex-shrink:0;background:#333;border:1px solid #3a3a3a;border-radius:4px;padding:12px;">
+        <div class="section-header" style="margin-top:0;" data-i18n="deploy.result">Result</div>
+        <div class="result-url-row">
+          <span id="deploy-result-url" class="result-url">—</span>
+          <button id="btn-copy-url" class="btn btn-secondary btn-small" data-i18n="common.copy">Copy</button>
+        </div>
+      </div>
+      </div><!-- /deploy-body -->
+
+      <!-- Moloco CDN upload — shown only when a molocoV2 build exists.
+           Independent of PLBX auth: uses Moloco credentials from Settings. -->
+      <div id="moloco-cdn-card" style="display:none;flex-shrink:0;background:#333;border:1px solid #3a3a3a;border-radius:4px;padding:12px;margin-top:10px;">
+        <div class="section-header" style="margin-top:0;" data-i18n="settings.molocoCdn">Moloco CDN</div>
+        <div class="form-row">
+          <span class="form-label" data-i18n="settings.molocoApiKey">API Key</span>
+          <input type="password" id="moloco-api-key" class="form-input" placeholder="Moloco API key" />
+        </div>
+        <div class="form-row">
+          <span class="form-label" data-i18n="settings.molocoAdAccount">Ad Account ID</span>
+          <input type="text" id="moloco-ad-account" class="form-input" placeholder="AD_ACCOUNT_ID" />
+        </div>
+        <div class="form-row">
+          <span class="form-label" data-i18n="settings.molocoAssetProvider">Asset Provider</span>
+          <input type="text" id="moloco-asset-provider" class="form-input" placeholder="Playbox" />
+        </div>
+        <div class="form-row">
+          <span class="form-label" data-i18n="settings.molocoAssetTitle">Asset Title</span>
+          <input type="text" id="moloco-asset-title" class="form-input" placeholder="my-game" />
+        </div>
+        <div class="form-row" style="margin-bottom:0;">
+          <button id="btn-moloco-cdn" class="btn" style="min-width:100px;" data-i18n="package.uploadMolocoCdn">Upload to Moloco CDN</button>
+          <span id="moloco-cdn-status" style="color:#777;font-size:12px;margin-left:12px;"></span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end .tab-content -->
+
+  <div id="panel-footer" class="panel-footer">Playbox v<span id="panel-version">—</span></div>
+
+  <!-- ===================== SETTINGS OVERLAY ===================== -->
+  <div id="settings-overlay" class="settings-overlay" style="display:none;">
+    <div class="settings-backdrop" id="settings-backdrop"></div>
+    <div class="settings-modal">
+      <div class="settings-header">
+        <span class="settings-title" data-i18n="settings.title">Settings</span>
+        <button id="settings-close" class="preview-close-btn">&times;</button>
+      </div>
+      <div class="settings-body">
+
+        <div class="settings-group">
+          <div class="settings-group-title" data-i18n="settings.updates">Updates</div>
+          <div class="settings-row">
+            <span class="settings-label" data-i18n="settings.version">Version</span>
+            <span id="settings-version" class="settings-value">—</span>
+          </div>
+          <div class="settings-row">
+            <button id="settings-check" class="btn btn-small" data-i18n="settings.checkUpdates">Check for updates</button>
+            <span id="settings-check-status" class="settings-status"></span>
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <div class="settings-group-title" data-i18n="settings.behavior">Behavior</div>
+          <label class="settings-toggle">
+            <input type="checkbox" id="settings-auto-package" />
+            <span data-i18n="settings.autoPackage">Auto-package after build</span>
+          </label>
+          <label class="settings-toggle">
+            <input type="checkbox" id="settings-show-on-start" />
+            <span data-i18n="settings.showOnStart">Show Playbox panel on editor start</span>
+          </label>
+        </div>
+
+        <div class="settings-group">
+          <div class="settings-group-title" data-i18n="settings.language">Language</div>
+          <div class="settings-row">
+            <select id="settings-language" class="form-select" style="max-width:160px;">
+              <option value="en">English</option>
+              <option value="ru">Русский</option>
+              <option value="zh">中文</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== PREVIEW OVERLAY ===================== -->
+  <div id="preview-overlay" class="preview-overlay" style="display:none;">
+    <div class="preview-backdrop" id="preview-backdrop"></div>
+    <div class="preview-modal">
+      <div class="preview-header">
+        <span id="preview-title" class="preview-title">Preview</span>
+        <button id="preview-close" class="preview-close-btn">&times;</button>
+      </div>
+      <div class="preview-body">
+        <div class="preview-side">
+          <div class="preview-label" data-i18n="preview.original">ORIGINAL</div>
+          <div class="preview-media-wrap" id="preview-orig-wrap"></div>
+          <div class="preview-meta" id="preview-orig-meta"></div>
+        </div>
+        <div class="preview-side">
+          <div class="preview-label" data-i18n="preview.compressed">COMPRESSED</div>
+          <div class="preview-media-wrap" id="preview-comp-wrap">
+            <span class="spinner" id="preview-spinner" style="display:none;"></span>
+          </div>
+          <div class="preview-meta" id="preview-comp-meta"></div>
+        </div>
+      </div>
+      <div class="preview-controls">
+        <span class="form-label" data-i18n="common.format">Format</span>
+        <select id="preview-format" class="form-select" style="max-width:120px;">
+          <option value="webp">WebP</option>
+          <option value="jpeg">JPEG</option>
+          <option value="png">PNG</option>
+          <option value="avif">AVIF</option>
+        </select>
+        <span class="form-label" style="margin-left:12px;" data-i18n="common.quality">Quality</span>
+        <div class="slider-row" style="flex:1;">
+          <input type="range" id="preview-quality" class="form-slider" min="1" max="100" value="80" />
+          <span id="preview-quality-val" class="slider-value">80</span>
+        </div>
+      </div>
+      <div class="preview-actions">
+        <button id="preview-apply" class="btn" data-i18n="preview.apply">Apply</button>
+        <button id="preview-cancel" class="btn btn-secondary" data-i18n="common.cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div><!-- end .panel-root -->

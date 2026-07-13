@@ -1,0 +1,6 @@
+Diffuse=T_Color_Barrier_3
+Normal=T_Normal_Barrier_3
+Other[0]=T_Roughness_Barrier_3
+Other[1]=T_Color_Bar
+Other[2]=T_Normal_Bar
+Other[3]=T_Roughness_Bar

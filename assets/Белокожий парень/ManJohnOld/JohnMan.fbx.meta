@@ -1,0 +1,425 @@
+{
+  "ver": "2.3.14",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "3137fb79-abcc-4015-ba35-1b811ff70363",
+  "files": [],
+  "subMetas": {
+    "30732": {
+      "importer": "gltf-skeleton",
+      "uuid": "3137fb79-abcc-4015-ba35-1b811ff70363@30732",
+      "displayName": "",
+      "id": "30732",
+      "name": "UnnamedSkeleton-0.skeleton",
+      "userData": {
+        "gltfIndex": 0,
+        "jointsLength": 51
+      },
+      "ver": "1.0.1",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "37284": {
+      "importer": "texture",
+      "uuid": "3137fb79-abcc-4015-ba35-1b811ff70363@37284",
+      "displayName": "",
+      "id": "37284",
+      "name": "normalmap_texture-1.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": false,
+        "imageUuidOrDatabaseUri": "db://assets/Белокожий парень/ManJohnOld/ManJohn_Clothes_Nrm.webp"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "49250": {
+      "importer": "gltf-material",
+      "uuid": "3137fb79-abcc-4015-ba35-1b811ff70363@49250",
+      "displayName": "",
+      "id": "49250",
+      "name": "Organic.material",
+      "userData": {
+        "gltfIndex": 1
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "54479": {
+      "importer": "gltf-mesh",
+      "uuid": "3137fb79-abcc-4015-ba35-1b811ff70363@54479",
+      "displayName": "",
+      "id": "54479",
+      "name": "ManJohn_lod0.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "lodLevel": 0,
+        "triangleCount": 4636
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "96605": {
+      "importer": "texture",
+      "uuid": "3137fb79-abcc-4015-ba35-1b811ff70363@96605",
+      "displayName": "",
+      "id": "96605",
+      "name": "file1-0.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": false,
+        "imageUuidOrDatabaseUri": "db://assets/Белокожий парень/ManJohnOld/ManJohn_Clothes_Diff.webp"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f77b7": {
+      "importer": "gltf-mesh",
+      "uuid": "3137fb79-abcc-4015-ba35-1b811ff70363@f77b7",
+      "displayName": "",
+      "id": "f77b7",
+      "name": "ManJohn_lod1.mesh",
+      "userData": {
+        "gltfIndex": 1,
+        "lodLevel": 1,
+        "triangleCount": 1968
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f4c44": {
+      "importer": "gltf-mesh",
+      "uuid": "3137fb79-abcc-4015-ba35-1b811ff70363@f4c44",
+      "displayName": "",
+      "id": "f4c44",
+      "name": "ManJohn_lod2.mesh",
+      "userData": {
+        "gltfIndex": 2,
+        "lodLevel": 2,
+        "triangleCount": 412
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "1253b": {
+      "importer": "gltf-mesh",
+      "uuid": "3137fb79-abcc-4015-ba35-1b811ff70363@1253b",
+      "displayName": "",
+      "id": "1253b",
+      "name": "ManJohn_ShadowPars.mesh",
+      "userData": {
+        "gltfIndex": 3,
+        "triangleCount": 506
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f1394": {
+      "importer": "gltf-skeleton",
+      "uuid": "3137fb79-abcc-4015-ba35-1b811ff70363@f1394",
+      "displayName": "",
+      "id": "f1394",
+      "name": "UnnamedSkeleton-1.skeleton",
+      "userData": {
+        "gltfIndex": 1,
+        "jointsLength": 51
+      },
+      "ver": "1.0.1",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "75ee4": {
+      "importer": "gltf-skeleton",
+      "uuid": "3137fb79-abcc-4015-ba35-1b811ff70363@75ee4",
+      "displayName": "",
+      "id": "75ee4",
+      "name": "UnnamedSkeleton-2.skeleton",
+      "userData": {
+        "gltfIndex": 2,
+        "jointsLength": 51
+      },
+      "ver": "1.0.1",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "a72ab": {
+      "importer": "gltf-skeleton",
+      "uuid": "3137fb79-abcc-4015-ba35-1b811ff70363@a72ab",
+      "displayName": "",
+      "id": "a72ab",
+      "name": "UnnamedSkeleton-3.skeleton",
+      "userData": {
+        "gltfIndex": 3,
+        "jointsLength": 52
+      },
+      "ver": "1.0.1",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "7d076": {
+      "importer": "gltf-embeded-image",
+      "uuid": "3137fb79-abcc-4015-ba35-1b811ff70363@7d076",
+      "displayName": "",
+      "id": "7d076",
+      "name": "normalmap_texture-4.image",
+      "userData": {
+        "gltfIndex": 4,
+        "fixAlphaTransparencyArtifacts": true,
+        "hasAlpha": true,
+        "type": "texture"
+      },
+      "ver": "1.0.3",
+      "imported": true,
+      "files": [
+        ".json",
+        ".png"
+      ],
+      "subMetas": {}
+    },
+    "71bac": {
+      "importer": "texture",
+      "uuid": "3137fb79-abcc-4015-ba35-1b811ff70363@71bac",
+      "displayName": "",
+      "id": "71bac",
+      "name": "file2-2.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": false,
+        "imageUuidOrDatabaseUri": "db://assets/Белокожий парень/ManJohnOld/ManJohn_Diff.webp"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "d4614": {
+      "importer": "texture",
+      "uuid": "3137fb79-abcc-4015-ba35-1b811ff70363@d4614",
+      "displayName": "",
+      "id": "d4614",
+      "name": "normalmap_texture193-3.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": false,
+        "imageUuidOrDatabaseUri": "db://assets/Белокожий парень/ManJohnOld/ManJohn_Nrm.webp"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "c1cb9": {
+      "importer": "texture",
+      "uuid": "3137fb79-abcc-4015-ba35-1b811ff70363@c1cb9",
+      "displayName": "",
+      "id": "c1cb9",
+      "name": "normalmap_texture-4.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "3137fb79-abcc-4015-ba35-1b811ff70363@7d076"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "54c29": {
+      "importer": "gltf-material",
+      "uuid": "3137fb79-abcc-4015-ba35-1b811ff70363@54c29",
+      "displayName": "",
+      "id": "54c29",
+      "name": "Clothes.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "5b63d": {
+      "importer": "gltf-material",
+      "uuid": "3137fb79-abcc-4015-ba35-1b811ff70363@5b63d",
+      "displayName": "",
+      "id": "5b63d",
+      "name": "ShadowPars.material",
+      "userData": {
+        "gltfIndex": 2
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "683c4": {
+      "importer": "gltf-scene",
+      "uuid": "3137fb79-abcc-4015-ba35-1b811ff70363@683c4",
+      "displayName": "",
+      "id": "683c4",
+      "name": "JohnMan.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [
+      {
+        "name": "file1",
+        "uri": "db://assets/Белокожий парень/ManJohnOld/ManJohn_Clothes_Diff.webp"
+      },
+      {
+        "name": "normalmap_texture",
+        "uri": "db://assets/Белокожий парень/ManJohnOld/ManJohn_Clothes_Nrm.webp"
+      },
+      {
+        "name": "file2",
+        "uri": "db://assets/Белокожий парень/ManJohnOld/ManJohn_Diff.webp"
+      },
+      {
+        "name": "normalmap_texture193",
+        "uri": "db://assets/Белокожий парень/ManJohnOld/ManJohn_Nrm.webp"
+      },
+      {
+        "name": "normalmap_texture",
+        "uri": "3137fb79-abcc-4015-ba35-1b811ff70363@7d076"
+      }
+    ],
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "lods": {
+      "enable": true,
+      "hasBuiltinLOD": true,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.4245038826574633
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.08886971527178603
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "3137fb79-abcc-4015-ba35-1b811ff70363@54479",
+        "3137fb79-abcc-4015-ba35-1b811ff70363@f77b7",
+        "3137fb79-abcc-4015-ba35-1b811ff70363@f4c44",
+        "3137fb79-abcc-4015-ba35-1b811ff70363@1253b"
+      ],
+      "skeletons": [
+        "3137fb79-abcc-4015-ba35-1b811ff70363@30732",
+        "3137fb79-abcc-4015-ba35-1b811ff70363@f1394",
+        "3137fb79-abcc-4015-ba35-1b811ff70363@75ee4",
+        "3137fb79-abcc-4015-ba35-1b811ff70363@a72ab"
+      ],
+      "textures": [
+        "3137fb79-abcc-4015-ba35-1b811ff70363@96605",
+        "3137fb79-abcc-4015-ba35-1b811ff70363@37284",
+        "3137fb79-abcc-4015-ba35-1b811ff70363@71bac",
+        "3137fb79-abcc-4015-ba35-1b811ff70363@d4614",
+        "3137fb79-abcc-4015-ba35-1b811ff70363@c1cb9"
+      ],
+      "materials": [
+        "3137fb79-abcc-4015-ba35-1b811ff70363@54c29",
+        "3137fb79-abcc-4015-ba35-1b811ff70363@49250",
+        "3137fb79-abcc-4015-ba35-1b811ff70363@5b63d"
+      ],
+      "scenes": [
+        "3137fb79-abcc-4015-ba35-1b811ff70363@683c4"
+      ]
+    }
+  }
+}

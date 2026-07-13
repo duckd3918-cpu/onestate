@@ -1,0 +1,96 @@
+{
+  "ver": "2.3.14",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "ca972d2c-4ea5-49ad-a291-f0827e2e84cf",
+  "files": [],
+  "subMetas": {
+    "770b1": {
+      "importer": "gltf-mesh",
+      "uuid": "ca972d2c-4ea5-49ad-a291-f0827e2e84cf@770b1",
+      "displayName": "",
+      "id": "770b1",
+      "name": "change_1.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "triangleCount": 8
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "54c29": {
+      "importer": "gltf-material",
+      "uuid": "ca972d2c-4ea5-49ad-a291-f0827e2e84cf@54c29",
+      "displayName": "",
+      "id": "54c29",
+      "name": "Clothes.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "6a365": {
+      "importer": "gltf-scene",
+      "uuid": "ca972d2c-4ea5-49ad-a291-f0827e2e84cf@6a365",
+      "displayName": "",
+      "id": "6a365",
+      "name": "change_1.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "lods": {
+      "enable": false,
+      "hasBuiltinLOD": false,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.25
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.1
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "ca972d2c-4ea5-49ad-a291-f0827e2e84cf@770b1"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [
+        "ca972d2c-4ea5-49ad-a291-f0827e2e84cf@54c29"
+      ],
+      "scenes": [
+        "ca972d2c-4ea5-49ad-a291-f0827e2e84cf@6a365"
+      ]
+    }
+  }
+}

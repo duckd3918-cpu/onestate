@@ -1,0 +1,154 @@
+{
+  "ver": "2.3.14",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "0d18ace6-cb3c-4efd-b024-b479cc651bc1",
+  "files": [],
+  "subMetas": {
+    "49250": {
+      "importer": "gltf-material",
+      "uuid": "0d18ace6-cb3c-4efd-b024-b479cc651bc1@49250",
+      "displayName": "",
+      "id": "49250",
+      "name": "Organic.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "54479": {
+      "importer": "gltf-mesh",
+      "uuid": "0d18ace6-cb3c-4efd-b024-b479cc651bc1@54479",
+      "displayName": "",
+      "id": "54479",
+      "name": "ManJohn_lod0.mesh",
+      "userData": {
+        "gltfIndex": 2,
+        "lodLevel": 0,
+        "triangleCount": 4636
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f77b7": {
+      "importer": "gltf-mesh",
+      "uuid": "0d18ace6-cb3c-4efd-b024-b479cc651bc1@f77b7",
+      "displayName": "",
+      "id": "f77b7",
+      "name": "ManJohn_lod1.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "lodLevel": 1,
+        "triangleCount": 1968
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f4c44": {
+      "importer": "gltf-mesh",
+      "uuid": "0d18ace6-cb3c-4efd-b024-b479cc651bc1@f4c44",
+      "displayName": "",
+      "id": "f4c44",
+      "name": "ManJohn_lod2.mesh",
+      "userData": {
+        "gltfIndex": 1,
+        "lodLevel": 2,
+        "triangleCount": 412
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "54c29": {
+      "importer": "gltf-material",
+      "uuid": "0d18ace6-cb3c-4efd-b024-b479cc651bc1@54c29",
+      "displayName": "",
+      "id": "54c29",
+      "name": "Clothes.material",
+      "userData": {
+        "gltfIndex": 1
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f91d0": {
+      "importer": "gltf-scene",
+      "uuid": "0d18ace6-cb3c-4efd-b024-b479cc651bc1@f91d0",
+      "displayName": "",
+      "id": "f91d0",
+      "name": "ManJohn.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "lods": {
+      "enable": true,
+      "hasBuiltinLOD": true,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.4245038826574633
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.08886971527178603
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "0d18ace6-cb3c-4efd-b024-b479cc651bc1@f77b7",
+        "0d18ace6-cb3c-4efd-b024-b479cc651bc1@f4c44",
+        "0d18ace6-cb3c-4efd-b024-b479cc651bc1@54479"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [
+        "0d18ace6-cb3c-4efd-b024-b479cc651bc1@49250",
+        "0d18ace6-cb3c-4efd-b024-b479cc651bc1@54c29"
+      ],
+      "scenes": [
+        "0d18ace6-cb3c-4efd-b024-b479cc651bc1@f91d0"
+      ]
+    }
+  }
+}

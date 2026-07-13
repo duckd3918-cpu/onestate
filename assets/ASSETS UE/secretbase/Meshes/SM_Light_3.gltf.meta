@@ -1,0 +1,110 @@
+{
+  "ver": "2.3.14",
+  "importer": "gltf",
+  "imported": true,
+  "uuid": "0272245d-1c16-40e0-81e8-2db1beeeff3b",
+  "files": [],
+  "subMetas": {
+    "8e3fb": {
+      "importer": "gltf-mesh",
+      "uuid": "0272245d-1c16-40e0-81e8-2db1beeeff3b@8e3fb",
+      "displayName": "",
+      "id": "8e3fb",
+      "name": "SM_Light_3.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "triangleCount": 1004
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "43e38": {
+      "importer": "gltf-material",
+      "uuid": "0272245d-1c16-40e0-81e8-2db1beeeff3b@43e38",
+      "displayName": "",
+      "id": "43e38",
+      "name": "Mat_Steel_1.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "55d9f": {
+      "importer": "gltf-material",
+      "uuid": "0272245d-1c16-40e0-81e8-2db1beeeff3b@55d9f",
+      "displayName": "",
+      "id": "55d9f",
+      "name": "Mat_Emessive_1.material",
+      "userData": {
+        "gltfIndex": 1
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "8a47a": {
+      "importer": "gltf-scene",
+      "uuid": "0272245d-1c16-40e0-81e8-2db1beeeff3b@8a47a",
+      "displayName": "",
+      "id": "8a47a",
+      "name": "SM_Light_3.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "lods": {
+      "enable": false,
+      "hasBuiltinLOD": false,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.25
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.1
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "0272245d-1c16-40e0-81e8-2db1beeeff3b@8e3fb"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [
+        "0272245d-1c16-40e0-81e8-2db1beeeff3b@43e38",
+        "0272245d-1c16-40e0-81e8-2db1beeeff3b@55d9f"
+      ],
+      "scenes": [
+        "0272245d-1c16-40e0-81e8-2db1beeeff3b@8a47a"
+      ]
+    }
+  }
+}

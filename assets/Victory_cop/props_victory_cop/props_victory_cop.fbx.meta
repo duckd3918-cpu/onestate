@@ -1,0 +1,188 @@
+{
+  "ver": "2.3.14",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "352ac125-8c96-4225-a868-3cee340e58dc",
+  "files": [],
+  "subMetas": {
+    "12107": {
+      "importer": "gltf-material",
+      "uuid": "352ac125-8c96-4225-a868-3cee340e58dc@12107",
+      "displayName": "",
+      "id": "12107",
+      "name": "glass_cover-1.material",
+      "userData": {
+        "gltfIndex": 1
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "40944": {
+      "importer": "gltf-material",
+      "uuid": "352ac125-8c96-4225-a868-3cee340e58dc@40944",
+      "displayName": "",
+      "id": "40944",
+      "name": "glass_cover-3.material",
+      "userData": {
+        "gltfIndex": 3
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "b99d3": {
+      "importer": "gltf-mesh",
+      "uuid": "352ac125-8c96-4225-a868-3cee340e58dc@b99d3",
+      "displayName": "",
+      "id": "b99d3",
+      "name": "Body_lod0.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "lodLevel": 0,
+        "triangleCount": 11564
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "bdbf0": {
+      "importer": "gltf-mesh",
+      "uuid": "352ac125-8c96-4225-a868-3cee340e58dc@bdbf0",
+      "displayName": "",
+      "id": "bdbf0",
+      "name": "Body_lod1.mesh",
+      "userData": {
+        "gltfIndex": 1,
+        "lodLevel": 1,
+        "triangleCount": 3207
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "fa337": {
+      "importer": "gltf-mesh",
+      "uuid": "352ac125-8c96-4225-a868-3cee340e58dc@fa337",
+      "displayName": "",
+      "id": "fa337",
+      "name": "Body_lod2.mesh",
+      "userData": {
+        "gltfIndex": 2,
+        "lodLevel": 2,
+        "triangleCount": 374
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "e4f5b": {
+      "importer": "gltf-material",
+      "uuid": "352ac125-8c96-4225-a868-3cee340e58dc@e4f5b",
+      "displayName": "",
+      "id": "e4f5b",
+      "name": "body_victory_cop-0.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "c5d18": {
+      "importer": "gltf-material",
+      "uuid": "352ac125-8c96-4225-a868-3cee340e58dc@c5d18",
+      "displayName": "",
+      "id": "c5d18",
+      "name": "body_victory_cop-2.material",
+      "userData": {
+        "gltfIndex": 2
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "32cb3": {
+      "importer": "gltf-scene",
+      "uuid": "352ac125-8c96-4225-a868-3cee340e58dc@32cb3",
+      "displayName": "",
+      "id": "32cb3",
+      "name": "props_victory_cop.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "lods": {
+      "enable": true,
+      "hasBuiltinLOD": true,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.2773261847111726
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.0323417502594258
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "352ac125-8c96-4225-a868-3cee340e58dc@b99d3",
+        "352ac125-8c96-4225-a868-3cee340e58dc@bdbf0",
+        "352ac125-8c96-4225-a868-3cee340e58dc@fa337"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [
+        "352ac125-8c96-4225-a868-3cee340e58dc@e4f5b",
+        "352ac125-8c96-4225-a868-3cee340e58dc@12107",
+        "352ac125-8c96-4225-a868-3cee340e58dc@c5d18",
+        "352ac125-8c96-4225-a868-3cee340e58dc@40944"
+      ],
+      "scenes": [
+        "352ac125-8c96-4225-a868-3cee340e58dc@32cb3"
+      ]
+    }
+  }
+}

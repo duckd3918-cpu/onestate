@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Playbox Preview Validator</title>
+  <link rel="stylesheet" href="/static/preview/preview.css">
+</head>
+<body>
+  <div class="network-tabs" id="tabs"></div>
+  <div class="main">
+    <div class="sidebar sidebar-left" id="axon-sidebar" style="display:none;">
+      <div id="axon-section">
+        <h3 class="axon-title">Axon Events
+          <a class="axon-spec-link" href="https://support.axon.ai/en/growth/promoting-your-apps/creatives/playable-analytics-integration" target="_blank" rel="noopener" title="AppLovin Axon event spec">spec ↗</a>
+        </h3>
+        <div id="axon-verdicts"></div>
+        <div id="axon-events"></div>
+        <div id="axon-empty" class="axon-empty">No trackEvent() fired yet</div>
+      </div>
+    </div>
+    <div class="preview-area" id="preview-area">
+      <div id="phone-frame" class="phone-frame no-transition">
+        <iframe class="preview-frame" id="preview-frame" sandbox="allow-scripts allow-same-origin"></iframe>
+      </div>
+      <div class="toolbar" id="toolbar">
+        <div id="device-dropdown" class="device-dropdown">
+          <button id="device-dropdown-trigger" class="device-dropdown-trigger" type="button">
+            <span id="device-dropdown-label">iPhone 16 Pro</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 15l-6-6-6 6"/>
+            </svg>
+          </button>
+          <div class="device-dropdown-menu" id="device-dropdown-menu"></div>
+        </div>
+        <button class="toolbar-btn" id="orientation-toggle" type="button" title="Toggle orientation">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="2" width="16" height="20" rx="2" ry="2"/>
+            <line x1="12" y1="18" x2="12" y2="18"/>
+          </svg>
+          <span id="orientation-label">Landscape</span>
+        </button>
+        <button class="toolbar-btn icon-only" id="audio-toggle" type="button" title="Toggle audio">
+          <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+          </svg>
+          <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <line x1="23" y1="9" x2="17" y2="15"/>
+            <line x1="17" y1="9" x2="23" y2="15"/>
+          </svg>
+        </button>
+        <button class="toolbar-btn icon-only" id="reload-btn" type="button" title="Reload playable">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 2v6h-6"/>
+            <path d="M3 12a9 9 0 0 1 15-6.7L21 8"/>
+            <path d="M3 22v-6h6"/>
+            <path d="M21 12a9 9 0 0 1-15 6.7L3 16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="sidebar">
+      <h3>Validation Checklist</h3>
+      <div id="checklist"></div>
+      <div id="molocov2-section" style="display:none;">
+        <h3 class="mv2-title">MolocoV2 Macro Fires</h3>
+        <div id="molocov2-macros"></div>
+      </div>
+      <div id="cta-toast" class="cta-toast">CTA Clicked</div>
+    </div>
+  </div>
+  <div class="console" id="console"></div>
+  <div id="mv2-dock" class="mv2-dock" style="display:none;">
+    <div class="mv2-dock-header">
+      <span class="mv2-dock-title">Manual triggers</span>
+      <button id="mv2-dock-toggle" class="mv2-dock-toggle" type="button" title="Collapse">–</button>
+    </div>
+    <div id="mv2-dock-body" class="mv2-dock-body">
+      <div id="mv2-viewable-hint" class="mv2-viewable-hint">Press Viewable to simulate the ad container becoming visible — the mraid_viewable beacon cannot pass without it.</div>
+      <div class="mv2-controls-row">
+        <button class="mv2-btn" data-mv2-action="viewable" data-mv2-value="true" type="button">Viewable</button>
+        <button class="mv2-btn" data-mv2-action="viewable" data-mv2-value="false" type="button">Hidden</button>
+        <button class="mv2-btn" data-mv2-action="pause" type="button">Pause</button>
+        <button class="mv2-btn" data-mv2-action="resume" type="button">Resume</button>
+      </div>
+      <div class="mv2-controls-row">
+        <button class="mv2-btn" data-mv2-action="cta" type="button">CTA</button>
+        <button class="mv2-btn" data-mv2-action="game-end" type="button">End game</button>
+        <input id="mv2-tap-count" class="mv2-input" type="number" min="1" max="50" value="3">
+        <button class="mv2-btn" data-mv2-action="simulate-taps" type="button">Simulate taps</button>
+      </div>
+      <div class="mv2-controls-row">
+        <button class="mv2-btn" data-mv2-action="mute" type="button">Mute</button>
+        <button class="mv2-btn" data-mv2-action="unmute" type="button">Unmute</button>
+        <button class="mv2-btn mv2-btn-reset" id="mv2-reset" type="button">Reset</button>
+      </div>
+    </div>
+  </div>
+  <div id="plbx-cmd-dock" class="mv2-dock plbx-cmd-dock" style="display:none;">
+    <div class="mv2-dock-header">
+      <span class="mv2-dock-title">Game commands</span>
+      <button id="plbx-cmd-toggle" class="mv2-dock-toggle" type="button" title="Collapse">–</button>
+    </div>
+    <div class="mv2-dock-body">
+      <div id="plbx-cmd-row" class="mv2-controls-row"></div>
+    </div>
+  </div>
+  <script src="/static/preview/preview.js"></script>
+</body>
+</html>

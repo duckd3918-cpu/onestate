@@ -1,0 +1,137 @@
+{
+  "ver": "2.3.14",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "991cea46-99e7-4c48-9934-a982300fb42e",
+  "files": [],
+  "subMetas": {
+    "49250": {
+      "importer": "gltf-material",
+      "uuid": "991cea46-99e7-4c48-9934-a982300fb42e@49250",
+      "displayName": "",
+      "id": "49250",
+      "name": "Organic.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "51699": {
+      "importer": "gltf-mesh",
+      "uuid": "991cea46-99e7-4c48-9934-a982300fb42e@51699",
+      "displayName": "",
+      "id": "51699",
+      "name": "ManJohn_Head_lod1.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "lodLevel": 1,
+        "triangleCount": 926
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "410ee": {
+      "importer": "gltf-mesh",
+      "uuid": "991cea46-99e7-4c48-9934-a982300fb42e@410ee",
+      "displayName": "",
+      "id": "410ee",
+      "name": "ManJohn_Head_lod2.mesh",
+      "userData": {
+        "gltfIndex": 1,
+        "lodLevel": 2,
+        "triangleCount": 94
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "355d3": {
+      "importer": "gltf-mesh",
+      "uuid": "991cea46-99e7-4c48-9934-a982300fb42e@355d3",
+      "displayName": "",
+      "id": "355d3",
+      "name": "ManJohn_Head_lod0.mesh",
+      "userData": {
+        "gltfIndex": 2,
+        "lodLevel": 0,
+        "triangleCount": 2792
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "281d6": {
+      "importer": "gltf-scene",
+      "uuid": "991cea46-99e7-4c48-9934-a982300fb42e@281d6",
+      "displayName": "",
+      "id": "281d6",
+      "name": "ManJohn_Head.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "lods": {
+      "enable": true,
+      "hasBuiltinLOD": true,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.3316618911174785
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.0336676217765043
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "991cea46-99e7-4c48-9934-a982300fb42e@51699",
+        "991cea46-99e7-4c48-9934-a982300fb42e@410ee",
+        "991cea46-99e7-4c48-9934-a982300fb42e@355d3"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [
+        "991cea46-99e7-4c48-9934-a982300fb42e@49250"
+      ],
+      "scenes": [
+        "991cea46-99e7-4c48-9934-a982300fb42e@281d6"
+      ]
+    }
+  }
+}

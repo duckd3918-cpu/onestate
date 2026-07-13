@@ -1,0 +1,538 @@
+{
+  "ver": "2.3.14",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7",
+  "files": [],
+  "subMetas": {
+    "14579": {
+      "importer": "texture",
+      "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@14579",
+      "displayName": "",
+      "id": "14579",
+      "name": "file33.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@676a8"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "30732": {
+      "importer": "gltf-skeleton",
+      "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@30732",
+      "displayName": "",
+      "id": "30732",
+      "name": "UnnamedSkeleton-0.skeleton",
+      "userData": {
+        "gltfIndex": 0,
+        "jointsLength": 4
+      },
+      "ver": "1.0.1",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "49250": {
+      "importer": "gltf-material",
+      "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@49250",
+      "displayName": "",
+      "id": "49250",
+      "name": "Organic.material",
+      "userData": {
+        "gltfIndex": 2
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "62756": {
+      "importer": "gltf-skeleton",
+      "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@62756",
+      "displayName": "",
+      "id": "62756",
+      "name": "UnnamedSkeleton-5.skeleton",
+      "userData": {
+        "gltfIndex": 5,
+        "jointsLength": 5
+      },
+      "ver": "1.0.1",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "76883": {
+      "importer": "gltf-mesh",
+      "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@76883",
+      "displayName": "",
+      "id": "76883",
+      "name": "Change_1.mesh",
+      "userData": {
+        "gltfIndex": 3,
+        "triangleCount": 8
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "6dfff": {
+      "importer": "gltf-mesh",
+      "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@6dfff",
+      "displayName": "",
+      "id": "6dfff",
+      "name": "addition_3_lod0.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "lodLevel": 0,
+        "triangleCount": 178
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "c4c7c": {
+      "importer": "gltf-mesh",
+      "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@c4c7c",
+      "displayName": "",
+      "id": "c4c7c",
+      "name": "addition_5_lod0.mesh",
+      "userData": {
+        "gltfIndex": 1,
+        "lodLevel": 0,
+        "triangleCount": 79
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "61cb9": {
+      "importer": "gltf-mesh",
+      "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@61cb9",
+      "displayName": "",
+      "id": "61cb9",
+      "name": "ManPolice_skin1_lod0.mesh",
+      "userData": {
+        "gltfIndex": 2,
+        "lodLevel": 0,
+        "triangleCount": 6092
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "5b75c": {
+      "importer": "gltf-mesh",
+      "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@5b75c",
+      "displayName": "",
+      "id": "5b75c",
+      "name": "ManCarlos_Head_lod0.mesh",
+      "userData": {
+        "gltfIndex": 4,
+        "lodLevel": 0,
+        "triangleCount": 2266
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f3fcb": {
+      "importer": "gltf-mesh",
+      "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@f3fcb",
+      "displayName": "",
+      "id": "f3fcb",
+      "name": "ManCarlos_option_lod0.mesh",
+      "userData": {
+        "gltfIndex": 5,
+        "lodLevel": 0,
+        "triangleCount": 508
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f1394": {
+      "importer": "gltf-skeleton",
+      "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@f1394",
+      "displayName": "",
+      "id": "f1394",
+      "name": "UnnamedSkeleton-1.skeleton",
+      "userData": {
+        "gltfIndex": 1,
+        "jointsLength": 2
+      },
+      "ver": "1.0.1",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "75ee4": {
+      "importer": "gltf-skeleton",
+      "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@75ee4",
+      "displayName": "",
+      "id": "75ee4",
+      "name": "UnnamedSkeleton-2.skeleton",
+      "userData": {
+        "gltfIndex": 2,
+        "jointsLength": 56
+      },
+      "ver": "1.0.1",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "a72ab": {
+      "importer": "gltf-skeleton",
+      "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@a72ab",
+      "displayName": "",
+      "id": "a72ab",
+      "name": "UnnamedSkeleton-3.skeleton",
+      "userData": {
+        "gltfIndex": 3,
+        "jointsLength": 1
+      },
+      "ver": "1.0.1",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "2224c": {
+      "importer": "gltf-skeleton",
+      "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@2224c",
+      "displayName": "",
+      "id": "2224c",
+      "name": "UnnamedSkeleton-4.skeleton",
+      "userData": {
+        "gltfIndex": 4,
+        "jointsLength": 5
+      },
+      "ver": "1.0.1",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "676a8": {
+      "importer": "gltf-embeded-image",
+      "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@676a8",
+      "displayName": "",
+      "id": "676a8",
+      "name": "file33.image",
+      "userData": {
+        "gltfIndex": 2,
+        "fixAlphaTransparencyArtifacts": true,
+        "hasAlpha": true,
+        "type": "texture"
+      },
+      "ver": "1.0.3",
+      "imported": true,
+      "files": [
+        ".json",
+        ".png"
+      ],
+      "subMetas": {}
+    },
+    "d20e9": {
+      "importer": "texture",
+      "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@d20e9",
+      "displayName": "",
+      "id": "d20e9",
+      "name": "file1.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": false,
+        "imageUuidOrDatabaseUri": "db://assets/Полицейский/HighTextures/Police_skin1Clothes_2k.webp"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "e873a": {
+      "importer": "texture",
+      "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@e873a",
+      "displayName": "",
+      "id": "e873a",
+      "name": "file2.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": false,
+        "imageUuidOrDatabaseUri": "db://assets/Полицейский/HighTextures/Police_skin1Clothes_norm_2k.webp"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "d5851": {
+      "importer": "texture",
+      "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@d5851",
+      "displayName": "",
+      "id": "d5851",
+      "name": "file15.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": false,
+        "imageUuidOrDatabaseUri": "db://assets/Полицейский/HighTextures/ManCarlosOrganic_2k.webp"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "05fc7": {
+      "importer": "texture",
+      "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@05fc7",
+      "displayName": "",
+      "id": "05fc7",
+      "name": "file16.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": false,
+        "imageUuidOrDatabaseUri": "db://assets/Полицейский/HighTextures/ManCarlosOrganic_norm_2k.webp"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "cafc8": {
+      "importer": "texture",
+      "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@cafc8",
+      "displayName": "",
+      "id": "cafc8",
+      "name": "file19.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": false,
+        "imageUuidOrDatabaseUri": "db://assets/Полицейский/HighTextures/Hair2_2k.webp"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "54c29": {
+      "importer": "gltf-material",
+      "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@54c29",
+      "displayName": "",
+      "id": "54c29",
+      "name": "Clothes.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "4bd87": {
+      "importer": "gltf-material",
+      "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@4bd87",
+      "displayName": "",
+      "id": "4bd87",
+      "name": "police_skin_change_atlas.material",
+      "userData": {
+        "gltfIndex": 1
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "312bf": {
+      "importer": "gltf-material",
+      "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@312bf",
+      "displayName": "",
+      "id": "312bf",
+      "name": "Hair.material",
+      "userData": {
+        "gltfIndex": 3
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "e4f68": {
+      "importer": "gltf-scene",
+      "uuid": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@e4f68",
+      "displayName": "",
+      "id": "e4f68",
+      "name": "ManPolice_skin1.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [
+      {
+        "name": "file1",
+        "uri": "db://assets/Полицейский/HighTextures/Police_skin1Clothes_2k.webp"
+      },
+      {
+        "name": "file2",
+        "uri": "db://assets/Полицейский/HighTextures/Police_skin1Clothes_norm_2k.webp"
+      },
+      {
+        "name": "file33",
+        "uri": "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@676a8"
+      },
+      {
+        "name": "file15",
+        "uri": "db://assets/Полицейский/HighTextures/ManCarlosOrganic_2k.webp"
+      },
+      {
+        "name": "file16",
+        "uri": "db://assets/Полицейский/HighTextures/ManCarlosOrganic_norm_2k.webp"
+      },
+      {
+        "name": "file19",
+        "uri": "db://assets/Полицейский/HighTextures/Hair2_2k.webp"
+      }
+    ],
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "lods": {
+      "enable": true,
+      "hasBuiltinLOD": true,
+      "options": [
+        {
+          "screenRatio": 0.01,
+          "faceCount": 1
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@6dfff",
+        "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@c4c7c",
+        "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@61cb9",
+        "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@76883",
+        "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@5b75c",
+        "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@f3fcb"
+      ],
+      "skeletons": [
+        "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@30732",
+        "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@f1394",
+        "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@75ee4",
+        "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@a72ab",
+        "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@2224c",
+        "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@62756"
+      ],
+      "textures": [
+        "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@d20e9",
+        "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@e873a",
+        "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@14579",
+        "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@d5851",
+        "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@05fc7",
+        "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@cafc8"
+      ],
+      "materials": [
+        "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@54c29",
+        "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@4bd87",
+        "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@49250",
+        "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@312bf"
+      ],
+      "scenes": [
+        "103b96ea-3da8-40f2-8500-c2cc94bd3cd7@e4f68"
+      ]
+    }
+  }
+}

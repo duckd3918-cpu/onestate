@@ -1,0 +1,250 @@
+{
+  "ver": "2.3.14",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "72f02c31-904e-4282-910b-3b1e07dbdfb4",
+  "files": [],
+  "subMetas": {
+    "30732": {
+      "importer": "gltf-skeleton",
+      "uuid": "72f02c31-904e-4282-910b-3b1e07dbdfb4@30732",
+      "displayName": "",
+      "id": "30732",
+      "name": "UnnamedSkeleton-0.skeleton",
+      "userData": {
+        "gltfIndex": 0,
+        "jointsLength": 5
+      },
+      "ver": "1.0.1",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "49250": {
+      "importer": "gltf-material",
+      "uuid": "72f02c31-904e-4282-910b-3b1e07dbdfb4@49250",
+      "displayName": "",
+      "id": "49250",
+      "name": "Organic.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "51699": {
+      "importer": "gltf-mesh",
+      "uuid": "72f02c31-904e-4282-910b-3b1e07dbdfb4@51699",
+      "displayName": "",
+      "id": "51699",
+      "name": "ManJohn_Head_lod1.mesh",
+      "userData": {
+        "gltfIndex": 1,
+        "lodLevel": 1,
+        "triangleCount": 926
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "59444": {
+      "importer": "gltf-scene",
+      "uuid": "72f02c31-904e-4282-910b-3b1e07dbdfb4@59444",
+      "displayName": "",
+      "id": "59444",
+      "name": "JohnHead.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "355d3": {
+      "importer": "gltf-mesh",
+      "uuid": "72f02c31-904e-4282-910b-3b1e07dbdfb4@355d3",
+      "displayName": "",
+      "id": "355d3",
+      "name": "ManJohn_Head_lod0.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "lodLevel": 0,
+        "triangleCount": 2792
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "410ee": {
+      "importer": "gltf-mesh",
+      "uuid": "72f02c31-904e-4282-910b-3b1e07dbdfb4@410ee",
+      "displayName": "",
+      "id": "410ee",
+      "name": "ManJohn_Head_lod2.mesh",
+      "userData": {
+        "gltfIndex": 2,
+        "lodLevel": 2,
+        "triangleCount": 94
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f1394": {
+      "importer": "gltf-skeleton",
+      "uuid": "72f02c31-904e-4282-910b-3b1e07dbdfb4@f1394",
+      "displayName": "",
+      "id": "f1394",
+      "name": "UnnamedSkeleton-1.skeleton",
+      "userData": {
+        "gltfIndex": 1,
+        "jointsLength": 5
+      },
+      "ver": "1.0.1",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "75ee4": {
+      "importer": "gltf-skeleton",
+      "uuid": "72f02c31-904e-4282-910b-3b1e07dbdfb4@75ee4",
+      "displayName": "",
+      "id": "75ee4",
+      "name": "UnnamedSkeleton-2.skeleton",
+      "userData": {
+        "gltfIndex": 2,
+        "jointsLength": 5
+      },
+      "ver": "1.0.1",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "e873a": {
+      "importer": "texture",
+      "uuid": "72f02c31-904e-4282-910b-3b1e07dbdfb4@e873a",
+      "displayName": "",
+      "id": "e873a",
+      "name": "file2.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": false,
+        "imageUuidOrDatabaseUri": "db://assets/Белокожий парень/ManJohnOld/ManJohn_Diff.webp"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "3e757": {
+      "importer": "texture",
+      "uuid": "72f02c31-904e-4282-910b-3b1e07dbdfb4@3e757",
+      "displayName": "",
+      "id": "3e757",
+      "name": "normalmap_texture193.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": false,
+        "imageUuidOrDatabaseUri": "db://assets/Белокожий парень/ManJohnOld/ManJohn_Nrm.webp"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [
+      {
+        "name": "file2",
+        "uri": "db://assets/Белокожий парень/ManJohnOld/ManJohn_Diff.webp"
+      },
+      {
+        "name": "normalmap_texture193",
+        "uri": "db://assets/Белокожий парень/ManJohnOld/ManJohn_Nrm.webp"
+      }
+    ],
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "lods": {
+      "enable": true,
+      "hasBuiltinLOD": true,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.3316618911174785
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.0336676217765043
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "72f02c31-904e-4282-910b-3b1e07dbdfb4@355d3",
+        "72f02c31-904e-4282-910b-3b1e07dbdfb4@51699",
+        "72f02c31-904e-4282-910b-3b1e07dbdfb4@410ee"
+      ],
+      "skeletons": [
+        "72f02c31-904e-4282-910b-3b1e07dbdfb4@30732",
+        "72f02c31-904e-4282-910b-3b1e07dbdfb4@f1394",
+        "72f02c31-904e-4282-910b-3b1e07dbdfb4@75ee4"
+      ],
+      "textures": [
+        "72f02c31-904e-4282-910b-3b1e07dbdfb4@e873a",
+        "72f02c31-904e-4282-910b-3b1e07dbdfb4@3e757"
+      ],
+      "materials": [
+        "72f02c31-904e-4282-910b-3b1e07dbdfb4@49250"
+      ],
+      "scenes": [
+        "72f02c31-904e-4282-910b-3b1e07dbdfb4@59444"
+      ]
+    }
+  }
+}

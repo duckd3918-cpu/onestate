@@ -1,0 +1,137 @@
+{
+  "ver": "2.3.14",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "f9c45ba0-67c3-4eb6-816c-7ed3094dd5f4",
+  "files": [],
+  "subMetas": {
+    "67239": {
+      "importer": "gltf-scene",
+      "uuid": "f9c45ba0-67c3-4eb6-816c-7ed3094dd5f4@67239",
+      "displayName": "",
+      "id": "67239",
+      "name": "ManCarlos_default.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "6ff31": {
+      "importer": "gltf-mesh",
+      "uuid": "f9c45ba0-67c3-4eb6-816c-7ed3094dd5f4@6ff31",
+      "displayName": "",
+      "id": "6ff31",
+      "name": "ManCarlos_default_lod0.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "lodLevel": 0,
+        "triangleCount": 1336
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f8216": {
+      "importer": "gltf-mesh",
+      "uuid": "f9c45ba0-67c3-4eb6-816c-7ed3094dd5f4@f8216",
+      "displayName": "",
+      "id": "f8216",
+      "name": "ManCarlos_default_lod1.mesh",
+      "userData": {
+        "gltfIndex": 1,
+        "lodLevel": 1,
+        "triangleCount": 308
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "ea84b": {
+      "importer": "gltf-mesh",
+      "uuid": "f9c45ba0-67c3-4eb6-816c-7ed3094dd5f4@ea84b",
+      "displayName": "",
+      "id": "ea84b",
+      "name": "ManCarlos_default_lod2.mesh",
+      "userData": {
+        "gltfIndex": 2,
+        "lodLevel": 2,
+        "triangleCount": 46
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "312bf": {
+      "importer": "gltf-material",
+      "uuid": "f9c45ba0-67c3-4eb6-816c-7ed3094dd5f4@312bf",
+      "displayName": "",
+      "id": "312bf",
+      "name": "Hair.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "lods": {
+      "enable": true,
+      "hasBuiltinLOD": true,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.23053892215568864
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.0344311377245509
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "f9c45ba0-67c3-4eb6-816c-7ed3094dd5f4@6ff31",
+        "f9c45ba0-67c3-4eb6-816c-7ed3094dd5f4@f8216",
+        "f9c45ba0-67c3-4eb6-816c-7ed3094dd5f4@ea84b"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [
+        "f9c45ba0-67c3-4eb6-816c-7ed3094dd5f4@312bf"
+      ],
+      "scenes": [
+        "f9c45ba0-67c3-4eb6-816c-7ed3094dd5f4@67239"
+      ]
+    }
+  }
+}

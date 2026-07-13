@@ -1,0 +1,96 @@
+{
+  "ver": "2.3.14",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "e8a4862a-4ada-46ab-bbc5-f6f25ec92c4f",
+  "files": [],
+  "subMetas": {
+    "648a9": {
+      "importer": "gltf-mesh",
+      "uuid": "e8a4862a-4ada-46ab-bbc5-f6f25ec92c4f@648a9",
+      "displayName": "",
+      "id": "648a9",
+      "name": "ManPolice_skin1_lod2.001.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "triangleCount": 876
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "5b63d": {
+      "importer": "gltf-material",
+      "uuid": "e8a4862a-4ada-46ab-bbc5-f6f25ec92c4f@5b63d",
+      "displayName": "",
+      "id": "5b63d",
+      "name": "ShadowPars.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "73c2f": {
+      "importer": "gltf-scene",
+      "uuid": "e8a4862a-4ada-46ab-bbc5-f6f25ec92c4f@73c2f",
+      "displayName": "",
+      "id": "73c2f",
+      "name": "ManPolice_skin1_ShadowPars.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "lods": {
+      "enable": false,
+      "hasBuiltinLOD": false,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.25
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.1
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "e8a4862a-4ada-46ab-bbc5-f6f25ec92c4f@648a9"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [
+        "e8a4862a-4ada-46ab-bbc5-f6f25ec92c4f@5b63d"
+      ],
+      "scenes": [
+        "e8a4862a-4ada-46ab-bbc5-f6f25ec92c4f@73c2f"
+      ]
+    }
+  }
+}

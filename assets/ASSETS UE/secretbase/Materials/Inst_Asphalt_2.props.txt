@@ -1,0 +1,76 @@
+Parent = Material3'Materials/Mat_Asphalt_3.Mat_Asphalt_3'
+ScalarParameterValues[3] =
+{
+    ScalarParameterValues[0] =
+    {
+        ParameterInfo = { Name=None }
+        ParameterValue = 1.05026
+        ParameterName = Asphalt Black
+    }
+    ScalarParameterValues[1] =
+    {
+        ParameterInfo = { Name=None }
+        ParameterValue = 0.1
+        ParameterName = Asphalt Normal
+    }
+    ScalarParameterValues[2] =
+    {
+        ParameterInfo = { Name=None }
+        ParameterValue = 0
+        ParameterName = RefractionDepthBias
+    }
+}
+TextureParameterValues[0] = {}
+VectorParameterValues[0] = {}
+BasePropertyOverrides =
+{
+    bOverride_BlendMode = false
+    BlendMode = BLEND_Opaque (0)
+    bOverride_TwoSided = false
+    TwoSided = false
+    bOverride_OpacityMaskClipValue = false
+    OpacityMaskClipValue = 0
+}
+StaticParameters =
+{
+    StaticSwitchParameters[0] = {}
+    StaticComponentMaskParameters[0] = {}
+    TerrainLayerWeightParameters[0] = {}
+    MaterialLayersParameters[0] = {}
+}
+RuntimeVirtualTextureParameterValues[0] = {}
+FontParameterValues[0] = {}
+FlattenedTexture = None
+MobileBaseTexture = None
+MobileNormalTexture = None
+bUseMobileSpecular = false
+MobileSpecularPower = 16
+MobileSpecularMask = MSM_Constant (0)
+MobileMaskTexture = None
+TextureStreamingData[4] =
+{
+    TextureStreamingData[0] =
+    {
+        SamplingScale = 3.5
+        UVChannelIndex = 0
+        TextureName = T_Asphalt_3_AO
+    }
+    TextureStreamingData[1] =
+    {
+        SamplingScale = 3.5
+        UVChannelIndex = 0
+        TextureName = T_Asphalt_3_B
+    }
+    TextureStreamingData[2] =
+    {
+        SamplingScale = 3.5
+        UVChannelIndex = 0
+        TextureName = T_Asphalt_3_N
+    }
+    TextureStreamingData[3] =
+    {
+        SamplingScale = 3.5
+        UVChannelIndex = 0
+        TextureName = T_Asphalt_3_R
+    }
+}

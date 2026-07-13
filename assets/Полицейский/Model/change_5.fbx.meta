@@ -1,0 +1,96 @@
+{
+  "ver": "2.3.14",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "762ef388-e68f-4aca-8a39-15f36c815c0f",
+  "files": [],
+  "subMetas": {
+    "cc93a": {
+      "importer": "gltf-mesh",
+      "uuid": "762ef388-e68f-4aca-8a39-15f36c815c0f@cc93a",
+      "displayName": "",
+      "id": "cc93a",
+      "name": "change_5.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "triangleCount": 2
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "54c29": {
+      "importer": "gltf-material",
+      "uuid": "762ef388-e68f-4aca-8a39-15f36c815c0f@54c29",
+      "displayName": "",
+      "id": "54c29",
+      "name": "Clothes.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "d975b": {
+      "importer": "gltf-scene",
+      "uuid": "762ef388-e68f-4aca-8a39-15f36c815c0f@d975b",
+      "displayName": "",
+      "id": "d975b",
+      "name": "change_5.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "lods": {
+      "enable": false,
+      "hasBuiltinLOD": false,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.25
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.1
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "762ef388-e68f-4aca-8a39-15f36c815c0f@cc93a"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [
+        "762ef388-e68f-4aca-8a39-15f36c815c0f@54c29"
+      ],
+      "scenes": [
+        "762ef388-e68f-4aca-8a39-15f36c815c0f@d975b"
+      ]
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "ver": "2.3.14",
+  "importer": "gltf",
+  "imported": true,
+  "uuid": "62543cf3-e246-46e3-aae8-64db80abe00e",
+  "files": [],
+  "subMetas": {
+    "8a528": {
+      "importer": "gltf-mesh",
+      "uuid": "62543cf3-e246-46e3-aae8-64db80abe00e@8a528",
+      "displayName": "",
+      "id": "8a528",
+      "name": "SM_Camera_1.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "triangleCount": 913
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "b9a09": {
+      "importer": "gltf-material",
+      "uuid": "62543cf3-e246-46e3-aae8-64db80abe00e@b9a09",
+      "displayName": "",
+      "id": "b9a09",
+      "name": "Mat_Camera_1.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "40fe0": {
+      "importer": "gltf-scene",
+      "uuid": "62543cf3-e246-46e3-aae8-64db80abe00e@40fe0",
+      "displayName": "",
+      "id": "40fe0",
+      "name": "SM_Camera_1.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "lods": {
+      "enable": false,
+      "hasBuiltinLOD": false,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.25
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.1
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "62543cf3-e246-46e3-aae8-64db80abe00e@8a528"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [
+        "62543cf3-e246-46e3-aae8-64db80abe00e@b9a09"
+      ],
+      "scenes": [
+        "62543cf3-e246-46e3-aae8-64db80abe00e@40fe0"
+      ]
+    }
+  }
+}

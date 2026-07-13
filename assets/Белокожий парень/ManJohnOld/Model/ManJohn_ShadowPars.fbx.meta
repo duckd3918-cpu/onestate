@@ -1,0 +1,96 @@
+{
+  "ver": "2.3.14",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "e1600796-2bec-4f77-8e3f-1d5026f6303e",
+  "files": [],
+  "subMetas": {
+    "1253b": {
+      "importer": "gltf-mesh",
+      "uuid": "e1600796-2bec-4f77-8e3f-1d5026f6303e@1253b",
+      "displayName": "",
+      "id": "1253b",
+      "name": "ManJohn_ShadowPars.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "triangleCount": 506
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "5b63d": {
+      "importer": "gltf-material",
+      "uuid": "e1600796-2bec-4f77-8e3f-1d5026f6303e@5b63d",
+      "displayName": "",
+      "id": "5b63d",
+      "name": "ShadowPars.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "38fe8": {
+      "importer": "gltf-scene",
+      "uuid": "e1600796-2bec-4f77-8e3f-1d5026f6303e@38fe8",
+      "displayName": "",
+      "id": "38fe8",
+      "name": "ManJohn_ShadowPars.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "lods": {
+      "enable": false,
+      "hasBuiltinLOD": false,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.25
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.1
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "e1600796-2bec-4f77-8e3f-1d5026f6303e@1253b"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [
+        "e1600796-2bec-4f77-8e3f-1d5026f6303e@5b63d"
+      ],
+      "scenes": [
+        "e1600796-2bec-4f77-8e3f-1d5026f6303e@38fe8"
+      ]
+    }
+  }
+}

@@ -1,0 +1,66 @@
+TwoSided = true
+bDisableDepthTest = false
+bIsMasked = false
+ReferencedTextures[3] =
+{
+    ReferencedTextures[0] = Texture2D'Textures/T_Steel_1_N.T_Steel_1_N'
+    ReferencedTextures[1] = Texture2D'Textures/T_Steel_1_ORM.T_Steel_1_ORM'
+    ReferencedTextures[2] = Texture2D'Textures/T_Steel_1_B.T_Steel_1_B'
+}
+Expressions[6] =
+{
+    Expressions[3] = MaterialExpressionTextureSample'Materials/Mat_Steel_2.MaterialExpressionTextureSample_22'
+    Expressions[4] = MaterialExpressionTextureSample'Materials/Mat_Steel_2.MaterialExpressionTextureSample_23'
+    Expressions[5] = MaterialExpressionTextureSample'Materials/Mat_Steel_2.MaterialExpressionTextureSample_0'
+}
+CachedExpressionData =
+{
+    Parameters =
+    {
+        Entries[5] =
+        {
+            Entries[0] = { ParameterInfos[0]={} }
+            Entries[1] = { ParameterInfos[0]={} }
+            Entries[2] = { ParameterInfos[0]={} }
+            Entries[3] = { ParameterInfos[0]={} }
+            Entries[4] = { ParameterInfos[0]={} }
+        }
+        ScalarValues[0] = {}
+        VectorValues[0] = {}
+        TextureValues[0] = {}
+    }
+    ReferencedTextures[0] = {}
+}
+BlendMode = BLEND_Opaque (0)
+OpacityMaskClipValue = 0.333
+CollectedTextureParameters[0] = {}
+CollectedScalarParameters[0] = {}
+CollectedVectorParameters[0] = {}
+FlattenedTexture = None
+MobileBaseTexture = None
+MobileNormalTexture = None
+bUseMobileSpecular = false
+MobileSpecularPower = 16
+MobileSpecularMask = MSM_Constant (0)
+MobileMaskTexture = None
+TextureStreamingData[3] =
+{
+    TextureStreamingData[0] =
+    {
+        SamplingScale = 1
+        UVChannelIndex = 0
+        TextureName = T_Steel_1_B
+    }
+    TextureStreamingData[1] =
+    {
+        SamplingScale = 1
+        UVChannelIndex = 0
+        TextureName = T_Steel_1_N
+    }
+    TextureStreamingData[2] =
+    {
+        SamplingScale = 1
+        UVChannelIndex = 0
+        TextureName = T_Steel_1_ORM
+    }
+}

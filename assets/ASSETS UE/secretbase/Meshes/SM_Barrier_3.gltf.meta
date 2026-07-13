@@ -1,0 +1,93 @@
+{
+  "ver": "2.3.14",
+  "importer": "gltf",
+  "imported": true,
+  "uuid": "6f3e24a2-2a72-4f9c-b296-66c38e2d2cfe",
+  "files": [],
+  "subMetas": {
+    "f0f4d": {
+      "importer": "gltf-mesh",
+      "uuid": "6f3e24a2-2a72-4f9c-b296-66c38e2d2cfe@f0f4d",
+      "displayName": "",
+      "id": "f0f4d",
+      "name": "SM_Barrier_3.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "triangleCount": 40
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "16b47": {
+      "importer": "gltf-material",
+      "uuid": "6f3e24a2-2a72-4f9c-b296-66c38e2d2cfe@16b47",
+      "displayName": "",
+      "id": "16b47",
+      "name": "MI_Barrier_3.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "2a656": {
+      "importer": "gltf-scene",
+      "uuid": "6f3e24a2-2a72-4f9c-b296-66c38e2d2cfe@2a656",
+      "displayName": "",
+      "id": "2a656",
+      "name": "SM_Barrier_3.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "lods": {
+      "enable": false,
+      "hasBuiltinLOD": false,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.25
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.1
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "6f3e24a2-2a72-4f9c-b296-66c38e2d2cfe@f0f4d"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [
+        "6f3e24a2-2a72-4f9c-b296-66c38e2d2cfe@16b47"
+      ],
+      "scenes": [
+        "6f3e24a2-2a72-4f9c-b296-66c38e2d2cfe@2a656"
+      ]
+    }
+  }
+}

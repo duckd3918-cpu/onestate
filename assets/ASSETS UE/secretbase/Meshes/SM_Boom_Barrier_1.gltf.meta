@@ -1,0 +1,144 @@
+{
+  "ver": "2.3.14",
+  "importer": "gltf",
+  "imported": true,
+  "uuid": "626abdec-4a20-46c6-ae64-96ca3647c265",
+  "files": [],
+  "subMetas": {
+    "46886": {
+      "importer": "gltf-material",
+      "uuid": "626abdec-4a20-46c6-ae64-96ca3647c265@46886",
+      "displayName": "",
+      "id": "46886",
+      "name": "Mat_Boom_Barrier_1-0.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "defa7": {
+      "importer": "gltf-mesh",
+      "uuid": "626abdec-4a20-46c6-ae64-96ca3647c265@defa7",
+      "displayName": "",
+      "id": "defa7",
+      "name": "SM_Boom_Barrier_1.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "triangleCount": 910
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "db84e": {
+      "importer": "gltf-material",
+      "uuid": "626abdec-4a20-46c6-ae64-96ca3647c265@db84e",
+      "displayName": "",
+      "id": "db84e",
+      "name": "Mat_Steel_1-1.material",
+      "userData": {
+        "gltfIndex": 1
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "d36aa": {
+      "importer": "gltf-material",
+      "uuid": "626abdec-4a20-46c6-ae64-96ca3647c265@d36aa",
+      "displayName": "",
+      "id": "d36aa",
+      "name": "Mat_Boom_Barrier_1-2.material",
+      "userData": {
+        "gltfIndex": 2
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "dbb27": {
+      "importer": "gltf-material",
+      "uuid": "626abdec-4a20-46c6-ae64-96ca3647c265@dbb27",
+      "displayName": "",
+      "id": "dbb27",
+      "name": "Mat_Steel_1-3.material",
+      "userData": {
+        "gltfIndex": 3
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "95f7f": {
+      "importer": "gltf-scene",
+      "uuid": "626abdec-4a20-46c6-ae64-96ca3647c265@95f7f",
+      "displayName": "",
+      "id": "95f7f",
+      "name": "SM_Boom_Barrier_1.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "lods": {
+      "enable": false,
+      "hasBuiltinLOD": false,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.25
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.1
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "626abdec-4a20-46c6-ae64-96ca3647c265@defa7"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [
+        "626abdec-4a20-46c6-ae64-96ca3647c265@46886",
+        "626abdec-4a20-46c6-ae64-96ca3647c265@db84e",
+        "626abdec-4a20-46c6-ae64-96ca3647c265@d36aa",
+        "626abdec-4a20-46c6-ae64-96ca3647c265@dbb27"
+      ],
+      "scenes": [
+        "626abdec-4a20-46c6-ae64-96ca3647c265@95f7f"
+      ]
+    }
+  }
+}

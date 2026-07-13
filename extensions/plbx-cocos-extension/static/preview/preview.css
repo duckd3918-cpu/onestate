@@ -1,0 +1,766 @@
+/* Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  background: #121215;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #e0e0e0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ========== NETWORK TABS (top bar) ========== */
+.network-tabs {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  padding: 8px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tab {
+  padding: 6px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.tab:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.tab.active {
+  background: rgba(99, 102, 241, 0.2);
+  border-color: rgba(99, 102, 241, 0.4);
+  color: #a5b4fc;
+}
+
+/* ========== MAIN LAYOUT ========== */
+.main {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ========== PREVIEW AREA (left side with phone frame) ========== */
+.preview-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 2rem;
+  padding-bottom: 5rem; /* Space for toolbar */
+  min-width: 0;
+}
+
+/* ========== PHONE FRAME ========== */
+.phone-frame {
+  position: relative;
+  width: 375px;
+  height: 812px;
+  border: 12px solid #1a1a1a;
+  border-radius: 44px;
+  box-shadow:
+    0 0 0 2px #333,
+    0 25px 50px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  background: #000;
+  /* Transition for smooth device switching */
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              margin 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              border-radius 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              border-width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  /* CSS custom properties for notch (set by JS) */
+  --notch-width: 120px;
+  --notch-height: 32px;
+  --notch-radius: 20px;
+}
+
+/* Dynamic Island / Notch */
+.phone-frame::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--notch-width);
+  height: var(--notch-height);
+  background: #1a1a1a;
+  border-radius: var(--notch-radius);
+  z-index: 110;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Disable transitions on initial load */
+.phone-frame.no-transition,
+.phone-frame.no-transition::before {
+  transition: none !important;
+}
+
+/* Landscape mode: notch moves to the left side */
+.phone-frame.landscape::before {
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  width: var(--notch-height);
+  height: var(--notch-width);
+}
+
+/* Hide notch for devices without it */
+.phone-frame.no-notch::before {
+  display: none;
+}
+
+/* Tablet mode */
+.phone-frame.tablet {
+  border-radius: 24px;
+  border-width: 10px;
+}
+.phone-frame.tablet::before {
+  display: none;
+}
+
+/* Hide scrollbars in phone frame */
+.phone-frame {
+  scrollbar-width: none;
+}
+.phone-frame::-webkit-scrollbar {
+  display: none;
+}
+
+/* ========== IFRAME ========== */
+.preview-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: #000;
+}
+
+/* ========== TOOLBAR ========== */
+.toolbar {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 10000;
+}
+
+/* Common button styles */
+.toolbar-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.toolbar-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.toolbar-btn svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.toolbar-btn.landscape svg {
+  transform: rotate(90deg);
+}
+
+/* Icon-only toolbar buttons */
+.toolbar-btn.icon-only {
+  padding: 0.5rem;
+}
+
+/* Mute icon swap */
+.toolbar-btn .icon-muted {
+  display: none;
+}
+.toolbar-btn.muted .icon-unmuted {
+  display: none;
+}
+.toolbar-btn.muted .icon-muted {
+  display: block;
+}
+
+/* ========== DEVICE DROPDOWN ========== */
+.device-dropdown {
+  position: relative;
+  min-width: 180px;
+}
+
+.device-dropdown-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+  font-family: inherit;
+  width: 100%;
+}
+
+.device-dropdown-trigger:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.device-dropdown-trigger svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.device-dropdown.open .device-dropdown-trigger svg {
+  transform: rotate(180deg);
+}
+
+/* Dropdown menu (opens upward) */
+.device-dropdown-menu {
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: rgba(26, 26, 26, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  backdrop-filter: blur(12px);
+  max-height: 300px;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+  z-index: 11000;
+}
+
+.device-dropdown.open .device-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.device-dropdown-group {
+  padding: 0.25rem 0;
+}
+
+.device-dropdown-group:not(:last-child) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.device-dropdown-label {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.device-dropdown-item {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.device-dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.device-dropdown-item.selected {
+  background: rgba(99, 102, 241, 0.2);
+  color: #a5b4fc;
+}
+
+/* Scrollbar styling for dropdown */
+.device-dropdown-menu::-webkit-scrollbar {
+  width: 6px;
+}
+.device-dropdown-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+.device-dropdown-menu::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+.device-dropdown-menu::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ========== SIDEBAR (Validation Checklist) ========== */
+.sidebar {
+  width: 320px;
+  padding: 16px;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.03);
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+}
+
+/* Left-hand Axon column — border on the right instead of the left. */
+.sidebar-left {
+  border-left: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* When the Axon title heads its own column it doesn't need the section divider. */
+.sidebar-left .axon-title {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+h3 {
+  font-size: 14px;
+  margin-bottom: 12px;
+  color: #a5b4fc;
+}
+
+.check {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 13px;
+}
+
+.check .icon {
+  font-size: 18px;
+  width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+  padding-top: 1px;
+}
+
+.check-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.check .detail {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 11px;
+  margin-top: 2px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.check-hint {
+  margin-top: 6px;
+  padding: 6px 8px;
+  background: rgba(248, 81, 73, 0.08);
+  border-left: 2px solid rgba(248, 81, 73, 0.4);
+  border-radius: 0 4px 4px 0;
+  font-size: 11px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.55);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.check.fail .check-hint {
+  display: block;
+}
+
+/* ========== VALIDATOR LINK ========== */
+.validator-link {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.validator-link a {
+  display: inline-block;
+  font-size: 12px;
+  color: #a5b4fc;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.validator-link a:hover {
+  color: #c4b5fd;
+  text-decoration: underline;
+}
+
+/* ========== CONSOLE ========== */
+.console {
+  height: 160px;
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.4);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 8px;
+  overflow-y: auto;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.console .entry {
+  padding: 1px 0;
+}
+
+.console .error {
+  color: #f85149;
+}
+
+.console .cta {
+  color: #3fb950;
+}
+
+/* ========== AXON EVENTS ========== */
+.axon-title {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  color: #fbbf24;
+}
+
+.axon-spec-link {
+  font-size: 11px;
+  font-weight: 400;
+  margin-left: 8px;
+  color: #7ec8e3;
+  text-decoration: none;
+}
+
+.axon-spec-link:hover { text-decoration: underline; }
+
+.axon-event {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  font-size: 13px;
+}
+
+.axon-event .icon {
+  font-size: 16px;
+  width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.axon-event .name {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.axon-event .count {
+  margin-left: auto;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+  font-variant-numeric: tabular-nums;
+}
+
+.axon-event.fired .name {
+  color: #fbbf24;
+}
+
+.axon-event.fired .count {
+  color: #fbbf24;
+}
+
+/* Non-spec event AppLovin rejects — red so it reads as an error, not a valid amber event. */
+.axon-event.invalid .icon,
+.axon-event.invalid.fired .name,
+.axon-event.invalid.fired .count {
+  color: #f87171;
+}
+
+.axon-empty {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.3);
+  padding: 8px 0;
+  font-style: italic;
+}
+
+/* Spec-conformance verdicts (computed from runtime-fired events). */
+.axon-verdict {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 5px 0;
+  font-size: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  cursor: help;
+}
+
+.axon-verdict .icon {
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.axon-verdict.pass .icon { color: #34d399; }
+.axon-verdict.warn .icon { color: #fbbf24; }
+.axon-verdict.fail .icon { color: #f87171; }
+.axon-verdict.pending .icon { color: rgba(255, 255, 255, 0.3); }
+.axon-verdict.pending .text { color: rgba(255, 255, 255, 0.4); }
+
+.axon-verdict.aggregate {
+  font-weight: 600;
+  margin-bottom: 2px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.axon-verdict .text { color: rgba(255, 255, 255, 0.75); }
+.axon-verdict.fail .text,
+.axon-verdict.warn .text { color: rgba(255, 255, 255, 0.95); }
+.axon-verdict .detail {
+  display: block;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+  margin-top: 1px;
+}
+
+/* ========== CTA TOAST ========== */
+.cta-toast {
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  background: rgba(16, 185, 80, 0.95);
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  padding: 1rem 2.5rem;
+  border-radius: 16px;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 10001;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 32px rgba(16, 185, 80, 0.4);
+  letter-spacing: 0.02em;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.cta-toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+.cta-toast.fade-out {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-8px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Won't-track CTA (bare window.open / wrong method) — red, not green. */
+.cta-toast.bad {
+  background: rgba(220, 38, 38, 0.95);
+  box-shadow: 0 8px 32px rgba(220, 38, 38, 0.4);
+}
+
+/* ========== MOLOCOV2 SECTION ========== */
+.mv2-title {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #f5a623;
+}
+
+#molocov2-macros {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.mv2-macro {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  border-left: 3px solid #444;
+  font-size: 0.8rem;
+}
+
+.mv2-macro.fired { border-left-color: #10b950; }
+.mv2-macro.warn  { border-left-color: #f59e0b; }
+.mv2-macro.pending { border-left-color: #4b5563; }
+.mv2-macro .icon { font-size: 0.9rem; line-height: 1; }
+.mv2-macro-info { flex: 1; }
+.mv2-macro-name { font-family: monospace; font-weight: 600; color: #e5e7eb; }
+.mv2-macro-meta { font-size: 0.7rem; color: #9ca3af; margin-top: 0.15rem; }
+
+/* Top-left placement — mirrors the Axon panel which occupies the left column. */
+.mv2-dock {
+  position: fixed;
+  /* Below the network tab bar (~49px: 8px padding x2 + ~32px tab + border) so
+     the dock never covers network switching. */
+  top: 60px;
+  left: 1rem;
+  z-index: 1000;
+  background: rgba(18, 18, 22, 0.95);
+  border: 1px solid rgba(245, 166, 35, 0.35);
+  border-radius: 10px;
+  padding: 0.55rem 0.65rem 0.45rem;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  max-width: 280px;
+}
+.mv2-dock-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.45rem;
+}
+.mv2-dock-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #f5a623;
+}
+.mv2-dock-toggle {
+  background: transparent;
+  border: none;
+  color: #9ca3af;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0.25rem;
+  font-family: inherit;
+}
+.mv2-dock-toggle:hover { color: #e5e7eb; }
+.mv2-dock.collapsed .mv2-dock-body { display: none; }
+.mv2-dock.collapsed { padding-bottom: 0.55rem; }
+.mv2-dock.collapsed .mv2-dock-header { margin-bottom: 0; }
+/* Call-to-action hint: mraid_viewable cannot pass until Viewable is pressed. */
+.mv2-viewable-hint {
+  display: none;
+  font-size: 0.7rem;
+  color: #f5a623;
+  background: rgba(245, 166, 35, 0.12);
+  border: 1px dashed rgba(245, 166, 35, 0.5);
+  border-radius: 4px;
+  padding: 0.3rem 0.45rem;
+  margin-bottom: 0.4rem;
+  line-height: 1.35;
+}
+.mv2-viewable-hint.visible { display: block; }
+@keyframes mv2-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(245, 166, 35, 0.6); }
+  70%  { box-shadow: 0 0 0 8px rgba(245, 166, 35, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(245, 166, 35, 0); }
+}
+.mv2-btn-pulse {
+  animation: mv2-pulse 1.5s ease-out infinite;
+  background: rgba(245, 166, 35, 0.3);
+}
+.mv2-controls-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+/* No registered commands (the default for most networks) → no dead gap. */
+#plbx-cmd-row:empty { display: none; margin: 0; }
+/* Game-command toolbar: its own dock, opposite corner from the MolocoV2 dock
+   (top-left) so the two never overlap when a build has both. */
+.plbx-cmd-dock {
+  left: auto;
+  /* Sit just LEFT of the 320px validation sidebar (right edge of the screen)
+     instead of overlapping it. Keep in sync with .sidebar width. */
+  right: calc(320px + 1.5rem);
+  border-color: rgba(99, 179, 237, 0.45);
+}
+.plbx-cmd-dock .mv2-dock-title { color: #63b3ed; }
+.mv2-btn {
+  background: rgba(245, 166, 35, 0.15);
+  color: #f5a623;
+  border: 1px solid rgba(245, 166, 35, 0.4);
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.7rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+.mv2-btn:hover { background: rgba(245, 166, 35, 0.25); }
+.mv2-btn-reset {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.4);
+}
+.mv2-btn-reset:hover { background: rgba(239, 68, 68, 0.25); }
+.mv2-input {
+  width: 3rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: #e5e7eb;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  padding: 0.25rem 0.4rem;
+  font-size: 0.7rem;
+  font-family: inherit;
+}
+
+.check.warn {
+  background: rgba(245, 158, 11, 0.08);
+  border-left: 3px solid #f59e0b;
+}
+
+/* Disable text selection globally */
+* {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.mv2-input {
+  user-select: text;
+  -webkit-user-select: text;
+}

@@ -1,0 +1,137 @@
+{
+  "ver": "2.3.14",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "e5644916-0bfd-4ca9-a04a-b23c67245dc0",
+  "files": [],
+  "subMetas": {
+    "18406": {
+      "importer": "gltf-mesh",
+      "uuid": "e5644916-0bfd-4ca9-a04a-b23c67245dc0@18406",
+      "displayName": "",
+      "id": "18406",
+      "name": "ManCarlos_option_lod1.mesh",
+      "userData": {
+        "gltfIndex": 1,
+        "lodLevel": 1,
+        "triangleCount": 116
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f3fcb": {
+      "importer": "gltf-mesh",
+      "uuid": "e5644916-0bfd-4ca9-a04a-b23c67245dc0@f3fcb",
+      "displayName": "",
+      "id": "f3fcb",
+      "name": "ManCarlos_option_lod0.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "lodLevel": 0,
+        "triangleCount": 508
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "ff8f9": {
+      "importer": "gltf-mesh",
+      "uuid": "e5644916-0bfd-4ca9-a04a-b23c67245dc0@ff8f9",
+      "displayName": "",
+      "id": "ff8f9",
+      "name": "ManCarlos_option_lod2.mesh",
+      "userData": {
+        "gltfIndex": 2,
+        "lodLevel": 2,
+        "triangleCount": 20
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "312bf": {
+      "importer": "gltf-material",
+      "uuid": "e5644916-0bfd-4ca9-a04a-b23c67245dc0@312bf",
+      "displayName": "",
+      "id": "312bf",
+      "name": "Hair.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "8373e": {
+      "importer": "gltf-scene",
+      "uuid": "e5644916-0bfd-4ca9-a04a-b23c67245dc0@8373e",
+      "displayName": "",
+      "id": "8373e",
+      "name": "ManCarlos_option.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "lods": {
+      "enable": true,
+      "hasBuiltinLOD": true,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.2283464566929134
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.03937007874015748
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "e5644916-0bfd-4ca9-a04a-b23c67245dc0@f3fcb",
+        "e5644916-0bfd-4ca9-a04a-b23c67245dc0@18406",
+        "e5644916-0bfd-4ca9-a04a-b23c67245dc0@ff8f9"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [
+        "e5644916-0bfd-4ca9-a04a-b23c67245dc0@312bf"
+      ],
+      "scenes": [
+        "e5644916-0bfd-4ca9-a04a-b23c67245dc0@8373e"
+      ]
+    }
+  }
+}

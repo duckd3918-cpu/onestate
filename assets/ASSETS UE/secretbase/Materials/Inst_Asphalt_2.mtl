@@ -1,0 +1,154 @@
+﻿{
+    "_techIdx":  0,
+    "_states":  [
+                    {
+                        "blendState":  {
+                                           "targets":  [
+                                                           {
+
+                                                           }
+                                                       ]
+                                       },
+                        "depthStencilState":  {
+
+                                              },
+                        "rasterizerState":  {
+
+                                            }
+                    },
+                    {
+                        "blendState":  {
+                                           "targets":  [
+                                                           {
+
+                                                           }
+                                                       ]
+                                       },
+                        "depthStencilState":  {
+
+                                              },
+                        "rasterizerState":  {
+
+                                            }
+                    },
+                    {
+                        "blendState":  {
+                                           "targets":  [
+                                                           {
+
+                                                           }
+                                                       ]
+                                       },
+                        "depthStencilState":  {
+
+                                              },
+                        "rasterizerState":  {
+
+                                            }
+                    },
+                    {
+                        "blendState":  {
+                                           "targets":  [
+                                                           {
+
+                                                           }
+                                                       ]
+                                       },
+                        "depthStencilState":  {
+
+                                              },
+                        "rasterizerState":  {
+
+                                            }
+                    },
+                    {
+                        "blendState":  {
+                                           "targets":  [
+                                                           {
+
+                                                           }
+                                                       ]
+                                       },
+                        "depthStencilState":  {
+
+                                              },
+                        "rasterizerState":  {
+
+                                            }
+                    },
+                    {
+                        "blendState":  {
+                                           "targets":  [
+                                                           {
+
+                                                           }
+                                                       ]
+                                       },
+                        "depthStencilState":  {
+
+                                              },
+                        "rasterizerState":  {
+
+                                            }
+                    }
+                ],
+    "_effectAsset":  {
+                         "__expectedType__":  "cc.EffectAsset",
+                         "__uuid__":  "c8f66d17-351a-48da-a12c-0212d28575c4"
+                     },
+    "_name":  "",
+    "_objFlags":  0,
+    "__type__":  "cc.Material",
+    "_defines":  [
+                     {
+                         "USE_NORMAL_MAP":  true,
+                         "USE_ALBEDO_MAP":  true
+                     },
+                     {
+
+                     },
+                     {
+
+                     },
+                     {
+
+                     },
+                     {
+
+                     },
+                     {
+
+                     }
+                 ],
+    "__editorExtras__":  {
+
+                         },
+    "_native":  "",
+    "_props":  [
+                   {
+                       "normalMap":  {
+                                         "__expectedType__":  "cc.Texture2D",
+                                         "__uuid__":  "88b5742f-4fe2-4bd1-88b0-22fd7af28003@6c48a"
+                                     },
+                       "mainTexture":  {
+                                           "__expectedType__":  "cc.Texture2D",
+                                           "__uuid__":  "11788d0e-3988-414d-9295-2a359bbc3240@6c48a"
+                                       }
+                   },
+                   {
+
+                   },
+                   {
+
+                   },
+                   {
+
+                   },
+                   {
+
+                   },
+                   {
+
+                   }
+               ]
+}

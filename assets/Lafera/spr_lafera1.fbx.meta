@@ -1,0 +1,1361 @@
+{
+  "ver": "2.3.14",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23",
+  "files": [],
+  "subMetas": {
+    "11506": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@11506",
+      "displayName": "",
+      "id": "11506",
+      "name": "BumperR_Stock_lod0.002.mesh",
+      "userData": {
+        "gltfIndex": 24,
+        "lodLevel": 0,
+        "triangleCount": 7044
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "20825": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@20825",
+      "displayName": "",
+      "id": "20825",
+      "name": "Door1_lod0.003.mesh",
+      "userData": {
+        "gltfIndex": 42,
+        "triangleCount": 184
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "21897": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@21897",
+      "displayName": "",
+      "id": "21897",
+      "name": "BumperF_Stock_lod0.002.mesh",
+      "userData": {
+        "gltfIndex": 23,
+        "lodLevel": 0,
+        "triangleCount": 4050
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "49959": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@49959",
+      "displayName": "",
+      "id": "49959",
+      "name": "TaillightM_lod0.001.mesh",
+      "userData": {
+        "gltfIndex": 1,
+        "lodLevel": 0,
+        "triangleCount": 48
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "55740": {
+      "importer": "gltf-material",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@55740",
+      "displayName": "",
+      "id": "55740",
+      "name": "glass-7.material",
+      "userData": {
+        "gltfIndex": 7
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "67764": {
+      "importer": "gltf-material",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@67764",
+      "displayName": "",
+      "id": "67764",
+      "name": "body_paint-4.material",
+      "userData": {
+        "gltfIndex": 4
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "79043": {
+      "importer": "gltf-material",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@79043",
+      "displayName": "",
+      "id": "79043",
+      "name": "spr_lafera_lights-0.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "83470": {
+      "importer": "gltf-material",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@83470",
+      "displayName": "",
+      "id": "83470",
+      "name": "wheel_alloy-9.material",
+      "userData": {
+        "gltfIndex": 9
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "83724": {
+      "importer": "gltf-material",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@83724",
+      "displayName": "",
+      "id": "83724",
+      "name": "wheel_detail-8.material",
+      "userData": {
+        "gltfIndex": 8
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "84735": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@84735",
+      "displayName": "",
+      "id": "84735",
+      "name": "Spoiler_Lizard_lod0.002.mesh",
+      "userData": {
+        "gltfIndex": 36,
+        "lodLevel": 0,
+        "triangleCount": 1568
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "89309": {
+      "importer": "texture",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@89309",
+      "displayName": "",
+      "id": "89309",
+      "name": "alpha_texture-5.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": false,
+        "imageUuidOrDatabaseUri": "db://assets/Lafera/spr_lafera_badges.webp"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "90896": {
+      "importer": "texture",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@90896",
+      "displayName": "",
+      "id": "90896",
+      "name": "base_color_texture-4.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": false,
+        "imageUuidOrDatabaseUri": "db://assets/Lafera/spr_lafera_badges.webp"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "7c27d": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@7c27d",
+      "displayName": "",
+      "id": "7c27d",
+      "name": "TaillightR_lod0.001.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "lodLevel": 0,
+        "triangleCount": 140
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "07ad9": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@07ad9",
+      "displayName": "",
+      "id": "07ad9",
+      "name": "TaillightL_lod0.001.mesh",
+      "userData": {
+        "gltfIndex": 2,
+        "lodLevel": 0,
+        "triangleCount": 140
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "0a59e": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@0a59e",
+      "displayName": "",
+      "id": "0a59e",
+      "name": "Steer_lod0.001.mesh",
+      "userData": {
+        "gltfIndex": 3,
+        "lodLevel": 0,
+        "triangleCount": 450
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "e7287": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@e7287",
+      "displayName": "",
+      "id": "e7287",
+      "name": "ReverseR_lod0.001.mesh",
+      "userData": {
+        "gltfIndex": 4,
+        "lodLevel": 0,
+        "triangleCount": 60
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "b5309": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@b5309",
+      "displayName": "",
+      "id": "b5309",
+      "name": "ReverseL_lod0.001.mesh",
+      "userData": {
+        "gltfIndex": 5,
+        "lodLevel": 0,
+        "triangleCount": 60
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "e2322": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@e2322",
+      "displayName": "",
+      "id": "e2322",
+      "name": "Interior_lod0.002.mesh",
+      "userData": {
+        "gltfIndex": 6,
+        "lodLevel": 0,
+        "triangleCount": 7244
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "d2bf4": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@d2bf4",
+      "displayName": "",
+      "id": "d2bf4",
+      "name": "Hood_lod0.002.mesh",
+      "userData": {
+        "gltfIndex": 7,
+        "lodLevel": 0,
+        "triangleCount": 1056
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "1253f": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@1253f",
+      "displayName": "",
+      "id": "1253f",
+      "name": "HeadlightR_lod0.001.mesh",
+      "userData": {
+        "gltfIndex": 8,
+        "lodLevel": 0,
+        "triangleCount": 140
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "6b71f": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@6b71f",
+      "displayName": "",
+      "id": "6b71f",
+      "name": "HeadlightL_lod0.001.mesh",
+      "userData": {
+        "gltfIndex": 9,
+        "lodLevel": 0,
+        "triangleCount": 140
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "1b6f3": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@1b6f3",
+      "displayName": "",
+      "id": "1b6f3",
+      "name": "FoglightR_lod0.002.mesh",
+      "userData": {
+        "gltfIndex": 10,
+        "lodLevel": 0,
+        "triangleCount": 140
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "8f1ea": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@8f1ea",
+      "displayName": "",
+      "id": "8f1ea",
+      "name": "FoglightL_lod0.002.mesh",
+      "userData": {
+        "gltfIndex": 11,
+        "lodLevel": 0,
+        "triangleCount": 140
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "d379f": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@d379f",
+      "displayName": "",
+      "id": "d379f",
+      "name": "Door2_lod0.001.mesh",
+      "userData": {
+        "gltfIndex": 12,
+        "lodLevel": 0,
+        "triangleCount": 1916
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "4a0bf": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@4a0bf",
+      "displayName": "",
+      "id": "4a0bf",
+      "name": "Door1_lod0.001.mesh",
+      "userData": {
+        "gltfIndex": 13,
+        "lodLevel": 0,
+        "triangleCount": 1916
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "9e5be": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@9e5be",
+      "displayName": "",
+      "id": "9e5be",
+      "name": "Body_lod0.001.mesh",
+      "userData": {
+        "gltfIndex": 14,
+        "lodLevel": 0,
+        "triangleCount": 18322
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "ec3f2": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@ec3f2",
+      "displayName": "",
+      "id": "ec3f2",
+      "name": "BlinkerRR_lod0.001.mesh",
+      "userData": {
+        "gltfIndex": 15,
+        "lodLevel": 0,
+        "triangleCount": 480
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "3c8e8": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@3c8e8",
+      "displayName": "",
+      "id": "3c8e8",
+      "name": "BlinkerRL_lod0.001.mesh",
+      "userData": {
+        "gltfIndex": 16,
+        "lodLevel": 0,
+        "triangleCount": 480
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "2f9a8": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@2f9a8",
+      "displayName": "",
+      "id": "2f9a8",
+      "name": "BlinkerFR_lod0.001.mesh",
+      "userData": {
+        "gltfIndex": 17,
+        "lodLevel": 0,
+        "triangleCount": 60
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "0469f": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@0469f",
+      "displayName": "",
+      "id": "0469f",
+      "name": "BlinkerFL_lod0.001.mesh",
+      "userData": {
+        "gltfIndex": 18,
+        "lodLevel": 0,
+        "triangleCount": 60
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "e8d96": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@e8d96",
+      "displayName": "",
+      "id": "e8d96",
+      "name": "Whl HD FL.005.mesh",
+      "userData": {
+        "gltfIndex": 19,
+        "lodLevel": 0,
+        "triangleCount": 3548
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "4410c": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@4410c",
+      "displayName": "",
+      "id": "4410c",
+      "name": "Whl HD FL.006.mesh",
+      "userData": {
+        "gltfIndex": 20,
+        "triangleCount": 7096
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "db961": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@db961",
+      "displayName": "",
+      "id": "db961",
+      "name": "Whl HD FL.007.mesh",
+      "userData": {
+        "gltfIndex": 21,
+        "triangleCount": 3548
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "8276b": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@8276b",
+      "displayName": "",
+      "id": "8276b",
+      "name": "body.005.mesh",
+      "userData": {
+        "gltfIndex": 22,
+        "triangleCount": 24
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "b38c4": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@b38c4",
+      "displayName": "",
+      "id": "b38c4",
+      "name": "Skirts_Stock_lod0.001.mesh",
+      "userData": {
+        "gltfIndex": 25,
+        "lodLevel": 0,
+        "triangleCount": 1388
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "e5c11": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@e5c11",
+      "displayName": "",
+      "id": "e5c11",
+      "name": "Trunk_Stock_lod0.001.mesh",
+      "userData": {
+        "gltfIndex": 26,
+        "lodLevel": 0,
+        "triangleCount": 1828
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "6f78d": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@6f78d",
+      "displayName": "",
+      "id": "6f78d",
+      "name": "BumperF_Blaze_lod0.001.mesh",
+      "userData": {
+        "gltfIndex": 27,
+        "lodLevel": 0,
+        "triangleCount": 4388
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "2ae95": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@2ae95",
+      "displayName": "",
+      "id": "2ae95",
+      "name": "BumperR_Blaze_lod0.002.mesh",
+      "userData": {
+        "gltfIndex": 28,
+        "lodLevel": 0,
+        "triangleCount": 4732
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "02a2b": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@02a2b",
+      "displayName": "",
+      "id": "02a2b",
+      "name": "Skirts_Blaze_lod0.002.mesh",
+      "userData": {
+        "gltfIndex": 29,
+        "lodLevel": 0,
+        "triangleCount": 1468
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f13f9": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@f13f9",
+      "displayName": "",
+      "id": "f13f9",
+      "name": "Spoiler_Blaze_lod0.002.mesh",
+      "userData": {
+        "gltfIndex": 30,
+        "lodLevel": 0,
+        "triangleCount": 1656
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "ce239": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@ce239",
+      "displayName": "",
+      "id": "ce239",
+      "name": "Trunk_Blaze_lod0.002.mesh",
+      "userData": {
+        "gltfIndex": 31,
+        "lodLevel": 0,
+        "triangleCount": 2124
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "cd1f0": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@cd1f0",
+      "displayName": "",
+      "id": "cd1f0",
+      "name": "body.006.mesh",
+      "userData": {
+        "gltfIndex": 32,
+        "triangleCount": 12
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "8546f": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@8546f",
+      "displayName": "",
+      "id": "8546f",
+      "name": "BumperF_Lizard_lod0.002.mesh",
+      "userData": {
+        "gltfIndex": 33,
+        "lodLevel": 0,
+        "triangleCount": 4184
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "1a035": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@1a035",
+      "displayName": "",
+      "id": "1a035",
+      "name": "BumperR_Lizard_lod0.001.mesh",
+      "userData": {
+        "gltfIndex": 34,
+        "lodLevel": 0,
+        "triangleCount": 3956
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "545b5": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@545b5",
+      "displayName": "",
+      "id": "545b5",
+      "name": "Skirts_Lizard_lod0.001.mesh",
+      "userData": {
+        "gltfIndex": 35,
+        "lodLevel": 0,
+        "triangleCount": 1720
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "30e3e": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@30e3e",
+      "displayName": "",
+      "id": "30e3e",
+      "name": "Trunk_Lizard_lod0.002.mesh",
+      "userData": {
+        "gltfIndex": 37,
+        "lodLevel": 0,
+        "triangleCount": 2168
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "9d65e": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@9d65e",
+      "displayName": "",
+      "id": "9d65e",
+      "name": "body.007.mesh",
+      "userData": {
+        "gltfIndex": 38,
+        "triangleCount": 24
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "d6e72": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@d6e72",
+      "displayName": "",
+      "id": "d6e72",
+      "name": "Whl HD FL.008.mesh",
+      "userData": {
+        "gltfIndex": 39,
+        "triangleCount": 3080
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "7fabf": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@7fabf",
+      "displayName": "",
+      "id": "7fabf",
+      "name": "Whl HD FL.009.mesh",
+      "userData": {
+        "gltfIndex": 40,
+        "triangleCount": 6160
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "7863b": {
+      "importer": "gltf-mesh",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@7863b",
+      "displayName": "",
+      "id": "7863b",
+      "name": "Whl HD FL.011.mesh",
+      "userData": {
+        "gltfIndex": 41,
+        "triangleCount": 3080
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "0a1ef": {
+      "importer": "texture",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@0a1ef",
+      "displayName": "",
+      "id": "0a1ef",
+      "name": "base_color_texture-0.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": false,
+        "imageUuidOrDatabaseUri": "db://assets/Lafera/spr_lafera_lights.webp"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "3fb77": {
+      "importer": "texture",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@3fb77",
+      "displayName": "",
+      "id": "3fb77",
+      "name": "alpha_texture-1.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": false,
+        "imageUuidOrDatabaseUri": "db://assets/Lafera/spr_lafera_lights.webp"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "b8518": {
+      "importer": "texture",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@b8518",
+      "displayName": "",
+      "id": "b8518",
+      "name": "base_color_texture-2.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": false,
+        "imageUuidOrDatabaseUri": "db://assets/Lafera/spr_kenny_detail_diffuse.webp"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "89a4e": {
+      "importer": "texture",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@89a4e",
+      "displayName": "",
+      "id": "89a4e",
+      "name": "normalmap_texture-3.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": false,
+        "imageUuidOrDatabaseUri": "db://assets/Lafera/super_detail_n.webp"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "c47df": {
+      "importer": "texture",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@c47df",
+      "displayName": "",
+      "id": "c47df",
+      "name": "base_color_texture-6.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": false,
+        "imageUuidOrDatabaseUri": "db://assets/Lafera/wheel_detail_diffuse.webp"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "413eb": {
+      "importer": "texture",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@413eb",
+      "displayName": "",
+      "id": "413eb",
+      "name": "base_color_texture-7.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": false,
+        "imageUuidOrDatabaseUri": "db://assets/Lafera/carNumber.webp"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f5069": {
+      "importer": "texture",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@f5069",
+      "displayName": "",
+      "id": "f5069",
+      "name": "specular_texture-8.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": false,
+        "imageUuidOrDatabaseUri": "db://assets/Lafera/brake_detail_spec.webp"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "009a8": {
+      "importer": "gltf-material",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@009a8",
+      "displayName": "",
+      "id": "009a8",
+      "name": "spr_lafera_detail-1.material",
+      "userData": {
+        "gltfIndex": 1
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "e8cfd": {
+      "importer": "gltf-material",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@e8cfd",
+      "displayName": "",
+      "id": "e8cfd",
+      "name": "spr_lafera_badge-2.material",
+      "userData": {
+        "gltfIndex": 2
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "7ef11": {
+      "importer": "gltf-material",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@7ef11",
+      "displayName": "",
+      "id": "7ef11",
+      "name": "spr_lafera_detail-3.material",
+      "userData": {
+        "gltfIndex": 3
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "e4950": {
+      "importer": "gltf-material",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@e4950",
+      "displayName": "",
+      "id": "e4950",
+      "name": "chrome-5.material",
+      "userData": {
+        "gltfIndex": 5
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "ce0ae": {
+      "importer": "gltf-material",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@ce0ae",
+      "displayName": "",
+      "id": "ce0ae",
+      "name": "spr_lafera_badge-6.material",
+      "userData": {
+        "gltfIndex": 6
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "989c5": {
+      "importer": "gltf-material",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@989c5",
+      "displayName": "",
+      "id": "989c5",
+      "name": "numplate.001-10.material",
+      "userData": {
+        "gltfIndex": 10
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "0d9c9": {
+      "importer": "gltf-material",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@0d9c9",
+      "displayName": "",
+      "id": "0d9c9",
+      "name": "brakedisk-11.material",
+      "userData": {
+        "gltfIndex": 11
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "9f609": {
+      "importer": "gltf-scene",
+      "uuid": "1f916185-ef52-4343-a113-c377ae9c8e23@9f609",
+      "displayName": "",
+      "id": "9f609",
+      "name": "spr_lafera1.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [
+      {
+        "name": "base_color_texture",
+        "uri": "db://assets/Lafera/spr_lafera_lights.webp"
+      },
+      {
+        "name": "alpha_texture",
+        "uri": "db://assets/Lafera/spr_lafera_lights.webp"
+      },
+      {
+        "name": "base_color_texture",
+        "uri": "db://assets/Lafera/spr_kenny_detail_diffuse.webp"
+      },
+      {
+        "name": "normalmap_texture",
+        "uri": "db://assets/Lafera/super_detail_n.webp"
+      },
+      {
+        "name": "base_color_texture",
+        "uri": "db://assets/Lafera/spr_lafera_badges.webp"
+      },
+      {
+        "name": "alpha_texture",
+        "uri": "db://assets/Lafera/spr_lafera_badges.webp"
+      },
+      {
+        "name": "base_color_texture",
+        "uri": "db://assets/Lafera/wheel_detail_diffuse.webp"
+      },
+      {
+        "name": "base_color_texture",
+        "uri": "db://assets/Lafera/carNumber.webp"
+      },
+      {
+        "name": "specular_texture",
+        "uri": "db://assets/Lafera/brake_detail_spec.webp"
+      }
+    ],
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "lods": {
+      "enable": true,
+      "hasBuiltinLOD": true,
+      "options": [
+        {
+          "screenRatio": 0.01,
+          "faceCount": 1
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "1f916185-ef52-4343-a113-c377ae9c8e23@7c27d",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@49959",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@07ad9",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@0a59e",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@e7287",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@b5309",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@e2322",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@d2bf4",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@1253f",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@6b71f",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@1b6f3",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@8f1ea",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@d379f",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@4a0bf",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@9e5be",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@ec3f2",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@3c8e8",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@2f9a8",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@0469f",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@e8d96",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@4410c",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@db961",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@8276b",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@21897",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@11506",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@b38c4",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@e5c11",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@6f78d",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@2ae95",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@02a2b",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@f13f9",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@ce239",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@cd1f0",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@8546f",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@1a035",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@545b5",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@84735",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@30e3e",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@9d65e",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@d6e72",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@7fabf",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@7863b",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@20825"
+      ],
+      "skeletons": [],
+      "textures": [
+        "1f916185-ef52-4343-a113-c377ae9c8e23@0a1ef",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@3fb77",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@b8518",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@89a4e",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@90896",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@89309",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@c47df",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@413eb",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@f5069"
+      ],
+      "materials": [
+        "1f916185-ef52-4343-a113-c377ae9c8e23@79043",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@009a8",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@e8cfd",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@7ef11",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@67764",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@e4950",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@ce0ae",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@55740",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@83724",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@83470",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@989c5",
+        "1f916185-ef52-4343-a113-c377ae9c8e23@0d9c9"
+      ],
+      "scenes": [
+        "1f916185-ef52-4343-a113-c377ae9c8e23@9f609"
+      ]
+    }
+  }
+}
