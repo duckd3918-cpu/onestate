@@ -2,18 +2,18 @@
   "ver": "1.0.27",
   "importer": "image",
   "imported": true,
-  "uuid": "94ddb494-d60a-4b00-a93f-f2d41161ac6c",
+  "uuid": "fa3b4c73-5fe7-4bfa-8ba7-80f3913cbde0",
   "files": [
-    ".jpg",
-    ".json"
+    ".json",
+    ".png"
   ],
   "subMetas": {
-    "3c318": {
+    "6c48a": {
       "importer": "texture",
-      "uuid": "94ddb494-d60a-4b00-a93f-f2d41161ac6c@3c318",
-      "displayName": "T_Asphalt_1_N",
-      "id": "3c318",
-      "name": "normalMap",
+      "uuid": "fa3b4c73-5fe7-4bfa-8ba7-80f3913cbde0@6c48a",
+      "displayName": "Car_Shadow",
+      "id": "6c48a",
+      "name": "texture",
       "userData": {
         "wrapModeS": "repeat",
         "wrapModeT": "repeat",
@@ -22,7 +22,8 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "94ddb494-d60a-4b00-a93f-f2d41161ac6c"
+        "imageUuidOrDatabaseUri": "fa3b4c73-5fe7-4bfa-8ba7-80f3913cbde0",
+        "visible": false
       },
       "ver": "1.0.22",
       "imported": true,
@@ -33,9 +34,9 @@
     }
   },
   "userData": {
-    "type": "normal map",
+    "type": "texture",
     "fixAlphaTransparencyArtifacts": false,
     "hasAlpha": true,
-    "redirect": "94ddb494-d60a-4b00-a93f-f2d41161ac6c@6c48a"
+    "redirect": "fa3b4c73-5fe7-4bfa-8ba7-80f3913cbde0@6c48a"
   }
 }

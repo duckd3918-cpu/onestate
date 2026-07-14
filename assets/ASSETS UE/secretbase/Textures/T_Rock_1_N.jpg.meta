@@ -8,22 +8,21 @@
     ".json"
   ],
   "subMetas": {
-    "6c48a": {
+    "3c318": {
       "importer": "texture",
-      "uuid": "3c74044a-1feb-4d4c-b606-94ac66544d6d@6c48a",
+      "uuid": "3c74044a-1feb-4d4c-b606-94ac66544d6d@3c318",
       "displayName": "T_Rock_1_N",
-      "id": "6c48a",
-      "name": "texture",
+      "id": "3c318",
+      "name": "normalMap",
       "userData": {
         "wrapModeS": "repeat",
         "wrapModeT": "repeat",
         "minfilter": "linear",
         "magfilter": "linear",
-        "mipfilter": "linear",
+        "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "3c74044a-1feb-4d4c-b606-94ac66544d6d",
-        "visible": false
+        "imageUuidOrDatabaseUri": "3c74044a-1feb-4d4c-b606-94ac66544d6d"
       },
       "ver": "1.0.22",
       "imported": true,
@@ -34,7 +33,7 @@
     }
   },
   "userData": {
-    "type": "texture",
+    "type": "normal map",
     "fixAlphaTransparencyArtifacts": false,
     "hasAlpha": false,
     "redirect": "3c74044a-1feb-4d4c-b606-94ac66544d6d@6c48a"

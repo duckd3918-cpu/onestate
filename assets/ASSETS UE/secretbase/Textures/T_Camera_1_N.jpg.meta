@@ -8,12 +8,12 @@
     ".json"
   ],
   "subMetas": {
-    "6c48a": {
+    "3c318": {
       "importer": "texture",
-      "uuid": "e234910d-c3ef-419b-9001-539346f847a3@6c48a",
+      "uuid": "e234910d-c3ef-419b-9001-539346f847a3@3c318",
       "displayName": "T_Camera_1_N",
-      "id": "6c48a",
-      "name": "texture",
+      "id": "3c318",
+      "name": "normalMap",
       "userData": {
         "wrapModeS": "repeat",
         "wrapModeT": "repeat",
@@ -22,8 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "e234910d-c3ef-419b-9001-539346f847a3",
-        "visible": false
+        "imageUuidOrDatabaseUri": "e234910d-c3ef-419b-9001-539346f847a3"
       },
       "ver": "1.0.22",
       "imported": true,
@@ -34,7 +33,7 @@
     }
   },
   "userData": {
-    "type": "texture",
+    "type": "normal map",
     "fixAlphaTransparencyArtifacts": false,
     "hasAlpha": true,
     "redirect": "e234910d-c3ef-419b-9001-539346f847a3@6c48a"

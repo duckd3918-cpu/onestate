@@ -8,22 +8,21 @@
     ".json"
   ],
   "subMetas": {
-    "6c48a": {
+    "3c318": {
       "importer": "texture",
-      "uuid": "3c4bb5ce-e42b-44fc-b0b6-14d1b573c204@6c48a",
+      "uuid": "3c4bb5ce-e42b-44fc-b0b6-14d1b573c204@3c318",
       "displayName": "T_Brick_1_N",
-      "id": "6c48a",
-      "name": "texture",
+      "id": "3c318",
+      "name": "normalMap",
       "userData": {
-        "wrapModeS": "repeat",
-        "wrapModeT": "repeat",
+        "wrapModeS": "clamp-to-edge",
+        "wrapModeT": "clamp-to-edge",
         "minfilter": "linear",
         "magfilter": "linear",
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "3c4bb5ce-e42b-44fc-b0b6-14d1b573c204",
-        "visible": false
+        "imageUuidOrDatabaseUri": "3c4bb5ce-e42b-44fc-b0b6-14d1b573c204"
       },
       "ver": "1.0.22",
       "imported": true,
@@ -34,9 +33,14 @@
     }
   },
   "userData": {
-    "type": "texture",
+    "type": "normal map",
     "fixAlphaTransparencyArtifacts": false,
     "hasAlpha": true,
-    "redirect": "3c4bb5ce-e42b-44fc-b0b6-14d1b573c204@6c48a"
+    "redirect": "3c4bb5ce-e42b-44fc-b0b6-14d1b573c204@6c48a",
+    "flipVertical": false,
+    "flipGreenChannel": true,
+    "compressSettings": {
+      "useCompressTexture": false
+    }
   }
 }

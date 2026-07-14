@@ -8,12 +8,12 @@
     ".json"
   ],
   "subMetas": {
-    "6c48a": {
+    "3c318": {
       "importer": "texture",
-      "uuid": "c7828918-f38b-4beb-a971-ff55ef44a16d@6c48a",
+      "uuid": "c7828918-f38b-4beb-a971-ff55ef44a16d@3c318",
       "displayName": "T_Concrete_5_N",
-      "id": "6c48a",
-      "name": "texture",
+      "id": "3c318",
+      "name": "normalMap",
       "userData": {
         "wrapModeS": "repeat",
         "wrapModeT": "repeat",
@@ -22,8 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "c7828918-f38b-4beb-a971-ff55ef44a16d",
-        "visible": false
+        "imageUuidOrDatabaseUri": "c7828918-f38b-4beb-a971-ff55ef44a16d"
       },
       "ver": "1.0.22",
       "imported": true,
@@ -34,7 +33,7 @@
     }
   },
   "userData": {
-    "type": "texture",
+    "type": "normal map",
     "fixAlphaTransparencyArtifacts": false,
     "hasAlpha": true,
     "redirect": "c7828918-f38b-4beb-a971-ff55ef44a16d@6c48a"

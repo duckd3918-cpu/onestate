@@ -8,12 +8,12 @@
     ".webp"
   ],
   "subMetas": {
-    "6c48a": {
+    "3c318": {
       "importer": "texture",
-      "uuid": "b215cae4-287c-4e56-9c6f-1f345285f359@6c48a",
+      "uuid": "b215cae4-287c-4e56-9c6f-1f345285f359@3c318",
       "displayName": "T_Normal_Barrier_3",
-      "id": "6c48a",
-      "name": "texture",
+      "id": "3c318",
+      "name": "normalMap",
       "userData": {
         "wrapModeS": "repeat",
         "wrapModeT": "repeat",
@@ -22,8 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "b215cae4-287c-4e56-9c6f-1f345285f359",
-        "visible": false
+        "imageUuidOrDatabaseUri": "b215cae4-287c-4e56-9c6f-1f345285f359"
       },
       "ver": "1.0.22",
       "imported": true,
@@ -34,7 +33,7 @@
     }
   },
   "userData": {
-    "type": "texture",
+    "type": "normal map",
     "fixAlphaTransparencyArtifacts": false,
     "hasAlpha": false,
     "redirect": "b215cae4-287c-4e56-9c6f-1f345285f359@6c48a"

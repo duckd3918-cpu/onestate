@@ -183,6 +183,91 @@
       "scenes": [
         "352ac125-8c96-4225-a868-3cee340e58dc@32cb3"
       ]
+    },
+    "materials": {
+      "352ac125-8c96-4225-a868-3cee340e58dc@12107": {
+        "__type__": "cc.Material",
+        "_name": "",
+        "_objFlags": 0,
+        "__editorExtras__": {},
+        "_native": "",
+        "_effectAsset": {
+          "__uuid__": "f648964e-8d32-41fc-9ac9-7a1e714dd17b",
+          "__expectedType__": "cc.EffectAsset"
+        },
+        "_techIdx": 1,
+        "_defines": [
+          {
+            "DCC_APP_NAME": 2,
+            "HAS_EXPORTED_METALLIC": true
+          },
+          {},
+          {},
+          {}
+        ],
+        "_states": [
+          {
+            "rasterizerState": {},
+            "depthStencilState": {},
+            "blendState": {
+              "targets": [
+                {}
+              ]
+            }
+          },
+          {
+            "rasterizerState": {},
+            "depthStencilState": {},
+            "blendState": {
+              "targets": [
+                {}
+              ]
+            }
+          },
+          {
+            "rasterizerState": {},
+            "depthStencilState": {},
+            "blendState": {
+              "targets": [
+                {}
+              ]
+            }
+          },
+          {
+            "rasterizerState": {},
+            "depthStencilState": {},
+            "blendState": {
+              "targets": [
+                {}
+              ]
+            }
+          }
+        ],
+        "_props": [
+          {
+            "mainColor": {
+              "__type__": "cc.Color",
+              "r": 255,
+              "g": 255,
+              "b": 255,
+              "a": 98
+            },
+            "emissive": {
+              "__type__": "cc.Color",
+              "r": 85,
+              "g": 82,
+              "b": 79,
+              "a": 255
+            },
+            "specularFactor": 0.20000000298023224,
+            "transparencyFactor": 0.5,
+            "metallic": 1
+          },
+          {},
+          {},
+          {}
+        ]
+      }
     }
   }
 }

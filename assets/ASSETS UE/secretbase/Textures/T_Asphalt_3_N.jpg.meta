@@ -8,12 +8,12 @@
     ".json"
   ],
   "subMetas": {
-    "6c48a": {
+    "3c318": {
       "importer": "texture",
-      "uuid": "88b5742f-4fe2-4bd1-88b0-22fd7af28003@6c48a",
+      "uuid": "88b5742f-4fe2-4bd1-88b0-22fd7af28003@3c318",
       "displayName": "T_Asphalt_3_N",
-      "id": "6c48a",
-      "name": "texture",
+      "id": "3c318",
+      "name": "normalMap",
       "userData": {
         "wrapModeS": "repeat",
         "wrapModeT": "repeat",
@@ -22,8 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "88b5742f-4fe2-4bd1-88b0-22fd7af28003",
-        "visible": false
+        "imageUuidOrDatabaseUri": "88b5742f-4fe2-4bd1-88b0-22fd7af28003"
       },
       "ver": "1.0.22",
       "imported": true,
@@ -34,7 +33,7 @@
     }
   },
   "userData": {
-    "type": "texture",
+    "type": "normal map",
     "fixAlphaTransparencyArtifacts": false,
     "hasAlpha": true,
     "redirect": "88b5742f-4fe2-4bd1-88b0-22fd7af28003@6c48a"
