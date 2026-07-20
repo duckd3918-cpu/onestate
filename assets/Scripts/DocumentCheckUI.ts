@@ -18,27 +18,16 @@ interface DocField {
 /**
  * DocumentCheckUI  — Phase 2
  *
- * Иерархия DocumentCard (пример для 5 полей):
+ * Иерархия DocumentCard (сейчас 3 поля):
  *   DocumentCard
- *     ├── Плашка          (Sprite: плашкафинал.webp) ← cardPlaque
- *     ├── Field_Name
- *     │     └── CheckBtn  (Sprite: checkbutton.webp)
- *     ├── Field_DOB  └── CheckBtn
- *     ├── Field_Issue └── CheckBtn
- *     ├── Field_Reg  └── CheckBtn
- *     ├── Field_Expire  ← ПОСЛЕДНЕЕ = ERROR
+ *     ├── Main (плашка)
+ *     ├── Field_Insurance / Field_PlateMatch / Field_Database
  *     │     └── CheckBtn
  *     ├── FingerHint
- *     ├── ScanBarFill  (Sprite: progressbarillusion.webp)
- *     └── WantedStamp  (Sprite: wanted.webp, scale=0)
+ *     ├── ScanBar → FAKEPROGRESSBAR
+ *     └── WantedStamp
  *
- * Логика кнопок:
- *   checkbutton → tap → pop-out → inProgress (loop ↔ inProgress2) → pop-out → check|error
- *
- * Progress bar illusion:
- *   ScanBarFill anchor = (0, 0.5). scale.x: 0 → (N/total) после каждого check.
- *
- * Последнее поле = ERROR → WANTED stamp + сирена + красные вспышки.
+ * Последнее поле = ERROR → WANTED stamp + сирена.
  */
 @ccclass('DocumentCheckUI')
 export class DocumentCheckUI extends Component {
@@ -150,13 +139,12 @@ export class DocumentCheckUI extends Component {
         if (!this._audioSrc) this._audioSrc = this.node.addComponent(AudioSource);
 
         for (const f of this.fields) {
+            if (!f?.isValid) continue;
             const btn = f.getChildByName('CheckBtn') ?? f.getChildByName('check');
             this._fields.push({ node: f, checkBtn: btn, state: FieldState.Idle });
             if (btn) {
                 btn.setScale(1, 1, 1);
                 this._setOp(btn, 255);
-                // НЕ квадратим здесь — checkbutton.webp может быть прямоугольным.
-                // Квадратизацию применяем только после смены на check.webp / error.webp.
             }
         }
         this._totalFields = this._fields.length;
@@ -657,19 +645,52 @@ export class DocumentCheckUI extends Component {
     private _showSubtitle(text: string, duration: number): void {
         if (!this.subtitle) return;
         const lbl = this.subtitle;
-        // Поверх DocumentCard
-        const parent = lbl.node.parent;
-        if (parent) lbl.node.setSiblingIndex(parent.children.length - 1);
+        lbl.isBold = true;
+        lbl.enableOutline = true;
+        lbl.outlineWidth = Math.max(lbl.outlineWidth || 0, 2);
+        lbl.enableShadow = true;
+        lbl.enableWrapText = true;
+        lbl.overflow = Label.Overflow.RESIZE_HEIGHT;
+        lbl.horizontalAlign = Label.HorizontalAlign.CENTER;
+
+        const bubble = lbl.node.parent;
+        const bubbleUt = bubble?.getComponent(UITransform);
+        if (bubbleUt) {
+            const sx = Math.max(0.01, Math.abs(lbl.node.scale.x) || 1);
+            const maxW = Math.max(120, (bubbleUt.contentSize.width - 140) / sx);
+            const uit = lbl.node.getComponent(UITransform);
+            if (uit) uit.setContentSize(maxW, Math.max(uit.contentSize.height, lbl.fontSize * 2.5));
+            lbl.node.setPosition(0, 8, 0);
+        }
+
         lbl.string = text;
         lbl.node.active = true;
+        if (bubble) {
+            bubble.active = true;
+            if (bubble.parent) bubble.setSiblingIndex(bubble.parent.children.length - 1);
+        }
+
         this._setOp(lbl.node, 0);
-        let op = lbl.node.getComponent(UIOpacity);
-        if (!op) op = lbl.node.addComponent(UIOpacity);
-        tween(op)
-            .to(0.3, { opacity: 255 })
+        if (bubble) this._setOp(bubble, 0);
+
+        const lblOp = lbl.node.getComponent(UIOpacity) ?? lbl.node.addComponent(UIOpacity);
+        Tween.stopAllByTarget(lblOp);
+        if (bubble) {
+            const bOp = bubble.getComponent(UIOpacity) ?? bubble.addComponent(UIOpacity);
+            Tween.stopAllByTarget(bOp);
+            tween(bOp)
+                .to(0.45, { opacity: 255 }, { easing: 'sineOut' })
+                .delay(duration)
+                .to(0.4, { opacity: 0 }, { easing: 'sineIn' })
+                .call(() => { if (bubble.isValid) bubble.active = false; })
+                .start();
+        }
+
+        tween(lblOp)
+            .to(0.45, { opacity: 255 }, { easing: 'sineOut' })
             .delay(duration)
-            .to(0.4, { opacity: 0 })
-            .call(() => { lbl.node.active = false; })
+            .to(0.4, { opacity: 0 }, { easing: 'sineIn' })
+            .call(() => { if (lbl.node.isValid) lbl.node.active = false; })
             .start();
     }
 

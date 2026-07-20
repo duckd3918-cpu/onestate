@@ -3,16 +3,7 @@ import { _decorator, Component, Node, tween, Tween, Vec3, UIOpacity, Label, inpu
 const { ccclass, property } = _decorator;
 
 /**
- * TapToPlayController
- * Показывает экран "Tap to Play" перед стартом геймплея.
- * При первом касании: анимировано скрывает экран и вызывает onStartGame().
- *
- * Привязки в Inspector (всё внутри Canvas):
- *   tapToPlayPanel — корневая нода экрана (содержит фон + текст "Tap to Play")
- *   tapLabel       — Label с текстом (пульсирует)
- *   handNode       — нода руки (анимируется тапающим жестом под текстом)
- *
- * Пока панель видна — игра НЕ стартует.
+ * TapToPlay — после прогрева: "Tap to Play". До ready тапы игнорируются.
  */
 @ccclass('TapToPlayController')
 export class TapToPlayController extends Component {
@@ -29,10 +20,11 @@ export class TapToPlayController extends Component {
     @property({ tooltip: 'Секунд на fade-out панели после тапа' })
     hideTime: number = 0.4;
 
-    /** Вызывается когда игрок тапнул и экран скрыт — запускает геймплей. */
     public onStartGame: (() => void) | null = null;
 
     private _waiting: boolean = true;
+    private _ready: boolean = false;
+    private _handBasePos = new Vec3();
 
     onLoad(): void {
         if (this.tapToPlayPanel) {
@@ -40,13 +32,18 @@ export class TapToPlayController extends Component {
             this.tapToPlayPanel.on(Node.EventType.TOUCH_START, this._onPanelTap, this);
             this.tapToPlayPanel.on(Node.EventType.MOUSE_DOWN, this._onPanelTap, this);
         }
-        // На десктопе TOUCH_START на UI иногда не приходит — ловим глобальный клик.
         input.on(Input.EventType.TOUCH_START, this._onGlobalTap, this);
         input.on(Input.EventType.MOUSE_DOWN, this._onGlobalTap, this);
-        // Если handNode не назначен в Inspector — пробуем найти дочернюю ноду "hand"
-        if (!this.handNode && this.tapToPlayPanel) {
-            this.handNode = this.tapToPlayPanel.getChildByName('hand');
-        }
+        this._resolveHand();
+    }
+
+    /** false = идёт Loading/warmup, тапы не принимаем. */
+    public setReady(ready: boolean): void {
+        this._ready = ready;
+    }
+
+    public get isReady(): boolean {
+        return this._ready;
     }
 
     onDestroy(): void {
@@ -59,10 +56,18 @@ export class TapToPlayController extends Component {
     }
 
     start(): void {
-        // Пульсирование лейбла "Tap to Play"
+        this._resolveHand();
         this._pulsateLabel();
-        // Анимация руки — тапающий жест
         this._animateHand();
+    }
+
+    private _resolveHand(): void {
+        if (this.handNode?.isValid) return;
+        const root = this.tapToPlayPanel ?? this.node;
+        this.handNode = root.getChildByName('FingerHint-001')
+            ?? root.getChildByName('FingerHint')
+            ?? root.getChildByName('hand')
+            ?? root.getChildByName('Hand');
     }
 
     private _onPanelTap(event: EventTouch | EventMouse): void {
@@ -77,7 +82,7 @@ export class TapToPlayController extends Component {
     }
 
     private _onTap(): void {
-        if (!this._waiting) return;
+        if (!this._ready || !this._waiting) return;
         this._waiting = false;
 
         if (this.tapToPlayPanel) {
@@ -86,14 +91,9 @@ export class TapToPlayController extends Component {
         }
         input.off(Input.EventType.TOUCH_START, this._onGlobalTap, this);
         input.off(Input.EventType.MOUSE_DOWN, this._onGlobalTap, this);
-        if (this.tapLabel) {
-            tween(this.tapLabel.node).stop();
-        }
-        if (this.handNode) {
-            Tween.stopAllByTarget(this.handNode);
-        }
+        if (this.tapLabel) Tween.stopAllByTarget(this.tapLabel.node);
+        if (this.handNode) Tween.stopAllByTarget(this.handNode);
 
-        // Fade out панели
         this._fadeOut(this.tapToPlayPanel, this.hideTime, () => {
             if (this.tapToPlayPanel) this.tapToPlayPanel.active = false;
             if (this.onStartGame) this.onStartGame();
@@ -114,18 +114,28 @@ export class TapToPlayController extends Component {
             .start();
     }
 
-    /**
-     * Анимация руки — пульсирующий scale 1→1.2→1, синхронизирован с пульсом лейбла.
-     */
     private _animateHand(): void {
         if (!this.handNode) return;
         const h = this.handNode;
-        h.setScale(1, 1, 1);
+        this._handBasePos.set(h.position);
+        const basePos = this._handBasePos.clone();
+        const baseScale = h.scale.clone();
+
+        // Бесшовный loop: вверх ↔ вниз, sine, без пауз
+        const up = new Vec3(basePos.x, basePos.y + 12, basePos.z);
+        const down = new Vec3(basePos.x, basePos.y - 10, basePos.z);
+        const scaleUp = new Vec3(baseScale.x * 1.06, baseScale.y * 1.06, baseScale.z);
+        const scaleDown = new Vec3(baseScale.x * 0.96, baseScale.y * 0.96, baseScale.z);
+
+        h.setPosition(down);
+        h.setScale(scaleDown);
+        Tween.stopAllByTarget(h);
+
         tween(h)
             .repeatForever(
                 tween(h)
-                    .to(0.7, { scale: new Vec3(1.2, 1.2, 1) }, { easing: 'sineOut' })
-                    .to(0.7, { scale: new Vec3(1.0, 1.0, 1) }, { easing: 'sineIn' })
+                    .to(0.55, { position: up, scale: scaleUp }, { easing: 'sineInOut' })
+                    .to(0.55, { position: down, scale: scaleDown }, { easing: 'sineInOut' }),
             )
             .start();
     }

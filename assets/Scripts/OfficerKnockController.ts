@@ -6,7 +6,7 @@ import {
 const { ccclass, property } = _decorator;
 
 /** UUID клипа Punching.fbx → mixamo.com */
-const PUNCH_CLIP_UUID = 'd0acb6bc-a395-47b5-b531-66f84b271c54@18d6f';
+export const PUNCH_CLIP_UUID = 'd0acb6bc-a395-47b5-b531-66f84b271c54@18d6f';
 
 type RestBone = {
     node: Node;
@@ -44,6 +44,7 @@ export class OfficerKnockController extends Component {
     private _clipName: string = 'mixamo.com';
     private _clipReady: boolean = false;
     private _pendingKnock: boolean = false;
+    private _freezeAtImpact: boolean = false;
     private _restPose: RestBone[] = [];
     private _restCaptured: boolean = false;
 
@@ -102,8 +103,44 @@ export class OfficerKnockController extends Component {
             this._onClipReady(this.punchClip);
             if (this._pendingKnock) {
                 this._pendingKnock = false;
-                this.singleKnock();
+                this.singleKnock(this._freezeAtImpact);
             }
+        });
+    }
+
+    /** Уже готов клип + стейт (для preload до Tap to Play). */
+    public get isReady(): boolean {
+        return this._clipReady && !!this.punchClip;
+    }
+
+    /**
+     * Принудительно догрузить Punching и зарегистрировать стейт.
+     * Можно звать с экрана Tap to Play — до первого удара.
+     */
+    public preload(): Promise<void> {
+        return new Promise((resolve) => {
+            if (!this.skeletalAnim) {
+                this.skeletalAnim = this.getComponent(SkeletalAnimation)
+                    ?? this.node.getComponent(SkeletalAnimation);
+            }
+            if (this.isReady) {
+                resolve();
+                return;
+            }
+            if (this.punchClip) {
+                this._onClipReady(this.punchClip);
+                resolve();
+                return;
+            }
+            assetManager.loadAny({ uuid: PUNCH_CLIP_UUID }, (err, asset: Asset) => {
+                if (!err && asset) {
+                    this.punchClip = asset as AnimationClip;
+                    this._onClipReady(this.punchClip);
+                } else {
+                    console.error('[OfficerKnock] preload failed', err);
+                }
+                resolve();
+            });
         });
     }
 
@@ -113,16 +150,15 @@ export class OfficerKnockController extends Component {
             return;
         }
 
-        // Имя стейта
-        this._clipName = (this.punchClipName || clip.name || 'mixamo.com').trim();
-        // Клип из FBX часто называется "mixamo.com"
-        if (this._clipName.endsWith('.animation')) {
-            this._clipName = this._clipName.replace(/\.animation$/, '');
+        // Всегда уникальное имя — Reaching Out тоже mixamo.com и иначе затирает удар
+        this._clipName = (this.punchClipName || 'punching').trim();
+        if (this._clipName === 'mixamo.com' || this._clipName.endsWith('.animation')) {
+            this._clipName = 'punching';
         }
 
+        try { (clip as any).name = this._clipName; } catch (_) { /* */ }
         clip.wrapMode = AnimationClip.WrapMode.Normal;
 
-        // Зарегистрировать клип
         const clips = this.skeletalAnim.clips ? [...this.skeletalAnim.clips] : [];
         if (!clips.includes(clip)) {
             clips.push(clip);
@@ -130,24 +166,32 @@ export class OfficerKnockController extends Component {
         }
         this.skeletalAnim.defaultClip = clip;
 
-        // Явно создать стейт под нашим именем
+        try {
+            if (this.skeletalAnim.getState(this._clipName)) {
+                this.skeletalAnim.removeState(this._clipName);
+            }
+        } catch (_) { /* */ }
+
         try {
             this.skeletalAnim.createState(clip, this._clipName);
-        } catch (_) {
-            /* already exists */
-        }
+        } catch (_) { /* already exists */ }
 
         this._clipReady = true;
         console.log('[OfficerKnock] punch ready:', this._clipName, 'dur=', clip.duration);
     }
 
-    public singleKnock(): void {
+    /**
+     * @param freezeAtImpact если true — на кадре удара анимация паузится
+     *   (нужно для последнего удара до fade to black).
+     */
+    public singleKnock(freezeAtImpact: boolean = false): void {
         if (!this.skeletalAnim) {
             this.skeletalAnim = this.getComponent(SkeletalAnimation);
         }
         if (!this._clipReady || !this.punchClip || !this.skeletalAnim) {
             // Клип ещё грузится — повторим удар после загрузки
             this._pendingKnock = true;
+            this._freezeAtImpact = freezeAtImpact;
             if (!this.punchClip) this._loadClipIfNeeded();
             console.warn('[OfficerKnock] clip not ready yet, will retry');
             return;
@@ -162,6 +206,7 @@ export class OfficerKnockController extends Component {
 
         this._running = true;
         this._struckThisSwing = false;
+        this._freezeAtImpact = freezeAtImpact;
 
         const anim = this.skeletalAnim;
         const clip = this.punchClip;
@@ -169,8 +214,10 @@ export class OfficerKnockController extends Component {
 
         anim.stop();
 
+        // На случай если Reaching Out затёр стейт — пересоздаём Punching
         let state = anim.getState(name);
-        if (!state) {
+        if (!state || (state.clip && state.clip !== clip)) {
+            try { if (state) anim.removeState(name); } catch (_) { /* */ }
             state = anim.createState(clip, name);
         }
         if (state) {
@@ -179,20 +226,16 @@ export class OfficerKnockController extends Component {
             state.time = 0;
         }
 
+        anim.defaultClip = clip;
         anim.play(name);
-
-        // Fallback: если стейт с кастомным именем не играет — play() без имени (defaultClip)
-        const playing = anim.getState(name);
-        if (!playing || (!playing.isPlaying && playing.time === 0)) {
-            anim.defaultClip = clip;
-            anim.play();
-        }
 
         const duration = (clip.duration || 0.8) / Math.max(0.01, this.playbackSpeed);
         const impactAt = duration * Math.min(1, Math.max(0.05, this.impactNormalizedTime));
 
         this.scheduleOnce(this._fireImpact, impactAt);
-        this.scheduleOnce(this._fireComplete, duration + 0.02);
+        if (!freezeAtImpact) {
+            this.scheduleOnce(this._fireComplete, duration + 0.02);
+        }
     }
 
     public startKnocking(): void {
@@ -217,6 +260,22 @@ export class OfficerKnockController extends Component {
         if (this._struckThisSwing) return;
         this._struckThisSwing = true;
         if (this.onKnock) this.onKnock(0);
+
+        // Последний удар: заморозить позу на кадре попадания до resetPose()
+        if (this._freezeAtImpact && this.skeletalAnim) {
+            this.unschedule(this._fireComplete);
+            const state = this.skeletalAnim.getState(this._clipName)
+                ?? (this.skeletalAnim.defaultClip
+                    ? this.skeletalAnim.getState(this.skeletalAnim.defaultClip.name)
+                    : null);
+            if (state) {
+                state.speed = 0;
+            } else {
+                this.skeletalAnim.pause();
+            }
+            this._running = false;
+            this._freezeAtImpact = false;
+        }
     };
 
     private _fireComplete = (): void => {

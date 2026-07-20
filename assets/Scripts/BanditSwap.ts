@@ -36,11 +36,92 @@ export class BanditSwap {
         arrested.active = true;
 
         BanditSwap._walkSubtree(arrested, (n) => {
+            // Низкие LOD не включаем — иначе лицо «ломается» (Head_lod2)
+            if (BanditSwap._isLowLodMesh(n.name)) {
+                n.active = false;
+                for (const r of n.getComponents(SkinnedMeshRenderer)) r.enabled = false;
+                for (const r of n.getComponents(MeshRenderer)) r.enabled = false;
+                return;
+            }
             n.active = true;
             for (const r of n.getComponents(SkinnedMeshRenderer)) r.enabled = true;
             for (const r of n.getComponents(MeshRenderer)) r.enabled = true;
-            for (const r of n.getComponents(LODGroup)) r.enabled = true;
+            // LODGroup сам переключает на lod2 вблизи камеры ареста — выкл.
+            for (const g of n.getComponents(LODGroup)) g.enabled = false;
         });
+
+        BanditSwap._forceHighLodOnly(arrested);
+        // Повторно после show — на случай если LODGroup успел мигнуть
+        BanditSwap.lockLod0(arrested);
+    }
+
+    /** Оставить только *_lod0 на персонаже; lod1/lod2 и LODGroup выкл. С любой дистанции. */
+    public static lockLod0(root: Node | null): void {
+        if (!root?.isValid) return;
+        BanditSwap._forceHighLodOnly(root);
+    }
+
+    /** Bandit + Bandit-arrested + оба скина полиции — всегда hi-res. */
+    public static lockLod0AllCharacters(): void {
+        const names = [
+            'Bandit',
+            'Bandit-arrested',
+            'ManPolice_skin1',
+            'ManPolice_skin2',
+            'ManPolice-skin1',
+            'ManPolice-skin2',
+        ];
+        const scene = director.getScene() as unknown as Node | null;
+        if (!scene?.isValid) return;
+        for (const name of names) {
+            BanditSwap._lockLod0ByName(scene, name);
+        }
+        // На всякий случай все LODGroup в сцене на персонажах уже гасятся в _forceHighLodOnly
+    }
+
+    private static _lockLod0ByName(root: Node, name: string): void {
+        if (root.name === name) {
+            BanditSwap._forceHighLodOnly(root);
+        }
+        for (const c of root.children) {
+            BanditSwap._lockLod0ByName(c, name);
+        }
+    }
+
+    /** Оставить только *_lod0 (тело + голова), lod1/lod2 выключить. */
+    private static _forceHighLodOnly(root: Node): void {
+        BanditSwap._walkSubtree(root, (n) => {
+            const name = n.name || '';
+            const lower = name.toLowerCase();
+            if (lower.includes('shadowpars') || lower.includes('shadow_pars')) {
+                n.active = false;
+                for (const r of n.getComponents(SkinnedMeshRenderer)) r.enabled = false;
+                for (const r of n.getComponents(MeshRenderer)) r.enabled = false;
+                return;
+            }
+            // LODGroup всегда выкл — на mobile он особенно агрессивно кидает на lod2
+            for (const g of n.getComponents(LODGroup)) {
+                g.enabled = false;
+            }
+
+            if (/_lod[12]$/i.test(name) || /_lod[12]\./i.test(name) || /_lod[12]_/i.test(name)) {
+                n.active = false;
+                for (const r of n.getComponents(SkinnedMeshRenderer)) r.enabled = false;
+                for (const r of n.getComponents(MeshRenderer)) r.enabled = false;
+                return;
+            }
+            if (/_lod0$/i.test(name) || /_lod0\./i.test(name) || /_lod0_/i.test(name)) {
+                // Не форсим active=true если предок выключен (скрытый arrested)
+                n.active = true;
+                for (const r of n.getComponents(SkinnedMeshRenderer)) r.enabled = true;
+                for (const r of n.getComponents(MeshRenderer)) r.enabled = true;
+            }
+        });
+    }
+
+    private static _isLowLodMesh(name: string): boolean {
+        const n = (name || '').toLowerCase();
+        return n.includes('_lod1') || n.includes('_lod2');
     }
 
     static performSwap(

@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Camera, screen, view, Size, Vec3, Quat, tween } from 'cc';
+import { _decorator, Component, Node, Camera, screen, view, Size, Vec3, Quat } from 'cc';
 
 const { ccclass, property } = _decorator;
 
@@ -28,10 +28,18 @@ export class CameraRig extends Component {
     @property(Vec3)
     landscapeRot: Vec3 = new Vec3(-12, 0, 0);
 
-    @property({ tooltip: 'Smooth transition seconds on rotate' })
+    @property({ tooltip: 'Smooth transition seconds on rotate (только если adjustPoseOnOrient)' })
     transitionTime: number = 0.4;
 
+    /**
+     * false (по умолчанию) — на повороте экрана меняется только FOV.
+     * Иначе cinematic-поза (Intro / Arrest) слетает на landscapePos.
+     */
+    @property({ tooltip: 'Двигать позицию/поворот камеры при смене ориентации (обычно выкл.)' })
+    adjustPoseOnOrient: boolean = false;
+
     private isPortrait: boolean = true;
+    private _poseLocked: boolean = false;
 
     onLoad(): void {
         if (!this.camera && this.cameraNode) this.camera = this.cameraNode.getComponent(Camera);
@@ -44,11 +52,9 @@ export class CameraRig extends Component {
             this.portraitRot = euler;
         }
 
-        // Используем правильный Cocos 3.x API для resize events
         try {
             screen.on('window-resize', this.onScreenResize, this);
         } catch (_) {
-            // fallback для старых версий
             (screen as any).onResize = this.onScreenResize.bind(this);
         }
     }
@@ -57,30 +63,32 @@ export class CameraRig extends Component {
         this.applyOrientation(true);
     }
 
+    /** Запретить смену позиции/поворота (FOV по ориентации остаётся). */
+    public lockPose(): void {
+        this._poseLocked = true;
+    }
+
+    public unlockPose(): void {
+        this._poseLocked = false;
+    }
+
     public applyOrientation(animated: boolean = true): void {
         const size: Size = view.getVisibleSize();
         const portrait = size.height >= size.width;
         this.isPortrait = portrait;
         const fov = portrait ? this.portraitFov : this.landscapeFov;
-        const pos = portrait ? this.portraitPos : this.landscapePos;
-        const rot = portrait ? this.portraitRot : this.landscapeRot;
 
         if (this.camera) this.camera.fov = fov;
-        if (this.cameraNode) {
-            const targetQuat = new Quat();
-            Quat.fromEuler(targetQuat, rot.x, rot.y, rot.z);
-            if (animated) {
-                tween(this.cameraNode)
-                    .to(this.transitionTime, {
-                        position: new Vec3(pos.x, pos.y, pos.z),
-                        rotation: targetQuat,
-                    }, { easing: 'sineInOut' })
-                    .start();
-            } else {
-                this.cameraNode.setPosition(pos.x, pos.y, pos.z);
-                this.cameraNode.setRotationFromEuler(rot.x, rot.y, rot.z);
-            }
-        }
+
+        // Позу не трогаем: иначе landscape «прыгает» камеру во время playable
+        if (this._poseLocked || !this.adjustPoseOnOrient || !this.cameraNode) return;
+
+        const pos = portrait ? this.portraitPos : this.landscapePos;
+        const rot = portrait ? this.portraitRot : this.landscapeRot;
+        // animated оставлен для совместимости API; tween убран — резкий jump тоже нежелателен
+        void animated;
+        this.cameraNode.setPosition(pos.x, pos.y, pos.z);
+        this.cameraNode.setRotationFromEuler(rot.x, rot.y, rot.z);
     }
 
     onDestroy(): void {

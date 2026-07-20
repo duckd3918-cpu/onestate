@@ -1,3 +1,11 @@
 {
-  "__version__": "1.0.12"
+  "__version__": "1.0.12",
+  "modules": {
+    "graphics": {
+      "custom-pipeline-post-process": true
+    }
+  },
+  "macroConfig": {
+    "CUSTOM_PIPELINE_NAME": "builtin-forward"
+  }
 }

@@ -1,7 +1,7 @@
 import {
     _decorator, Component, Node, tween, Tween, Vec3,
-    UIOpacity, Label, UITransform, Graphics, Color, Layers,
-    Sprite, SpriteFrame, Texture2D, view,
+    UIOpacity, Label, UITransform, Color, Layers,
+    Sprite, SpriteFrame, Texture2D, view, ProgressBar,
 } from 'cc';
 
 const { ccclass, property } = _decorator;
@@ -10,17 +10,19 @@ const { ccclass, property } = _decorator;
  * HitCarUIController
  *
  * hitcarui
- *   ├── bg-001 / bg     — тёмный оверлей (прячется на первом тапе)
- *   ├── fist / hand     — кулак (прячется на первом тапе)
- *   ├── taplabel-001    — текст
- *   └── ProgressBar     — твоя нода: сюда вешаем HP (размер = UITransform ноды)
- *         └── Fill      — красная заливка, якорь слева, scale.x = hp
+ *   ├── hpbar
+ *   │     ├── hp       — cc.ProgressBar
+ *   │     └── hplabel  — "100/100"
+ *   ├── bg-001 / fist / taplabel-001
  */
 @ccclass('HitCarUIController')
 export class HitCarUIController extends Component {
 
-    @property({ type: Label, tooltip: 'Лейбл HIT THE CAR' })
+    @property({ type: Label, tooltip: 'Лейбл HIT THE CAR (подсказка)' })
     label: Label | null = null;
+
+    @property({ type: Label, tooltip: 'Числовой HP (100/100 → 0/100)' })
+    hpLabel: Label | null = null;
 
     @property({ type: Node, tooltip: 'Кулак (fist / hand)' })
     handNode: Node | null = null;
@@ -28,10 +30,10 @@ export class HitCarUIController extends Component {
     @property({ type: Node, tooltip: 'Тёмный фон (bg / bg-001)' })
     bgNode: Node | null = null;
 
-    @property({ type: Node, tooltip: 'Твоя нода ProgressBar — размер бара берётся с неё' })
+    @property({ type: Node, tooltip: 'hpbar — корень полоски HP' })
     progressRoot: Node | null = null;
 
-    @property({ type: Node, tooltip: 'Fill внутри ProgressBar (создаётся сам если пусто)' })
+    @property({ type: Node, tooltip: 'hp — нода с ProgressBar' })
     progressFill: Node | null = null;
 
     @property({ tooltip: 'Fade-in панели' })
@@ -50,9 +52,9 @@ export class HitCarUIController extends Component {
     hitVignetteOutTime: number = 0.16;
 
     private _shown: boolean = false;
-    private _fillGfx: Graphics | null = null;
-    private _barW: number = 400;
-    private _barH: number = 36;
+    private _hpVisible: boolean = false;
+    private _progressBar: ProgressBar | null = null;
+    private _hpProxy: { t: number } = { t: 1 };
     private _barBasePos: Vec3 = new Vec3();
     private _shakeOff: Vec3 = new Vec3();
     private _shakeProxy: { x: number; y: number } = { x: 0, y: 0 };
@@ -62,8 +64,6 @@ export class HitCarUIController extends Component {
 
     onLoad(): void {
         this._resolveRefs();
-        this._ensureHpBar();
-        // На старте панели быть не должно
         this.node.active = false;
     }
 
@@ -83,23 +83,46 @@ export class HitCarUIController extends Component {
                 ?? this.node.getChildByName('taplabel');
             if (lblNode) this.label = lblNode.getComponent(Label);
         }
-        if (!this.progressRoot) {
-            this.progressRoot = this.node.getChildByName('ProgressBarHp')
-                ?? this.node.getChildByName('ProgressBar')
-                ?? this.node.getChildByName('Progress')
-                ?? this.node.getChildByName('HpBar');
+
+        // Всегда предпочитаем пользовательский hpbar (не ProgressBarHp)
+        const hpbar = this.node.getChildByName('hpbar');
+        if (hpbar) {
+            this.progressRoot = hpbar;
+            this.progressFill = hpbar.getChildByName('hp')
+                ?? hpbar.getChildByName('Fill')
+                ?? this.progressFill;
+            const hpLbl = hpbar.getChildByName('hplabel')
+                ?? hpbar.getChildByName('HpLabel');
+            if (hpLbl) this.hpLabel = hpLbl.getComponent(Label);
+        } else {
+            if (!this.progressRoot) {
+                this.progressRoot = this.node.getChildByName('ProgressBarHp')
+                    ?? this.node.getChildByName('ProgressBar')
+                    ?? this.node.getChildByName('HpBar');
+            }
+            if (!this.progressFill && this.progressRoot) {
+                this.progressFill = this.progressRoot.getChildByName('hp')
+                    ?? this.progressRoot.getChildByName('Fill');
+            }
+            if (!this.hpLabel && this.progressRoot) {
+                const hpLbl = this.progressRoot.getChildByName('hplabel')
+                    ?? this.node.getChildByName('hplabel');
+                if (hpLbl) this.hpLabel = hpLbl.getComponent(Label);
+            }
         }
+
+        this._progressBar = this.progressFill?.getComponent(ProgressBar)
+            ?? this.progressRoot?.getComponentInChildren(ProgressBar)
+            ?? null;
     }
 
     public show(): void {
         this._resolveRefs();
-        this._ensureHpBar();
 
         this.node.active = true;
         this._shown = true;
         this._setOpacity(this.node, 255);
 
-        // Подсказка видна
         if (this.bgNode) {
             this.bgNode.active = true;
             this._setOpacity(this.bgNode, 180);
@@ -114,21 +137,46 @@ export class HitCarUIController extends Component {
             this.label.node.active = true;
             this._setOpacity(this.label.node, 255);
         }
+        // HP скрыт до первого тапа — иначе красная полоска сливается с HIT THE CAR
+        this._hpVisible = false;
         if (this.progressRoot) {
-            this.progressRoot.active = true;
-            // База = позиция из редактора (под лого), не двигаем к машине
+            this.progressRoot.active = false;
             this._barBasePos.set(this.progressRoot.position);
+        }
+        if (this.hpLabel) this.hpLabel.node.active = false;
+
+        // Старые плейсхолдеры
+        for (const name of ['ProgressBarHp', 'ProgressBar', 'Progress', 'Label']) {
+            const legacy = this.node.getChildByName(name);
+            if (legacy && legacy !== this.progressRoot && legacy !== this.hpLabel?.node) {
+                legacy.active = false;
+            }
         }
 
         this._shakeOff.set(0, 0, 0);
         this._applyBarPos();
-        this.setHp(1);
 
         this._pulsateLabel();
         this._animateHand();
     }
 
-    /** Первый тап — сразу убрать фон, кулак и текст. HP остаётся. */
+    /** Показать HP после первого тапа (когда подсказка уходит). */
+    public showHpBar(): void {
+        if (this._hpVisible) return;
+        this._resolveRefs();
+        this._hpVisible = true;
+
+        if (this.progressRoot) {
+            this.progressRoot.active = true;
+            this._barBasePos.set(this.progressRoot.position);
+        }
+        if (this.hpLabel) this.hpLabel.node.active = true;
+
+        this._shakeOff.set(0, 0, 0);
+        this._applyBarPos();
+        this.setHp(1);
+    }
+
     public hideHint(): void {
         if (this.bgNode) {
             Tween.stopAllByTarget(this.bgNode);
@@ -150,7 +198,9 @@ export class HitCarUIController extends Component {
 
     public hide(): void {
         this.hideHint();
+        this._hpVisible = false;
         if (this.progressRoot) this.progressRoot.active = false;
+        if (this.hpLabel) this.hpLabel.node.active = false;
         this._stopHitVignette();
 
         if (!this._shown) {
@@ -159,31 +209,58 @@ export class HitCarUIController extends Component {
         }
         this._shown = false;
 
-        if (this.progressFill) Tween.stopAllByTarget(this.progressFill);
+        Tween.stopAllByTarget(this._hpProxy);
         Tween.stopAllByTarget(this._shakeProxy);
-
         this.node.active = false;
     }
 
     public setProgress(hits: number, total: number): void {
+        if (!this._hpVisible) this.showHpBar();
         const hp = total <= 0 ? 1 : Math.min(1, Math.max(0, 1 - hits / total));
         this.setHp(hp);
     }
 
-    /** hp 1 = полное, уменьшается слева направо (якорь слева). */
+    /** hp 1 = полное. Лейбл: 100/100 → 75/100 → … → 0/100 */
     public setHp(hp: number): void {
-        this._ensureHpBar();
-        if (!this.progressFill) return;
+        this._resolveRefs();
         const t = Math.min(1, Math.max(0, hp));
-        Tween.stopAllByTarget(this.progressFill);
-        tween(this.progressFill)
-            .to(0.2, { scale: new Vec3(Math.max(0.001, t), 1, 1) }, { easing: 'sineOut' })
+
+        Tween.stopAllByTarget(this._hpProxy);
+        const from = this._progressBar?.isValid ? this._progressBar.progress : this._hpProxy.t;
+        this._hpProxy.t = from;
+        this._applyHpVisual(from);
+
+        tween(this._hpProxy)
+            .to(0.22, { t }, {
+                easing: 'sineOut',
+                onUpdate: () => this._applyHpVisual(this._hpProxy.t),
+            })
+            .call(() => this._applyHpVisual(t))
             .start();
+
+        if (this.hpLabel) {
+            const value = Math.round(t * 100);
+            this.hpLabel.string = `${value}/100`;
+        }
+    }
+
+    private _applyHpVisual(t: number): void {
+        const v = Math.min(1, Math.max(0, t));
+        if (this._progressBar?.isValid) {
+            this._progressBar.progress = v;
+            return;
+        }
+        if (this.progressFill?.isValid) {
+            // Не трогаем Y/Z scale — у hp уже scale.x из редактора
+            const y = this.progressFill.scale.y;
+            const z = this.progressFill.scale.z;
+            const baseX = 0.722; // исходный scale.x бара в сцене
+            this.progressFill.setScale(Math.max(0.001, baseX * v), y, z);
+        }
     }
 
     public shakeBar(intensity: number = 22): void {
         if (!this.progressRoot?.isValid) return;
-        // На случай если ноду подвинули в редакторе между ударами
         if (this._shakeProxy.x === 0 && this._shakeProxy.y === 0) {
             this._barBasePos.set(
                 this.progressRoot.position.x - this._shakeOff.x,
@@ -206,10 +283,6 @@ export class HitCarUIController extends Component {
             .start();
     }
 
-    /**
-     * Круговое затемнение при ударе:
-     * темнота с краёв сжимается к центру → сразу обратно.
-     */
     public pulseHitVignette(): void {
         this._ensureHitVignette();
         if (!this._hitVignette?.isValid || !this._hitVignetteOp) return;
@@ -220,12 +293,10 @@ export class HitCarUIController extends Component {
         Tween.stopAllByTarget(op);
 
         n.active = true;
-        // Старт: виньетка «далеко» (тёмные только углы) + прозрачная
         n.setScale(1.65, 1.65, 1);
         op.opacity = 0;
 
         const peak = this.hitVignettePeakOpacity;
-        // К центру: scale ↓ + opacity ↑  →  обратно
         tween(n)
             .to(this.hitVignetteInTime, { scale: new Vec3(1.0, 1.0, 1) }, { easing: 'quadOut' })
             .to(this.hitVignetteOutTime, { scale: new Vec3(1.55, 1.55, 1) }, { easing: 'sineIn' })
@@ -251,7 +322,6 @@ export class HitCarUIController extends Component {
         this._hitVignette.active = false;
     }
 
-    /** Fullscreen radial vignette на Canvas (sibling hitcarui). */
     private _ensureHitVignette(): void {
         if (this._hitVignette?.isValid && this._hitVignetteOp?.isValid) return;
 
@@ -261,12 +331,10 @@ export class HitCarUIController extends Component {
             n = new Node('HitImpactVignette');
             n.layer = Layers.Enum.UI_2D;
             parent.addChild(n);
-            // Поверх hitcarui
             n.setSiblingIndex(parent.children.length - 1);
 
             const ut = n.addComponent(UITransform);
             const vs = view.getVisibleSize();
-            // С запасом — при scale 1.0 всё равно кроет экран
             const side = Math.max(vs.width, vs.height) * 1.35;
             ut.setContentSize(side, side);
             ut.setAnchorPoint(0.5, 0.5);
@@ -288,7 +356,6 @@ export class HitCarUIController extends Component {
         n.active = false;
     }
 
-    /** Чёрная виньетка: центр прозрачный, края непрозрачные. */
     private static _getVignetteSpriteFrame(): SpriteFrame {
         if (HitCarUIController._vignetteSf?.isValid) return HitCarUIController._vignetteSf;
 
@@ -300,7 +367,6 @@ export class HitCarUIController extends Component {
         for (let y = 0; y < size; y++) {
             for (let x = 0; x < size; x++) {
                 const d = Math.hypot(x - cx, y - cy) / maxR;
-                // 0 в центре → 1 у краёв (с мягким порогом)
                 const t = Math.min(1, Math.max(0, (d - 0.15) / 0.85));
                 const a = Math.pow(t, 1.35);
                 const i = (y * size + x) * 4;
@@ -339,90 +405,6 @@ export class HitCarUIController extends Component {
             this._barBasePos.y + this._shakeOff.y,
             0,
         );
-    }
-
-    /**
-     * Использует progressRoot из Inspector.
-     * Ширина/высота Fill = UITransform этой ноды.
-     * Fill якорь слева → scale.x уменьшает бар только с правого края.
-     */
-    private _ensureHpBar(): void {
-        if (!this.progressRoot?.isValid) {
-            // Нет ноды — ничего не создаём (пользователь вешает ProgressBar сам)
-            return;
-        }
-
-        // Убрать старый авто-Progress, если он был создан раньше
-        const legacy = this.node.getChildByName('Progress');
-        if (legacy && legacy !== this.progressRoot) {
-            legacy.destroy();
-        }
-
-        const rootUt = this.progressRoot.getComponent(UITransform)
-            ?? this.progressRoot.addComponent(UITransform);
-        this._barW = Math.max(40, rootUt.contentSize.width || 400);
-        this._barH = Math.max(8, rootUt.contentSize.height || 36);
-
-        let fill = this.progressFill?.isValid
-            ? this.progressFill
-            : this.progressRoot.getChildByName('Fill');
-
-        if (!fill) {
-            fill = new Node('Fill');
-            fill.layer = this.progressRoot.layer || Layers.Enum.UI_2D;
-            this.progressRoot.addChild(fill);
-
-            const fut = fill.addComponent(UITransform);
-            fut.setContentSize(this._barW, this._barH);
-            fut.setAnchorPoint(0, 0.5);
-
-            // Левый край = левый край progressRoot (якорь root обычно 0.5)
-            const rootAnchorX = rootUt.anchorX;
-            const leftLocal = -this._barW * rootAnchorX;
-            fill.setPosition(leftLocal, 0, 0);
-            fill.setScale(1, 1, 1);
-
-            const g = fill.addComponent(Graphics);
-            g.clear();
-            g.fillColor = new Color(230, 40, 40, 255);
-            // Рисуем ВПРАВО от якоря (0,0) — иначе при scale визуально жмёт с двух сторон
-            g.rect(0, -this._barH * 0.5, this._barW, this._barH);
-            g.fill();
-            this._fillGfx = g;
-        } else {
-            const fut = fill.getComponent(UITransform) ?? fill.addComponent(UITransform);
-            fut.setContentSize(this._barW, this._barH);
-            fut.setAnchorPoint(0, 0.5);
-            const rootAnchorX = rootUt.anchorX;
-            fill.setPosition(-this._barW * rootAnchorX, 0, 0);
-
-            let g = fill.getComponent(Graphics);
-            if (!g) g = fill.addComponent(Graphics);
-            g.clear();
-            g.fillColor = new Color(230, 40, 40, 255);
-            g.rect(0, -this._barH * 0.5, this._barW, this._barH);
-            g.fill();
-            this._fillGfx = g;
-        }
-
-        this.progressFill = fill;
-
-        // Тёмный трек на самой progressRoot, если нет Sprite
-        let track = this.progressRoot.getChildByName('Track');
-        if (!track) {
-            track = new Node('Track');
-            track.layer = this.progressRoot.layer || Layers.Enum.UI_2D;
-            this.progressRoot.insertChild(track, 0);
-            const tut = track.addComponent(UITransform);
-            tut.setContentSize(this._barW, this._barH);
-            tut.setAnchorPoint(0.5, 0.5);
-            track.setPosition(0, 0, 0);
-            const tg = track.addComponent(Graphics);
-            tg.clear();
-            tg.fillColor = new Color(25, 10, 10, 220);
-            tg.rect(-this._barW * 0.5, -this._barH * 0.5, this._barW, this._barH);
-            tg.fill();
-        }
     }
 
     private _pulsateLabel(): void {

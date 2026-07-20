@@ -35,6 +35,9 @@ export class HitCarController extends Component {
     @property({ tooltip: 'Количество ударов' })
     tapsRequired: number = 4;
 
+    @property({ tooltip: 'Сек после последнего impact до fade (не от тапа — от удара кулака)' })
+    lastHitHoldAfterImpact: number = 0.55;
+
     @property({ tooltip: 'Интенсивность тряски машины' })
     shakeIntensity: number = 0.09;
 
@@ -68,15 +71,18 @@ export class HitCarController extends Component {
     @property({ tooltip: 'Сила подсветки 0–1' })
     carHighlightStrength: number = 0.65;
 
-    @property({ type: AudioClip, tooltip: 'windowhit.mp3 — звук удара по машине' })
+    @property({ type: AudioClip, tooltip: 'windowhit.mp3 — обычный удар' })
     audioWindowHit: AudioClip | null = null;
+
+    @property({ type: AudioClip, tooltip: 'window-smash.mp3 — последний удар (разбитие)' })
+    audioWindowSmash: AudioClip | null = null;
 
     public onExitComplete: (() => void) | null = null;
     public onFirstHit: (() => void) | null = null;
     public onHit: ((hitIndex: number) => void) | null = null;
     public onProgress: ((current: number, total: number) => void) | null = null;
-    /** После визуального удара (тряска) — для UI HP-бара. */
-    public onImpact: (() => void) | null = null;
+    /** После визуального удара (тряска) — для UI HP-бара. strikeIndex 1-based. */
+    public onImpact: ((strikeIndex: number, isLast: boolean) => void) | null = null;
 
     private _taps: number = 0;
     private _strikes: number = 0;
@@ -143,19 +149,27 @@ export class HitCarController extends Component {
     /** Тряска в момент strike офицера. */
     public playHitImpact(): void {
         this._strikes++;
+        const isLast = this._strikes >= this.tapsRequired;
         const ramp = 0.75 + 0.35 * Math.min(1, this._strikes / Math.max(1, this.tapsRequired));
         this._shakeCar(ramp);
         this._shakeCamera(ramp);
-        this._playWindowHit();
-        if (this.onImpact) this.onImpact();
+        this._playWindowHit(isLast);
+        if (this.onImpact) this.onImpact(this._strikes, isLast);
+
+        // Fade только после реального удара (+ hold), не от момента тапа
+        if (isLast && !this._exiting) {
+            this.unschedule(this._triggerExit);
+            this.scheduleOnce(this._triggerExit, Math.max(0.15, this.lastHitHoldAfterImpact));
+        }
     }
 
-    private _playWindowHit(): void {
-        if (!this.audioWindowHit) return;
+    private _playWindowHit(isLast: boolean = false): void {
+        const clip = isLast && this.audioWindowSmash ? this.audioWindowSmash : this.audioWindowHit;
+        if (!clip) return;
         if (!this._hitAudio) {
             this._hitAudio = this.getComponent(AudioSource) ?? this.addComponent(AudioSource);
         }
-        this._hitAudio.playOneShot(this.audioWindowHit, 1);
+        this._hitAudio.playOneShot(clip, 1);
     }
 
     private _unregisterInput(): void {
@@ -230,14 +244,14 @@ export class HitCarController extends Component {
         this._taps++;
 
         if (this._taps === 1 && this.onFirstHit) this.onFirstHit();
-        if (this.onProgress) this.onProgress(this._taps, this.tapsRequired);
+        // HP / progress — только на onImpact (момент кулака), не на начале замаха
         if (this.onHit) this.onHit(this._taps - 1);
 
         if (this._taps >= this.tapsRequired) {
             this._active = false;
             this._unregisterInput();
-            // Даём Punching дойти до удара (клип ~0.8s, speed 1.15 → impact ~0.3s)
-            this.scheduleOnce(() => this._triggerExit(), 0.45);
+            // Exit стартует из playHitImpact(isLast) — иначе при длинном Punching
+            // fade мог начаться ДО касания кулака.
         }
     }
 
@@ -269,12 +283,12 @@ export class HitCarController extends Component {
             .start();
     }
 
-    private _triggerExit(): void {
+    private _triggerExit = (): void => {
         if (this._exiting) return;
         this._exiting = true;
         this._stopCarHighlight();
         this.onExitComplete && this.onExitComplete();
-    }
+    };
 
     /** Убрать сломанные RimGlow-оверлеи от прошлой версии. */
     private _destroyLeftoverRimGlows(): void {

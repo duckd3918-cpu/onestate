@@ -1,6 +1,6 @@
 import {
-    _decorator, Component, Node, tween, Tween, Vec3, UIOpacity,
-    Label, director, Camera, AudioSource, AudioClip, DirectionalLight,
+    _decorator, Component, Node, tween, Tween, Vec3, UIOpacity, Color,
+    Label, UITransform, Widget, view, director, Camera, AudioSource, AudioClip,
 } from 'cc';
 import { CameraRig } from './CameraRig';
 import { DocumentCheckUI } from './DocumentCheckUI';
@@ -16,8 +16,11 @@ import { ArrestedPoseController } from './ArrestedPoseController';
 import { BanditSwap } from './BanditSwap';
 import { TapToPlayController } from './TapToPlayController';
 import { HitCarUIController } from './HitCarUIController';
+import { SirenFlasher } from './SirenFlasher';
 import { FakeLightGlow } from './FakeLightGlow';
-
+import { RoadTilingFix } from './RoadTilingFix';
+import { DrivePerfFix } from './DrivePerfFix';
+import { PortraitPerf } from './PortraitPerf';
 const { ccclass, property } = _decorator;
 
 export enum GamePhase {
@@ -65,6 +68,9 @@ export class GameFlowController extends Component {
 
     @property({ type: HitCarUIController, tooltip: 'HitCarUIController — панель "Hit the Car" с рукой-подсказкой' })
     hitCarUI: HitCarUIController | null = null;
+
+    @property({ type: SirenFlasher, tooltip: 'Мигание сирен полицейской машины (WANTED)' })
+    sirenFlasher: SirenFlasher | null = null;
 
     @property(MoneyCounter)
     moneyCounter: MoneyCounter | null = null;
@@ -181,17 +187,28 @@ export class GameFlowController extends Component {
     private _goodEveningStartTime: number = 0;
     private _officerDetached = false;
     private _swapDone = false;
+    private _prepDone = false;
+    private _warmupRunning = false;
+    private _loadingNode: Node | null = null;
 
     // ─────────────────────────────────────────────────────────────────────
     onLoad(): void {
         this._phase = GamePhase.TapToPlay;
 
-        // Аудио-источники
+        // Portrait: soft shadingScale + выкл пустой PostProcess + лишние SpotLight
+        PortraitPerf.apply();
+        view.on('canvas-resize', this._onPortraitPerfResize, this);
+
         this._bgMusic = this.node.addComponent(AudioSource);
         this._sfxSrc  = this.node.addComponent(AudioSource);
 
-        // Начальные состояния UI
         if (this.subtitle)        { this.subtitle.node.active = false; }
+        // radiomessage (баббл) скрыт до первого сообщения
+        const bubble = this.subtitle?.node.parent;
+        if (bubble && bubble.name.toLowerCase().includes('radio')) {
+            bubble.active = false;
+            this._setOp(bubble, 0);
+        }
         if (this.wantedStamp)     { this.wantedStamp.setScale(0, 0, 0); }
         if (this.redFlash)        { this._setOp(this.redFlash, 0); }
         if (this.fadeToBlack)     { this._setOp(this.fadeToBlack, 0); }
@@ -199,27 +216,21 @@ export class GameFlowController extends Component {
         if (this.moneyCounter)    { this.moneyCounter.node.active = false; }
         if (this.endCard)         { this.endCard.node.active = false; }
 
-        // Субтитры поверх DocumentCard (sibling order)
+        this._styleSubtitle();
         this._ensureSubtitleOnTop();
 
-        // Камеры: Main Camera активна, arrest Camera выключена
         this._resolveCameras();
         this._setArrestCameraActive(false);
 
-        // DocCheck callback
         if (this.docCheck) {
             this.docCheck.onWanted = this._onWantedTriggered.bind(this);
         }
 
-        // HitCar авто-резолв
         if (this.hitCar) {
-            // onExitComplete и onHit задаются позже в _startHitCar()
             if (!this.carDrive) this.carDrive = this.hitCar.node.getComponent(CarDriveController);
-            // Корень машины — banditcar (HitCar.node), не дочерний mesh spr_lafera1
             this.playerCar = this.hitCar.node;
         }
 
-        // Авто-резолв контроллеров
         if (!this.driverHead && this.playerCar) {
             this.driverHead = this.playerCar.getComponent(DriverHeadController)
                 ?? this._findInChildren(this.playerCar, DriverHeadController);
@@ -228,14 +239,13 @@ export class GameFlowController extends Component {
         if (!this.officer && this.officerArm) this.officer = this.officerArm.node;
         if (!this.officerKnock) this.officerKnock = this._findInScene(OfficerKnockController);
         if (!this.arrestedPose) this.arrestedPose = this._findInScene(ArrestedPoseController);
+        if (!this.sirenFlasher) this.sirenFlasher = this._findInScene(SirenFlasher);
 
-        // Голова: крутим весь JohnHead налево (как было изначально)
         if (this.driverHead) {
             this.driverHead.lookAtAngleY = 45;
             this.driverHead.tiltAngleX = 5;
         }
 
-        // EndCard
         if (this.endCard) {
             this.endCard.onPlayNow = this._redirectToStore.bind(this);
         }
@@ -243,34 +253,202 @@ export class GameFlowController extends Component {
             this.persistentUI.onPlayNow = this._redirectToStore.bind(this);
         }
 
-        // TapToPlay
         if (this.tapToPlay) {
             this.tapToPlay.onStartGame = this._onGameStart.bind(this);
+            this.tapToPlay.setReady(false);
         }
+
+        this._prepForDrive();
     }
+
+    private _onPortraitPerfResize = (): void => {
+        PortraitPerf.apply();
+    };
 
     start(): void {
         if (this.cameraRig) this.cameraRig.applyOrientation(false);
 
-        // PointLight → дешёвый fake-glow (без realtime lighting)
-        FakeLightGlow.replacePointLightsInScene();
-
-        // Фоновая музыка стартует сразу (на экране tap to play)
         if (this._bgMusic && this.audioMidnight) {
             this._bgMusic.clip  = this.audioMidnight;
             this._bgMusic.loop  = true;
             this._bgMusic.volume = 0.6;
             this._bgMusic.play();
         }
+
+        if (!this.officerKnock) this.officerKnock = this._findInScene(OfficerKnockController);
+        if (this.officerKnock) void this.officerKnock.preload();
+        if (this.officerArm) {
+            void this.officerArm.preload().then(() => this.officerArm?.holdStartFrame());
+        }
+
+        // Пока висит Tap to Play — греем машину/шейдеры по кадрам
+        this._startTapWarmup();
+    }
+
+    onDestroy(): void {
+        view.off('canvas-resize', this._onPortraitPerfResize, this);
+    }
+
+    /** Прогрев под чёрным экраном + Loading... */
+    private _startTapWarmup(): void {
+        if (this._warmupRunning) return;
+        this._warmupRunning = true;
+        if (this.tapToPlay) this.tapToPlay.setReady(false);
+        this._setWarmupBlackCover(true);
+        this.schedule(this._onTapWarmupTick, 0);
+    }
+
+    private _onTapWarmupTick(): void {
+        if (this._phase !== GamePhase.TapToPlay) {
+            this._stopTapWarmup();
+            return;
+        }
+        const car = this.carDrive?.node ?? this.hitCar?.node ?? this.playerCar;
+        const cam = this.mainCameraNode
+            ?? this.cameraRig?.cameraNode
+            ?? this._findCameraNode();
+        const cont = DrivePerfFix.warmUpTick(car, cam);
+        this._setWarmupBlackCover(DrivePerfFix.isFrustumCoverActive());
+        if (!cont) {
+            this._stopTapWarmup();
+        }
+    }
+
+    private _stopTapWarmup(): void {
+        if (!this._warmupRunning) return;
+        this._warmupRunning = false;
+        this.unschedule(this._onTapWarmupTick);
+        this._setWarmupBlackCover(false);
+        if (this.tapToPlay && this._phase === GamePhase.TapToPlay) {
+            if (this.officerArm) this.officerArm.holdStartFrame();
+            this.tapToPlay.setReady(true);
+        }
+    }
+
+    /** Чёрный поверх всего (включая Tap to Play) + мигающий Loading... */
+    private _setWarmupBlackCover(on: boolean): void {
+        const fade = this.fadeToBlack;
+        if (!fade?.isValid) return;
+
+        if (on) {
+            fade.active = true;
+            this._setOp(fade, 255);
+            // Поверх всего UI, включая Tap to Play
+            if (fade.parent) {
+                fade.setSiblingIndex(fade.parent.children.length - 1);
+            }
+            this._ensureLoadingLabel(fade);
+            this._syncLoadingToTapLabel();
+            return;
+        }
+
+        this._hideLoadingLabel();
+        if (this._phase === GamePhase.TapToPlay) {
+            this._setOp(fade, 0);
+            fade.active = false;
+        }
+    }
+
+    private _ensureLoadingLabel(fade: Node): void {
+        if (this._loadingNode?.isValid) {
+            this._loadingNode.active = true;
+            this._syncLoadingToTapLabel();
+            if (this._loadingNode.parent) {
+                this._loadingNode.setSiblingIndex(this._loadingNode.parent.children.length - 1);
+            }
+            return;
+        }
+
+        const src = this.tapToPlay?.tapLabel ?? null;
+        const parent = fade.parent ?? fade;
+        const n = new Node('WarmupLoading');
+        n.layer = fade.layer;
+        parent.addChild(n);
+        n.setSiblingIndex(parent.children.length - 1);
+
+        const uit = n.addComponent(UITransform);
+        if (src) {
+            const srcUt = src.node.getComponent(UITransform);
+            if (srcUt) {
+                uit.setContentSize(srcUt.contentSize);
+                uit.setAnchorPoint(srcUt.anchorPoint);
+            } else {
+                uit.setContentSize(320, 50);
+                uit.setAnchorPoint(0.5, 0.5);
+            }
+        } else {
+            uit.setContentSize(320, 50);
+            uit.setAnchorPoint(0.5, 0.5);
+        }
+
+        const lbl = n.addComponent(Label);
+        lbl.string = 'LOADING...';
+        lbl.horizontalAlign = Label.HorizontalAlign.CENTER;
+        lbl.verticalAlign = Label.VerticalAlign.CENTER;
+        lbl.overflow = Label.Overflow.NONE;
+        lbl.color = new Color(255, 255, 255, 255);
+
+        if (src) {
+            lbl.fontSize = src.fontSize;
+            lbl.lineHeight = src.lineHeight;
+            lbl.color = src.color.clone();
+            lbl.isBold = src.isBold;
+            lbl.isItalic = src.isItalic;
+            lbl.enableOutline = src.enableOutline;
+            if (src.font) {
+                lbl.useSystemFont = false;
+                lbl.font = src.font;
+            } else {
+                lbl.useSystemFont = src.useSystemFont;
+                lbl.fontFamily = src.fontFamily;
+            }
+        } else {
+            lbl.fontSize = 40;
+            lbl.lineHeight = 40;
+            lbl.useSystemFont = false;
+        }
+
+        this._loadingNode = n;
+        this._syncLoadingToTapLabel();
+
+        // То же мигание, что у Tap to Play (0.7s, 255 ↔ 80)
+        const op = n.addComponent(UIOpacity);
+        op.opacity = 255;
+        tween(op)
+            .repeatForever(
+                tween(op)
+                    .to(0.7, { opacity: 255 }, { easing: 'sineOut' })
+                    .to(0.7, { opacity: 80 }, { easing: 'sineIn' }),
+            )
+            .start();
+    }
+
+    /** Позиция/скейл 1:1 с лейблом TAP TO PLAY. */
+    private _syncLoadingToTapLabel(): void {
+        const n = this._loadingNode;
+        const src = this.tapToPlay?.tapLabel?.node;
+        if (!n?.isValid || !src?.isValid) return;
+        n.setWorldPosition(src.worldPosition);
+        n.setWorldScale(src.worldScale);
+        n.setWorldRotation(src.worldRotation);
+    }
+
+    private _hideLoadingLabel(): void {
+        if (!this._loadingNode?.isValid) {
+            this._loadingNode = null;
+            return;
+        }
+        Tween.stopAllByTarget(this._loadingNode.getComponent(UIOpacity) ?? this._loadingNode);
+        this._loadingNode.destroy();
+        this._loadingNode = null;
     }
 
     // ═══════════════════════════════════════════════════════════════════════
     // TAP TO PLAY
     // ═══════════════════════════════════════════════════════════════════════
 
-    /** Вызывается TapToPlayController когда игрок тапнул. */
     private _onGameStart(): void {
-        this.scheduleOnce(() => this._runIntro(), 0.1);
+        this.scheduleOnce(() => this._runIntro(), 0);
     }
 
     // ═══════════════════════════════════════════════════════════════════════
@@ -278,15 +456,21 @@ export class GameFlowController extends Component {
     // ═══════════════════════════════════════════════════════════════════════
     private _runIntro(): void {
         this._phase = GamePhase.Intro;
+        this._stopTapWarmup();
 
-        // Тени + лишние light updates дают просадку FPS на езде машины
-        this._disableRealtimeShadows();
+        // Не даём CameraRig сбрасывать позу при landscape
+        if (this.cameraRig) this.cameraRig.lockPose();
 
-        // Полицейский не должен ехать вместе с машиной — отцепляем до startDrive()
-        this._detachOfficerFromCar();
+        const car = this.carDrive?.node ?? this.hitCar?.node ?? this.playerCar;
+        DrivePerfFix.finishWarmup(car);
+        this._setWarmupBlackCover(false);
 
-        // Машина едет (субтитры запускаются только после остановки в _onCarStopped)
+        this._prepForDrive();
+        DrivePerfFix.beginDrive();
+        if (this.officerArm) this.officerArm.holdStartFrame();
+
         if (this.carDrive) {
+            this.carDrive.spinWheels = true;
             this.carDrive.driveDuration = this.driveDuration;
             this.carDrive.onStopped = this._onCarStopped.bind(this);
             this.carDrive.startDrive();
@@ -294,28 +478,22 @@ export class GameFlowController extends Component {
             this.scheduleOnce(() => this._onCarStopped(), this.driveDuration);
         }
 
-        // Офицер поднимает руку (жест стоп)
         this.scheduleOnce(() => {
-            if (this.officerArm) {
-                this.officerArm.playStopGesture();
-            }
+            if (this.officerArm) this.officerArm.playStopGesture();
         }, this.officerGestureDelay);
     }
 
     private _onCarStopped(): void {
-        // Звук торможения
-        this._playSfx(this.audioCarStop);
+        DrivePerfFix.endDrive();
 
-        // Субтитр 1 — сразу после остановки
+        this._playSfx(this.audioCarStop);
         this._showSubtitle('Good evening. Do you know how fast you were going?', 4.0);
 
-        // Good evening audio — чуть после субтитра
         this.scheduleOnce(() => {
             this._playSfx(this.audioGoodEvening);
             this._goodEveningStartTime = Date.now() / 1000;
         }, 0.1);
 
-        // Через headTurnDelay — голова водителя
         this.scheduleOnce(() => {
             if (this.driverHead) {
                 this.driverHead.onTurnComplete = this._onHeadTurned.bind(this);
@@ -361,6 +539,8 @@ export class GameFlowController extends Component {
                 .to(0.45, { position: origPos }, { easing: 'backOut' })
                 .start();
             this._fadeNode(card, 255, 0.35);
+            // Красные SpotLight в portrait включаем вместе с картой
+            PortraitPerf.setDocumentCardVisible(true);
             // Начать логику через 0.45s — когда анимация появления завершится
             this.scheduleOnce(() => {
                 if (this.docCheck) this.docCheck.begin();
@@ -372,63 +552,101 @@ export class GameFlowController extends Component {
     private _onWantedTriggered(): void {
         this._phase = GamePhase.Wanted;
 
-        // Скрыть DocumentCard (документы, штамп, кнопки) с задержкой и плавным fade.
-        // Звук ареста уже на Canvas — active=false карточки его не убивает.
+        if (!this.sirenFlasher) this.sirenFlasher = this._findInScene(SirenFlasher);
+        if (!this.sirenFlasher) {
+            const host = this.node;
+            this.sirenFlasher = host.getComponent(SirenFlasher) ?? host.addComponent(SirenFlasher);
+        }
+        this.sirenFlasher.startFlashing();
+        // Portrait: красные SpotLight с WANTED до конца игры
+        PortraitPerf.setWantedOrArrestActive(true);
+
         if (this.docCheck) {
             this.scheduleOnce(() => {
-                this._fadeNode(this.docCheck!.node, 0, 0.4, () => {
+                this._fadeNode(this.docCheck!.node, 0, 0.35, () => {
                     if (this.docCheck) this.docCheck.node.active = false;
+                    PortraitPerf.setDocumentCardVisible(false);
                 });
-            }, 0.6);
+            }, 0.35);
         }
 
-        // Через небольшую паузу → запускаем мини-игру "бей по машине"
-        this.scheduleOnce(() => this._startHitCar(), this.knockDelay);
+        // Быстрый плавный переход в мини-игру ударов
+        this.scheduleOnce(() => this._transitionToHitCar(), Math.min(0.55, this.knockDelay));
+    }
+
+    /** Fade → смена камеры → fade out → hit UI. */
+    private _transitionToHitCar(): void {
+        const fadeIn = 0.28;
+        const fadeOut = 0.35;
+
+        const startMini = () => {
+            this._startHitCar();
+            if (this.fadeToBlack) {
+                this._fadeNode(this.fadeToBlack, 0, fadeOut, () => {
+                    if (this.fadeToBlack) this.fadeToBlack.active = false;
+                });
+            }
+        };
+
+        if (!this.fadeToBlack) {
+            startMini();
+            return;
+        }
+
+        this.fadeToBlack.active = true;
+        this._bringFadeOnTop();
+        this._setOp(this.fadeToBlack, 0);
+        this._fadeNode(this.fadeToBlack, 255, fadeIn, () => {
+            // Под чёрным — уже камера ареста + begin
+            this._setArrestCameraActive(true);
+            startMini();
+        });
     }
 
     // ═══════════════════════════════════════════════════════════════════════
     // МИНИ-ИГРА — HIT CAR
     // ═══════════════════════════════════════════════════════════════════════
     private _startHitCar(): void {
-        // Красная виньетка WANTED перебивает rim-подсветку машины
         if (this.docCheck) this.docCheck.stopVignette();
         if (this.redFlash) this._setOp(this.redFlash, 0);
 
-        // Переключаемся с Main Camera на 3D Camera для мини-игры
+        // Камера уже могла быть переключена в _transitionToHitCar
         this._setArrestCameraActive(true);
 
         if (this.hitCar) {
-            // Тряска/зум — на активной 3D Camera (не на Main Camera)
             const camNode = this.arrestCameraNode
                 ?? this.cameraRig?.cameraNode
                 ?? this._findCameraNode();
             if (camNode) this.hitCar.cameraNode = camNode;
-            // Не двигаем заранее поставленную Camera — только тряска при ударах
             this.hitCar.zoomCameraOnBegin = !this.arrestCameraNode;
 
-            // Первый тап — спрятать руку/лейбл, HP-бар остаётся
             this.hitCar.onFirstHit = () => {
-                if (this.hitCarUI) this.hitCarUI.hideHint();
-            };
-
-            this.hitCar.onProgress = (cur, total) => {
-                if (this.hitCarUI) this.hitCarUI.setProgress(cur, total);
-            };
-
-            this.hitCar.onImpact = () => {
                 if (this.hitCarUI) {
+                    this.hitCarUI.hideHint();
+                    this.hitCarUI.showHpBar();
+                }
+            };
+
+            // HP только в момент касания кулаком (onImpact), не на замахе
+            this.hitCar.onProgress = null;
+
+            this.hitCar.onImpact = (strikeIndex, _isLast) => {
+                if (this.hitCarUI) {
+                    this.hitCarUI.setProgress(strikeIndex, this.hitCar!.tapsRequired);
                     this.hitCarUI.shakeBar();
                     this.hitCarUI.pulseHitVignette();
                 }
             };
 
-            // Тап → замах офицера; тряска — в момент strike (onKnock)
             if (this.officerKnock) {
                 this.officerKnock.onKnock = () => {
                     if (this.hitCar) this.hitCar.playHitImpact();
                 };
             }
-            this.hitCar.onHit = () => this._playOfficerSingleHit();
+            this.hitCar.onHit = (_hitIndex) => {
+                // Не фризим на impact: иначе 4-й удар «обрывается», а follow-through нужен до fade
+                this._playOfficerSingleHit(false);
+            };
             this.hitCar.onExitComplete = this._onBanditExited.bind(this);
 
             if (this.hitCarUI) {
@@ -442,24 +660,26 @@ export class GameFlowController extends Component {
     }
 
     /** Одиночный удар офицера в дверь (вызывается при каждом тапе игрока). */
-    private _playOfficerSingleHit(): void {
+    private _playOfficerSingleHit(freezeAtImpact: boolean = false): void {
         if (!this.officerKnock) {
             // Нет анимации руки — impact сразу
             if (this.hitCar) this.hitCar.playHitImpact();
             return;
         }
-        this.officerKnock.singleKnock();
+        this.officerKnock.singleKnock(freezeAtImpact);
     }
 
     /** Вызывается после 4 ударов по машине. */
     private _onBanditExited(): void {
         if (this.hitCarUI) this.hitCarUI.hide();
 
-        // Вернуть копа в стойку — Punching не должна «залипать»
-        if (this.officerKnock) this.officerKnock.resetPose();
+        // Punching НЕ сбрасываем здесь — поза держится до начала затемнения
 
         if (this.docCheck) this.docCheck.node.active = false;
+        PortraitPerf.setDocumentCardVisible(false);
         if (this.wantedStamp) this.wantedStamp.active = false;
+        // Сирену (мигалки) не гасим — крутятся до конца playable
+        // audio siren можно остановить, визуал оставить
         if (this.docCheck) this.docCheck.stopSiren();
 
         this._runHitCarBlackout();
@@ -468,6 +688,7 @@ export class GameFlowController extends Component {
     /** Fade to black → swap под чёрным экраном → fade обратно → арест. */
     private _runHitCarBlackout(): void {
         if (!this.fadeToBlack) {
+            if (this.officerKnock) this.officerKnock.resetPose();
             if (!this._performSwapDuringBlackout()) return;
             this._onSwapComplete();
             return;
@@ -476,6 +697,8 @@ export class GameFlowController extends Component {
         this.fadeToBlack.active = true;
         this._setOp(this.fadeToBlack, 0);
         this._fadeNode(this.fadeToBlack, 255, this.hitCarBlackoutFadeIn, () => {
+            // Под чёрным экраном сбрасываем Punching и делаем swap
+            if (this.officerKnock) this.officerKnock.resetPose();
             if (!this._performSwapDuringBlackout()) return;
             this._fadeNode(this.fadeToBlack, 0, this.hitCarBlackoutFadeOut, () => {
                 this._onSwapComplete();
@@ -483,9 +706,10 @@ export class GameFlowController extends Component {
         });
     }
 
-    /** Swap водителя и кадр ареста — только пока экран чёрный. */
+    /** Swap водителя + копа (skin2) и кадр ареста — только пока экран чёрный. */
     private _performSwapDuringBlackout(): boolean {
         const swapped = this._swapBanditCharacters();
+        this._swapOfficerToArrestSkin();
         this._snapCameraToArrestPose();
         return swapped;
     }
@@ -528,23 +752,22 @@ export class GameFlowController extends Component {
         } else {
             BanditSwap.showArrested(arrested, pos);
         }
+        BanditSwap.lockLod0AllCharacters();
         if (this.hitCar) this.hitCar.lockDriverHidden();
         this._swapDone = true;
         return true;
     }
-    /** Выключает realtime-тени — при движении машины CSM/shadow map дают сильный FPS drop. */
-    private _disableRealtimeShadows(): void {
-        const scene = director.getScene();
-        if (!scene) return;
-        const lights = scene.getComponentsInChildren(DirectionalLight);
-        for (const light of lights) {
-            light.shadowEnabled = false;
-        }
-        // SceneGlobals.shadows — через internals, если доступно
-        try {
-            const globals = (scene as any).globals;
-            if (globals?.shadows) globals.shadows.enabled = false;
-        } catch (_) { /* ignore */ }
+    /** Prep перед ездой: тени/LOD/фары/detach офицера. */
+    private _prepForDrive(): void {
+        if (this._prepDone) return;
+
+        DrivePerfFix.apply();
+        RoadTilingFix.fixInScene();
+        FakeLightGlow.replaceHeadlightsOnly();
+        this._detachOfficerFromCar();
+        if (this.carDrive) this.carDrive.warmUp();
+
+        this._prepDone = true;
     }
 
     /**
@@ -590,11 +813,14 @@ export class GameFlowController extends Component {
 
     private _onSwapComplete(): void {
         this._phase = GamePhase.Arrest;
+        PortraitPerf.setWantedOrArrestActive(true);
+        // На всякий случай — если мигалки сбили, снова запустить
+        if (this.sirenFlasher) this.sirenFlasher.startFlashing();
 
         // Ещё раз сбросить Punching — иначе на packshot коп «залипает» в замахе
         if (this.officerKnock) this.officerKnock.resetPose();
 
-        this._showSubtitle("Let's keep it simple.", 2.5);
+        this._showSubtitle("And if you think you can handle real patrol work, OneState is calling!", 4.0);
         this._playSfx(this.audioOutro);
 
         this.scheduleOnce(() => this._cameraZoomOut(), 0.8);
@@ -614,21 +840,46 @@ export class GameFlowController extends Component {
         this._phase = GamePhase.EndCard;
         if (this.persistentUI) this.persistentUI.hide();
 
-        // Fade to black — медленнее (1.5s)
-        const fadeDuration = 1.5;
-        if (this.fadeToBlack) {
-            this._setOp(this.fadeToBlack, 0);
-            this._fadeNode(this.fadeToBlack, 255, fadeDuration);
-        }
+        const fadeIn = 1.0;
 
-        // EndCard появляется после завершения fade
-        this.scheduleOnce(() => {
+        const reveal = () => {
             if (this.moneyCounter) this.moneyCounter.node.active = false;
+
+            // Чёрный фон ОСТАЁТСЯ под EndCard — не гасим FadeToBlack
+            if (this.fadeToBlack) {
+                this._setOp(this.fadeToBlack, 255);
+                this.fadeToBlack.active = true;
+            }
             if (this.endCard) {
                 this.endCard.node.active = true;
+                this._bringEndCardOnTop();
                 this.endCard.show();
             }
-        }, fadeDuration);
+        };
+
+        if (!this.fadeToBlack) {
+            reveal();
+            return;
+        }
+
+        this.fadeToBlack.active = true;
+        this._bringFadeOnTop();
+        this._setOp(this.fadeToBlack, 0);
+        this._fadeNode(this.fadeToBlack, 255, fadeIn, reveal);
+    }
+
+    /** Чёрный оверлей на весь экран. */
+    private _bringFadeOnTop(): void {
+        const fade = this.fadeToBlack;
+        if (!fade?.parent) return;
+        fade.setSiblingIndex(fade.parent.children.length - 1);
+    }
+
+    /** EndCard поверх чёрного фона. */
+    private _bringEndCardOnTop(): void {
+        const card = this.endCard?.node;
+        if (!card?.parent) return;
+        card.setSiblingIndex(card.parent.children.length - 1);
     }
 
     // ── Камеры ────────────────────────────────────────────────────────────
@@ -674,9 +925,6 @@ export class GameFlowController extends Component {
 
     // ── Zoom out камеры для пэкшота ────────────────────────────────────────
     private _cameraZoomOut(): void {
-        // Гарантия: перед отъездом камеры — спокойная стойка, не Punching
-        if (this.officerKnock) this.officerKnock.resetPose();
-
         const camNode = this._activeCamNode();
         if (!camNode) return;
 
@@ -689,19 +937,26 @@ export class GameFlowController extends Component {
             .start();
     }
 
-    private _moveCameraToArrestPose(): number {
-        if (!this.useArrestCameraPose) return 0;
-        const camNode = this._activeCamNode();
-        if (!camNode) return 0;
-
-        tween(camNode)
-            .to(this.arrestCameraMoveTime, {
-                position: new Vec3(this.arrestCameraPos.x, this.arrestCameraPos.y, this.arrestCameraPos.z),
-                eulerAngles: new Vec3(this.arrestCameraRot.x, this.arrestCameraRot.y, this.arrestCameraRot.z),
-            }, { easing: 'sineInOut' })
-            .start();
-
-        return this.arrestCameraMoveTime;
+    /** Под чёрным экраном: деактивировать ManPolice_skin1, активировать ManPolice_skin2. */
+    private _swapOfficerToArrestSkin(): void {
+        if (this.arrestedPose) {
+            this.arrestedPose.swapOfficerToArrestPose();
+            return;
+        }
+        // Fallback без ArrestedPoseController — поиск по имени в сцене
+        const skin1 = BanditSwap.findInScene('ManPolice_skin1')
+            ?? BanditSwap.findInScene('ManPolice-skin1');
+        const skin2 = BanditSwap.findInScene('ManPolice_skin2')
+            ?? BanditSwap.findInScene('ManPolice-skin2')
+            ?? BanditSwap.findInScene('manpolice-skin2');
+        if (!skin2) {
+            console.warn('[GameFlow] ManPolice_skin2 not found');
+            return;
+        }
+        if (skin1) BanditSwap.hideDriver(skin1);
+        BanditSwap.showArrested(skin2);
+        BanditSwap.lockLod0(skin2);
+        BanditSwap.lockLod0AllCharacters();
     }
 
     private _findCameraNode(): Node | null {
@@ -720,22 +975,20 @@ export class GameFlowController extends Component {
         return null;
     }
 
-    /** Поднимает Subtitle выше DocumentCard в sibling-порядке Canvas. */
+    /** Поднимает баббл (radiomessage) выше DocumentCard. */
     private _ensureSubtitleOnTop(): void {
         if (!this.subtitle) return;
-        const subNode = this.subtitle.node;
-        const parent = subNode.parent;
+        const bubble = this.subtitle.node.parent ?? this.subtitle.node;
+        const parent = bubble.parent;
         if (!parent) return;
 
-        // Ставим субтитры последним ребёнком → рисуются поверх
-        subNode.setSiblingIndex(parent.children.length - 1);
+        bubble.setSiblingIndex(parent.children.length - 1);
 
-        // Если DocumentCard рядом — убедимся что subtitle после него
         if (this.docCheck) {
             const docIdx = this.docCheck.node.getSiblingIndex();
-            const subIdx = subNode.getSiblingIndex();
-            if (subIdx <= docIdx) {
-                subNode.setSiblingIndex(docIdx + 1);
+            const bubIdx = bubble.getSiblingIndex();
+            if (bubIdx <= docIdx) {
+                bubble.setSiblingIndex(docIdx + 1);
             }
         }
     }
@@ -744,22 +997,98 @@ export class GameFlowController extends Component {
     // Утилиты
     // ═══════════════════════════════════════════════════════════════════════
 
+    /** Текст внутри radiomessage (баббл) — не вылезает за края. */
+    private _styleSubtitle(): void {
+        if (!this.subtitle) return;
+        const lbl = this.subtitle;
+        const bubble = lbl.node.parent;
+        const bubbleUt = bubble?.getComponent(UITransform);
+
+        // Внутренний паддинг бабла (в локальных единицах родителя)
+        const padX = 70;
+        const padY = 40;
+        let maxW = 360;
+        let maxH = 140;
+        if (bubbleUt) {
+            maxW = Math.max(120, bubbleUt.contentSize.width - padX * 2);
+            maxH = Math.max(60, bubbleUt.contentSize.height - padY * 2);
+        }
+
+        // Компенсация если у Label свой scale (баббл scale отдельно)
+        const sx = Math.max(0.01, Math.abs(lbl.node.scale.x) || 1);
+        const localMaxW = maxW / sx;
+        const localMaxH = maxH / sx;
+
+        const portrait = view.getVisibleSize().height >= view.getVisibleSize().width;
+        const fontSize = portrait ? 28 : 32;
+
+        lbl.fontSize = fontSize;
+        lbl.lineHeight = fontSize + 6;
+        lbl.isBold = true;
+        lbl.enableWrapText = true;
+        lbl.overflow = Label.Overflow.RESIZE_HEIGHT;
+        lbl.horizontalAlign = Label.HorizontalAlign.CENTER;
+        lbl.verticalAlign = Label.VerticalAlign.CENTER;
+
+        const uit = lbl.node.getComponent(UITransform);
+        if (uit) {
+            uit.setContentSize(localMaxW, Math.min(localMaxH, fontSize * 3.2));
+            uit.setAnchorPoint(0.5, 0.5);
+        }
+
+        // Не тянем Widget к низу Canvas — субтитр должен сидеть внутри бабла
+        const widget = lbl.node.getComponent(Widget);
+        if (widget) {
+            widget.enabled = false;
+        }
+        // Центр бабла (редакторская поза ок, слегка центрируем)
+        lbl.node.setPosition(0, 8, 0);
+
+        lbl.enableOutline = true;
+        lbl.outlineColor = new Color(0, 0, 0, 230);
+        lbl.outlineWidth = portrait ? 2 : 3;
+        lbl.enableShadow = true;
+        lbl.shadowColor = new Color(0, 0, 0, 160);
+        lbl.shadowOffset.set(0, -2);
+        lbl.shadowBlur = 2;
+    }
+
     private _showSubtitle(text: string, visibleDuration: number): void {
         if (!this.subtitle) return;
         const lbl = this.subtitle;
-        // Поверх DocumentCard
-        const parent = lbl.node.parent;
-        if (parent) lbl.node.setSiblingIndex(parent.children.length - 1);
+        this._styleSubtitle();
+
+        const bubble = lbl.node.parent;
+        if (bubble?.parent) {
+            bubble.setSiblingIndex(bubble.parent.children.length - 1);
+        }
+
         lbl.string = text;
         lbl.node.active = true;
+        if (bubble) bubble.active = true;
+
+        // Появление «из темноты»: баббл + текст 0 → 255
         this._setOp(lbl.node, 0);
-        let op = lbl.node.getComponent(UIOpacity);
-        if (!op) op = lbl.node.addComponent(UIOpacity);
-        tween(op)
-            .to(0.35, { opacity: 255 })
+        if (bubble) this._setOp(bubble, 0);
+
+        const lblOp = lbl.node.getComponent(UIOpacity) ?? lbl.node.addComponent(UIOpacity);
+        Tween.stopAllByTarget(lblOp);
+        if (bubble) {
+            const bOp = bubble.getComponent(UIOpacity) ?? bubble.addComponent(UIOpacity);
+            Tween.stopAllByTarget(bOp);
+            tween(bOp)
+                .to(0.45, { opacity: 255 }, { easing: 'sineOut' })
+                .delay(visibleDuration)
+                .to(0.4, { opacity: 0 }, { easing: 'sineIn' })
+                .call(() => { if (bubble.isValid) bubble.active = false; })
+                .start();
+        }
+
+        tween(lblOp)
+            .to(0.45, { opacity: 255 }, { easing: 'sineOut' })
             .delay(visibleDuration)
-            .to(0.4, { opacity: 0 })
-            .call(() => { lbl.node.active = false; })
+            .to(0.4, { opacity: 0 }, { easing: 'sineIn' })
+            .call(() => { if (lbl.node.isValid) lbl.node.active = false; })
             .start();
     }
 
