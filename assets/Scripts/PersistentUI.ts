@@ -9,7 +9,8 @@ const { ccclass, property } = _decorator;
  * PersistentUI — Logo + Play Now.
  * В landscape: scale × mul, математический стек (лого → gap → кнопка),
  * плюс больший top у родительского Widget.
- * Top учитывает safe-area (Dynamic Island / notch на iPhone).
+ * Top учитывает safe-area (Dynamic Island / notch), без двойного запаса —
+ * иначе на iPhone лого/Play Now уезжают вниз и их режет DocumentCard.
  */
 @ccclass('PersistentUI')
 export class PersistentUI extends Component {
@@ -31,8 +32,8 @@ export class PersistentUI extends Component {
     @property({ tooltip: 'Top родителя в landscape (доля высоты экрана, 0–1). Больше = ниже от края' })
     landscapeParentTop: number = 0.07;
 
-    @property({ tooltip: 'Доп. отступ под notch/Dynamic Island (доля высоты), поверх safe-area' })
-    safeAreaExtraTop: number = 0.012;
+    @property({ tooltip: 'Доп. отступ под notch (доля высоты). 0 = только реальный safe-area / base top' })
+    safeAreaExtraTop: number = 0;
 
     public onPlayNow: (() => void) | null = null;
 
@@ -119,8 +120,9 @@ export class PersistentUI extends Component {
     }
 
     /**
-     * Верхний inset (доля высоты видимой области): notch / Dynamic Island / status bar.
-     * Если API вернул 0 на iPhone (часто в playable webview) — fallback ~7%.
+     * Верхний inset (доля высоты): только реальный safe-area из API.
+     * Playable webview на iPhone часто уже лежит ниже notch — фейковый
+     * fallback 7% давал пустоту над лого и обрезал Play Now карточкой.
      */
     private _safeTopFraction(): number {
         const vs = view.getVisibleSize();
@@ -132,23 +134,15 @@ export class PersistentUI extends Component {
             topPx = Math.max(0, vs.height - sa.y - sa.height);
         } catch { /* ignore */ }
 
-        if (topPx < 1) {
-            try {
-                const ua = typeof navigator !== 'undefined' ? navigator.userAgent : '';
-                if (/iPhone|iPad|iPod/i.test(ua)) {
-                    topPx = Math.min(59, vs.height * 0.07);
-                }
-            } catch { /* ignore */ }
-        }
-
-        return topPx / vs.height;
+        // Игнор шума < 2px; cap ~3% — хватает на status bar, без «провала» под Dynamic Island
+        if (topPx < 2) return 0;
+        return Math.min(topPx / vs.height, 0.03);
     }
 
     /**
      * Portrait: базовые pos/scale из редактора (с минимальным gap).
-     * Landscape: scale × mul, кнопка Y = низ_лого − gap − половина_высоты_кнопки,
-     * parent.top увеличен чтобы лого не прилипало к краю.
-     * Везде: + safe-area сверху, чтобы Dynamic Island не перекрывал лого.
+     * Landscape: scale × mul, кнопка Y = низ_лого − gap − половина_высоты_кнопки.
+     * Top: max(base, safe) — не складываем отступы (иначе двойной pad на iPhone).
      */
     private _applyLayout(): void {
         if (!this.logo?.isValid || !this.playNowButton?.isValid) return;
@@ -164,18 +158,19 @@ export class PersistentUI extends Component {
                 if (this._parentTopIsAbs) {
                     const vs = view.getVisibleSize();
                     this._parentWidget.isAbsTop = true;
-                    this._parentWidget.top = this._parentBaseTop + safeTop * vs.height;
+                    // max: editor pad ИЛИ safe-area, не сумма
+                    this._parentWidget.top = Math.max(this._parentBaseTop, safeTop * vs.height);
                 } else {
                     this._parentWidget.isAbsTop = false;
-                    this._parentWidget.top = this._parentBaseTop + safeTop;
+                    this._parentWidget.top = Math.max(this._parentBaseTop, safeTop);
                 }
             } else {
-                // Процент высоты Canvas/экрана
                 this._parentWidget.isAbsTop = false;
-                this._parentWidget.top = Math.max(
+                const baseLand = Math.max(
                     this._parentTopIsAbs ? 0.04 : this._parentBaseTop,
                     this.landscapeParentTop,
-                ) + safeTop;
+                );
+                this._parentWidget.top = Math.max(baseLand, safeTop);
             }
             this._parentWidget.updateAlignment();
         }
