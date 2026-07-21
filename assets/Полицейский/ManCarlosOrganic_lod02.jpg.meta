@@ -2,15 +2,15 @@
   "ver": "1.0.27",
   "importer": "image",
   "imported": true,
-  "uuid": "94b37fef-2c92-4515-8209-ee5b31f9485a",
+  "uuid": "dec3f513-dc22-4686-9c94-ff8495379203",
   "files": [
-    ".json",
-    ".webp"
+    ".jpg",
+    ".json"
   ],
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "94b37fef-2c92-4515-8209-ee5b31f9485a@6c48a",
+      "uuid": "dec3f513-dc22-4686-9c94-ff8495379203@6c48a",
       "displayName": "ManCarlosOrganic_lod02",
       "id": "6c48a",
       "name": "texture",
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "94b37fef-2c92-4515-8209-ee5b31f9485a",
+        "imageUuidOrDatabaseUri": "dec3f513-dc22-4686-9c94-ff8495379203",
         "visible": false
       },
       "ver": "1.0.22",
@@ -37,6 +37,6 @@
     "type": "texture",
     "fixAlphaTransparencyArtifacts": false,
     "hasAlpha": false,
-    "redirect": "94b37fef-2c92-4515-8209-ee5b31f9485a@6c48a"
+    "redirect": "dec3f513-dc22-4686-9c94-ff8495379203@6c48a"
   }
 }
